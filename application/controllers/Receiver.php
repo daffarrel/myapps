@@ -22,13 +22,17 @@ class Receiver extends MY_Controller{
             $no++;
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
-            $row[] = '<center style="font-size: small">'.$r->driver_name;
-            $row[] = '<center style="font-size: small">'.$r->license_number;
-            $row[] = '<center style="font-size: small">'.$r->dob_city."/".$r->dob;
+            $row[] = '<center style="font-size: small">'.$r->receiver_name;
             $row[] = '<center style="font-size: small">'.$r->address;
+            $row[] = '<center style="font-size: small">'.$r->city;
+            $row[] = '<center style="font-size: small">'.$r->telp;
+            $row[] = '<center style="font-size: small">'.$r->hp;
+            $row[] = '<center style="font-size: small">'.$r->fax;
+            $row[] = '<center style="font-size: small">'.$r->corporate_name;
+            $row[] = '<center style="font-size: small">'.$r->bank_name.'/'.$r->account_number;
 
-            $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_driver."'".')"><i class="material-icons">launch</i></a>
-                              <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_driver."'".')"><i class="material-icons">delete_forever</i></a>';
+            $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_receiver."'".')"><i class="material-icons">launch</i></a>
+                              <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_receiver."'".')"><i class="material-icons">delete_forever</i></a>';
             //add html for action
 
             $data[] = $row;
