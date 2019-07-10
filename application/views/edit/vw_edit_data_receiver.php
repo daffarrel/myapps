@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
-                                            <input hidden name="idm" id="idm" value="<?php echo attr['data']->idm_receiver?>">
+                                            <input hidden name="idm" id="idm" value="<?php echo $attr['data']->idm_receiver?>">
                                             <input required id="penerima" name="penerima" class="form-control" type="text" value="<?php echo $attr['data']->receiver_name?>">
                                         </div>
                                     </div>
