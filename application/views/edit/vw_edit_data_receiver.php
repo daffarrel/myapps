@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
-                                            <input hidden >
+                                            <input hidden name="idm" id="idm">
                                             <input required id="penerima" name="penerima" class="form-control" type="text">
                                         </div>
                                     </div>
