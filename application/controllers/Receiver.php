@@ -36,8 +36,8 @@ class Receiver extends MY_Controller{
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->driver->countAll(),
-            "recordsFiltered" => $this->driver->countFiltered(),
+            "recordsTotal" => $this->receiver->countAll(),
+            "recordsFiltered" => $this->receiver->countFiltered(),
             "data" => $data,
         );
         //output to json format
@@ -45,12 +45,12 @@ class Receiver extends MY_Controller{
     }
 
     public function delete($id){
-        $this->driver->deleteData($id);
+        $this->receiver->deleteData($id);
         echo json_encode(array("status" => TRUE));
     }
 
     public function addData() {
-        $result = $this->driver->saveData($_POST);
+        $result = $this->receiver->saveData($_POST);
 
         if ($result)
             $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
@@ -72,7 +72,7 @@ class Receiver extends MY_Controller{
 
     public function updateData() {
         $id = $this->input->post('idm');
-        $result = $this->driver->updateData($_POST);
+        $result = $this->receiver->updateData($_POST);
 
         if ($result)
             $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
