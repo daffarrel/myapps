@@ -10,7 +10,7 @@ class Receiver extends MY_Controller{
     public function edit($id){
         $data['bank'] = $this->bank->getDataAll();
         $data['data'] = $this->receiver->getData($id);
-        $this->navmenu('Edit Data Penerima','edit/vw_edit_data_driver','','',$data);
+        $this->navmenu('Edit Data Penerima','edit/vw_edit_data_receiver','','',$data);
     }
 
     public function ajax_list(){
