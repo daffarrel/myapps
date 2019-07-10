@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <input hidden name="idm" id="idm" value="<?php echo attr['data']->idm_receiver?>">
-                                            <input required id="penerima" name="penerima" class="form-control" type="text" value="<?php echo attr['data']->receiver_name?>">
+                                            <input required id="penerima" name="penerima" class="form-control" type="text" value="<?php echo $attr['data']->receiver_name?>">
                                         </div>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">format_list_numbered</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="alamat" name="alamat" class="form-control" type="text" value="<?php echo attr['data']->address?>">
+                                            <input required id="alamat" name="alamat" class="form-control" type="text" value="<?php echo $attr['data']->address?>">
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">place</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="kota" name="kota" class="form-control" type="text" value="<?php echo attr['data']->city?>">
+                                            <input required id="kota" name="kota" class="form-control" type="text" value="<?php echo $attr['data']->city?>">
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">phone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input id="telp" name="telp" class="form-control" type="text" value="<?php echo attr['data']->telp?>">
+                                            <input id="telp" name="telp" class="form-control" type="text" value="<?php echo $attr['data']->telp?>">
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">speaker_phone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input id="hp" name="hp" class="form-control" type="text" value="<?php echo attr['data']->hp?>">
+                                            <input id="hp" name="hp" class="form-control" type="text" value="<?php echo $attr['data']->hp?>">
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">phonelink_ring</i>
                                         </span>
                                         <div class="form-line">
-                                            <input id="fax" name="fax" class="form-control" type="text" value="<?php echo attr['data']->fax?>">
+                                            <input id="fax" name="fax" class="form-control" type="text" value="<?php echo $attr['data']->fax?>">
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">local_shipping</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="perusahaan" name="perusahaan" class="form-control" type="text" value="<?php echo attr['data']->corporate_name?>">
+                                            <input required id="perusahaan" name="perusahaan" class="form-control" type="text" value="<?php echo $attr['data']->corporate_name?>">
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_rek" name="no_rek" class="form-control" type="text" value="<?php echo attr['data']->account_number?>">
+                                            <input required id="no_rek" name="no_rek" class="form-control" type="text" value="<?php echo $attr['data']->account_number?>">
                                         </div>
                                     </div>
                                 </div>
