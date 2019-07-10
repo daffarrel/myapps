@@ -116,7 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <select id="bank" name="bank" class="form-control">
                                                 <?php
                                                 foreach ($attr['bank'] as $data){
-                                                    if($data->idm_bank == $attr['data']->id_bank){
+                                                    if($data->bank_name == $attr['data']->bank_name){
                                                     ?>
                                                         <option selected value="<?php echo $data->idm_bank?>"><?php echo $data->bank_name?></option>
                                                 <?php
