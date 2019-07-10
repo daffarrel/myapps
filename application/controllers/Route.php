@@ -3,18 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Route extends MY_Controller{
     public function index(){
-        $data['bank'] = $this->bank->getDataAll();
-        $this->navmenu('Input Data Penerima','add/vw_input_data_receiver','','',$data);
+        $this->navmenu('Input Data Rute','add/vw_input_data_route','','','');
     }
 
     public function edit($id){
-        $data['bank'] = $this->bank->getDataAll();
-        $data['data'] = $this->receiver->getData($id);
-        $this->navmenu('Edit Data Penerima','edit/vw_edit_data_receiver','','',$data);
+        $data['data'] = $this->route->getData($id);
+        $this->navmenu('Edit Data Rute','edit/vw_edit_data_route','','',$data);
     }
 
     public function ajax_list(){
-        $list = $this->receiver->get_datatable();
+        $list = $this->route->get_datatable();
         $data = array();
         $no = $_POST['start'];
 
@@ -40,8 +38,8 @@ class Route extends MY_Controller{
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->receiver->countAll(),
-            "recordsFiltered" => $this->receiver->countFiltered(),
+            "recordsTotal" => $this->route->countAll(),
+            "recordsFiltered" => $this->route->countFiltered(),
             "data" => $data,
         );
         //output to json format
@@ -49,12 +47,12 @@ class Route extends MY_Controller{
     }
 
     public function delete($id){
-        $this->receiver->deleteData($id);
+        $this->route->deleteData($id);
         echo json_encode(array("status" => TRUE));
     }
 
     public function addData() {
-        $result = $this->receiver->saveData($_POST);
+        $result = $this->route->saveData($_POST);
 
         if ($result)
             $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
@@ -76,7 +74,7 @@ class Route extends MY_Controller{
 
     public function updateData() {
         $id = $this->input->post('idm');
-        $result = $this->receiver->updateData($_POST);
+        $result = $this->route->updateData($_POST);
 
         if ($result)
             $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
