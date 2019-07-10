@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="nama_penerima" name="nama_penerima" class="form-control" type="text">
+                                            <input required id="penerima" name="penerima" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">phone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_telp" name="no_telp" class="form-control" type="text">
+                                            <input required id="telp" name="telp" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">speaker_phone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_hp" name="no_hp" class="form-control" type="text">
+                                            <input required id="hp" name="hp" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">phonelink_ring</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_fax" name="no_fax" class="form-control" type="text">
+                                            <input required id="fax" name="fax" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
