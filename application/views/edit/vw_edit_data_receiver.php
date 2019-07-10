@@ -21,6 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
+                                            <input hidden >
                                             <input required id="penerima" name="penerima" class="form-control" type="text">
                                         </div>
                                     </div>
@@ -60,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">phone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="telp" name="telp" class="form-control" type="text">
+                                            <input id="telp" name="telp" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">speaker_phone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="hp" name="hp" class="form-control" type="text">
+                                            <input id="hp" name="hp" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">phonelink_ring</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="fax" name="fax" class="form-control" type="text">
+                                            <input id="fax" name="fax" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
