@@ -2,14 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_receiver extends MY_Model {
-    var $table             = 'm_receiver';
-    var $view              = 'vw_receiver';
-    var $column_order      = array('idm_receiver'); //set column field database for datatable orderable
-    var $column_search     = array('receiver_name,address,city,telp,hp,fax,corporate_name,bank_name,account_number'); //set column field database for datatable searchable
-    var $order             = array('idm_receiver' => 'asc'); // default order
+    var $table             = 'm_route';
+
+    var $column_order      = array('idm_route'); //set column field database for datatable orderable
+    var $column_search     = array('route_name,origin,destination,type,size,fare'); //set column field database for datatable searchable
+    var $order             = array('idm_route' => 'asc'); // default order
 
     function get_datatables_query() {
-        $this->db->from($this->view);
+        $this->db->from($this->table);
 
         $i = 0;
 
@@ -48,24 +48,27 @@ class M_receiver extends MY_Model {
         $this->get_datatables_query();
         if($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
+        $this->db->where('soft_delete','0');
         $query = $this->db->get();
         return $query->result();
     }
 
     function countFiltered() {
         $this->get_datatables_query();
+        $this->db->where('soft_delete','0');
         $query = $this->db->get();
         return $query->num_rows();
     }
 
     public function countAll() {
-        $this->db->from($this->view);
+        $this->db->from($this->table);
+        $this->db->where('soft_delete','0');
         return $this->db->count_all_results();
     }
 
     public function getData($id){
         $this->db->from($this->view);
-        $this->db->where('idm_receiver',$id);
+        $this->db->where('idm_route',$id);
         $query = $this->db->get();
 
         if($query->num_rows() > 0)
