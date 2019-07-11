@@ -101,30 +101,24 @@ class M_receiver extends MY_Model {
     }
 
     public function updateData($post){
-        $receiver   = $this->db->escape_str($post['penerima']);
-        $address    = $this->db->escape_str($post['alamat']);
-        $city       = $this->db->escape_str($post['kota']);
-        $telp       = $this->db->escape_str($post['telp']);
-        $hp         = $this->db->escape_str($post['hp']);
-        $fax        = $this->db->escape_str($post['fax']);
-        $corporate  = $this->db->escape_str($post['perusahaan']);
-        $bank       = $this->db->escape_str($post['bank']);
-        $account    = $this->db->escape_str($post['no_rek']);
+        $route_name     = $this->db->escape_str($post['nama_rute']);
+        $origin         = $this->db->escape_str($post['asal']);
+        $destination    = $this->db->escape_str($post['tujuan']);
+        $type           = $this->db->escape_str($post['tipe']);
+        $size           = $this->db->escape_str($post['size']);
+        $fare           = $this->db->escape_str($post['biaya']);
 
         $where = array(
-            'idm_receiver' => $this->db->escape_str($post['idm'])
+            'idm_route' => $this->db->escape_str($post['idm'])
         );
 
         $data = array(
-            'receiver_name'     => $receiver,
-            'address'           => $address,
-            'city'              => $city,
-            'telp'              => $telp,
-            'hp'                => $hp,
-            'fax'               => $fax,
-            'corporate_name'    => $corporate,
-            'id_bank'           => $bank,
-            'account_number'    => $account
+            'route_name'     => $route_name,
+            'origin'         => $origin,
+            'destination'    => $destination,
+            'type'           => $type,
+            'size'           => $size,
+            'fare'           => $fare,
         );
 
         $result= $this->update_where($this->table,$where,$data);
