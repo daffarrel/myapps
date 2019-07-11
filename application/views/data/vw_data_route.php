@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="card">
                     <div class="header">
                         <h2>
-                            Data Penerima
+                            Data Rute
                         </h2><br><br>
                         <button class="btn btn-primary" onclick="add()"><i class="material-icons">add</i> <span>Tambah Data</span></button>
                     </div>
@@ -19,14 +19,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <thead>
                                 <tr>
                                     <th><center>No</th>
-                                    <th><center>Nama Penerima</th>
-                                    <th><center>Alamat</th>
-                                    <th><center>Kota</th>
-                                    <th><center>No Telepon</th>
-                                    <th><center>No HP</th>
-                                    <th><center>No Fax</th>
-                                    <th><center>Nama Perusahaan</th>
-                                    <th><center>No. Rekening</th>
+                                    <th><center>Nama Rute</th>
+                                    <th><center>Asal</th>
+                                    <th><center>Tujuan</th>
+                                    <th><center>Type Truck</th>
+                                    <th><center>Ukuran</th>
+                                    <th><center>Biaya</th>
                                     <th><center>Aksi</th>
                                 </tr>
                                 </thead>
@@ -35,14 +33,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <tfoot>
                                 <tr>
                                     <th><center>No</th>
-                                    <th><center>Nama Penerima</th>
-                                    <th><center>Alamat</th>
-                                    <th><center>Kota</th>
-                                    <th><center>No Telepon</th>
-                                    <th><center>No HP</th>
-                                    <th><center>No Fax</th>
-                                    <th><center>Nama Perusahaan</th>
-                                    <th><center>No. Rekening</th>
+                                    <th><center>Nama Rute</th>
+                                    <th><center>Asal</th>
+                                    <th><center>Tujuan</th>
+                                    <th><center>Type Truck</th>
+                                    <th><center>Ukuran</th>
+                                    <th><center>Biaya</th>
                                     <th><center>Aksi</th>
                                 </tr>
                                 </tfoot>
