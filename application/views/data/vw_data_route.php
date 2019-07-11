@@ -60,11 +60,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     function add() {
-        window.location.replace('<?php echo site_url('receiver')?>');
+        window.location.replace('<?php echo site_url('route')?>');
     }
 
     function edit(id) {
-        window.location.replace('<?php echo site_url('receiver/edit/')?>'+id);
+        window.location.replace('<?php echo site_url('route/edit/')?>'+id);
     }
 
     $(document).ready(function(){
@@ -76,7 +76,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             // Load data for the table's content from an Ajax source
             ajax: {
-                "url": "<?php echo site_url('receiver/ajax_list')?>" ,
+                "url": "<?php echo site_url('route/ajax_list')?>" ,
                 "type": "POST",
             },
         });
@@ -96,7 +96,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }, function (isConfirm) {
             if (isConfirm) {
                 $.ajax({
-                    url : "<?php echo site_url('receiver/delete')?>/"+id,
+                    url : "<?php echo site_url('route/delete')?>/"+id,
                     type: "POST",
                     dataType: "JSON",
                     success: function(data)
