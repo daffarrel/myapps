@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_receiver extends MY_Model {
+class M_route extends MY_Model {
     var $table             = 'm_route';
 
     var $column_order      = array('idm_route'); //set column field database for datatable orderable
