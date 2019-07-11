@@ -67,7 +67,7 @@ class M_receiver extends MY_Model {
     }
 
     public function getData($id){
-        $this->db->from($this->view);
+        $this->db->from($this->table);
         $this->db->where('idm_route',$id);
         $query = $this->db->get();
 
@@ -143,7 +143,7 @@ class M_receiver extends MY_Model {
 
     public function deleteData($id){
         $this->db->set('soft_delete','1');
-        $this->db->where('idm_receiver', $id);
+        $this->db->where('idm_route', $id);
         $this->db->update($this->table);
 
         return $this->db->affected_rows();
