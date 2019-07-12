@@ -10,6 +10,9 @@ class Route extends MY_Controller{
     }
 
     public function edit($id){
+        $data['tipe'] = $this->route->getOptionData('truck');
+        $data['size'] = $this->route->getOptionData('size');
+        $data['city'] = $this->city->getAllData();
         $data['data'] = $this->route->getData($id);
         $this->navmenu('Edit Data Rute','edit/vw_edit_data_route','','',$data);
     }
