@@ -39,6 +39,14 @@ class M_city extends MY_Model{
             return $query->row_array();
     }
 
+    public function getAllData(){
+        $this->db->from($this->table);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+            return $query->result();
+    }
+
     public function saveData($post){
         $city_code = $this->db->escape_str($post['city_code']);
         $city_name = $this->db->escape_str($post['city_name']);
