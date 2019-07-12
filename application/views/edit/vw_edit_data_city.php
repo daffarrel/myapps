@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="city_name" class="form-label">Nama Bank</label>
+                                    <label for="city_name" class="form-label">Nama Kota</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">keyboard</i>
