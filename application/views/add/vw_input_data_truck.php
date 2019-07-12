@@ -15,10 +15,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <form id="form_input" action="<?php echo base_url('truck/addData')?>" method="POST" enctype="multipart/form-data">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="city_code" class="form-label">Kode Kota</label>
+                                    <label for="city_code" class="form-label">Kode Truk</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
-                                            <i class="material-icons">keyboard</i>
+                                            <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
                                             <input id="kode_truk" name="kode_truk" required="required" class="form-control" type="text">
@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <label for="city_name" class="form-label">No Polisi</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
-                                            <i class="material-icons">place</i>
+                                            <i class="material-icons">keyboard</i>
                                         </span>
                                         <div class="form-line">
                                             <input id="no_polisi" name="no_polisi" required="required" class="form-control" type="text">
