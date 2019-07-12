@@ -3,7 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Route extends MY_Controller{
     public function index(){
-        $this->navmenu('Input Data Rute','add/vw_input_data_route','','','');
+        $data['tipe'] = $this->route->getOptionData('truck');
+        $data['size'] = $this->route->getOptionData('size');;
+        $this->navmenu('Input Data Rute','add/vw_input_data_route','','',$data);
     }
 
     public function edit($id){
