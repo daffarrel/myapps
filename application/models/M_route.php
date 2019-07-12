@@ -3,13 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_route extends MY_Model {
     var $table             = 'm_route';
     var $option            = 'm_option';
+    var $view              = 'vw_route';
 
     var $column_order      = array('idm_route'); //set column field database for datatable orderable
     var $column_search     = array('route_name,origin,destination,type,size,fare'); //set column field database for datatable searchable
     var $order             = array('idm_route' => 'asc'); // default order
 
     function get_datatables_query() {
-        $this->db->from($this->table);
+        $this->db->from($this->view);
 
         $i = 0;
 
@@ -48,7 +49,6 @@ class M_route extends MY_Model {
         $this->get_datatables_query();
         if($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
-        $this->db->where('soft_delete','0');
         $query = $this->db->get();
         return $query->result();
     }
@@ -61,8 +61,7 @@ class M_route extends MY_Model {
     }
 
     public function countAll() {
-        $this->db->from($this->table);
-        $this->db->where('soft_delete','0');
+        $this->db->from($this->view);
         return $this->db->count_all_results();
     }
 
