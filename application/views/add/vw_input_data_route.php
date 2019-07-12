@@ -34,8 +34,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">place</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="asal" name="asal" class="form-control" type="text">
-                                        </div>
+                                            <select id="asal" name="asal" class="form-control">
+                                                <?php
+                                                foreach ($attr['city'] as $data){
+                                                    ?>
+                                                    <option value="<?php echo $data->idm_city?>"><?php echo $data->city_name?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>                                              </div>
                                     </div>
                                 </div>
                             </div>
@@ -47,8 +54,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">place</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="tujuan" name="tujuan" class="form-control" type="text">
-                                        </div>
+                                            <select id="tujuan" name="tujuan" class="form-control">
+                                                <?php
+                                                foreach ($attr['city'] as $data){
+                                                    ?>
+                                                    <option value="<?php echo $data->idm_city?>"><?php echo $data->city_name?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>                                            </div>
                                     </div>
                                 </div>
                             </div>
