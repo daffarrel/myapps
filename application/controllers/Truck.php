@@ -7,7 +7,7 @@ class Truck extends MY_Controller{
     }
 
     public function edit($id){
-        $data['city'] = $this->city->getData($id);
+        $data['truck'] = $this->truck->getData($id);
         $this->navmenu('Edit Data Kota','edit/vw_edit_data_truk','','',$data);
     }
 
