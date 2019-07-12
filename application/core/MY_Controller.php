@@ -39,6 +39,7 @@ class MY_Controller extends CI_Controller
         $this->load->model('M_driver', 'driver');
         $this->load->model('M_receiver', 'receiver');
         $this->load->model('M_route', 'route');
+        $this->load->model('M_shipper', 'shipper');
     }
 
     function indonesian_date ($date_format = 'D, j-M-Y',$timestamp = '', $suffix = '') {
