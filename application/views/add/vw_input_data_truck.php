@@ -21,20 +21,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">keyboard</i>
                                         </span>
                                         <div class="form-line">
-                                            <input id="city_code" name="city_code" required="required" class="form-control" type="text">
+                                            <input id="kode_truk" name="kode_truk" required="required" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="city_name" class="form-label">Nama Kota</label>
+                                    <label for="city_name" class="form-label">No Polisi</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">place</i>
                                         </span>
                                         <div class="form-line">
-                                            <input id="city_name" name="city_name" required="required" class="form-control" type="text">
+                                            <input id="no_polisi" name="no_polisi" required="required" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -52,11 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <script type="text/javascript">
     function cancel() {
-        window.location.replace('<?php echo site_url('master/page/city')?>')
-    }
-
-    function master() {
-        window.location.replace('<?php echo site_url('master/page/city')?>')
+        window.location.replace('<?php echo site_url('master/page/truck')?>')
     }
 
     $(function () {
