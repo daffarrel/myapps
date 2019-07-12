@@ -64,7 +64,7 @@ class M_shipper extends MY_Model {
     }
 
     public function getData($id){
-        $this->db->from($this->table);
+        $this->db->from($this->view);
         $this->db->where('idm_shipper',$id);
         $query = $this->db->get();
 
