@@ -94,7 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <select id="tipe" name="tipe" class="form-control">
                                                 <?php
                                                 foreach ($attr['tipe'] as $data){
-                                                    if($data->subID == $attr['type']){
+                                                    if($data->subID == $attr['data']->type){
                                                     ?>
                                                         <option selected value="<?php echo $data->subID?>"><?php echo $data->value?></option>
                                                 <?php
