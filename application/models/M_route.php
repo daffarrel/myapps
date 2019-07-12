@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class M_route extends MY_Model {
     var $table             = 'm_route';
 
