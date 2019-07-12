@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>Edit Data Penerima</h2>
+                        <h2>Ubah Data Penerima</h2>
                     </div>
                     <div class="body">
                         <?php echo $this->session->flashdata('notif');?>
@@ -21,8 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
-                                            <input hidden name="idm" id="idm" value="<?php echo $attr['data']->idm_receiver?>">
-                                            <input required id="penerima" name="penerima" class="form-control" type="text" value="<?php echo $attr['data']->receiver_name?>">
+                                            <input hidden value="<?php echo $attr['data']->idm_receiver?>" name="idm" id="idm">
+                                            <input value="<?php echo $attr['data']->receiver_name?>" required id="penerima" name="penerima" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">format_list_numbered</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="alamat" name="alamat" class="form-control" type="text" value="<?php echo $attr['data']->address?>">
+                                            <input value="<?php echo $attr['data']->address?>" required id="alamat" name="alamat" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">place</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="kota" name="kota" class="form-control" type="text" value="<?php echo $attr['data']->city?>">
+                                            <input value="<?php echo $attr['data']->city?>" required id="kota" name="kota" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">phone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input id="telp" name="telp" class="form-control" type="text" value="<?php echo $attr['data']->telp?>">
+                                            <input value="<?php echo $attr['data']->telp?>" id="telp" name="telp" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">speaker_phone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input id="hp" name="hp" class="form-control" type="text" value="<?php echo $attr['data']->hp?>">
+                                            <input value="<?php echo $attr['data']->hp?>" id="hp" name="hp" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">phonelink_ring</i>
                                         </span>
                                         <div class="form-line">
-                                            <input id="fax" name="fax" class="form-control" type="text" value="<?php echo $attr['data']->fax?>">
+                                            <input value="<?php echo $attr['data']->fax?>" id="fax" name="fax" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">local_shipping</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="perusahaan" name="perusahaan" class="form-control" type="text" value="<?php echo $attr['data']->corporate_name?>">
+                                            <input value="<?php echo $attr['data']->corporate_name?>" required id="perusahaan" name="perusahaan" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -113,12 +113,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">business_center</i>
                                         </span>
                                         <div class="form-line">
-                                        <select id="bank" name="bank" class="form-control">
+                                            <select id="bank" name="bank" class="form-control">
                                                 <?php
                                                 foreach ($attr['bank'] as $data){
                                                     if($data->bank_name == $attr['data']->bank_name){
                                                     ?>
-                                                        <option selected value="<?php echo $data->idm_bank?>"><?php echo $data->bank_name?></option>
+                                                    <option selected value="<?php echo $data->idm_bank?>"><?php echo $data->bank_name?></option>
                                                 <?php
                                                     }
                                                     else{
@@ -141,7 +141,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_rek" name="no_rek" class="form-control" type="text" value="<?php echo $attr['data']->account_number?>">
+                                            <input value="<?php echo $attr['data']->account_number?>" required id="no_rek" name="no_rek" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -159,6 +159,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <script type="text/javascript">
     function cancel() {
-        window.location.replace('<?php echo site_url('master/page/receiver')?>')
+        window.location.replace('<?php echo site_url('master/page/bank')?>')
     }
 </script>
