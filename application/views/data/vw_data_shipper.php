@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="card">
                     <div class="header">
                         <h2>
-                            Data Penerima
+                            Data Pengirim
                         </h2><br><br>
                         <button class="btn btn-primary" onclick="add()"><i class="material-icons">add</i> <span>Tambah Data</span></button>
                     </div>
@@ -22,6 +22,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <th><center>Nama Penerima</th>
                                     <th><center>Alamat</th>
                                     <th><center>Kota</th>
+                                    <th><center>PIC</th>
+                                    <th><center>Finance</th>
                                     <th><center>No Telepon</th>
                                     <th><center>No HP</th>
                                     <th><center>No Fax</th>
@@ -38,6 +40,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <th><center>Nama Penerima</th>
                                     <th><center>Alamat</th>
                                     <th><center>Kota</th>
+                                    <th><center>PIC</th>
+                                    <th><center>Finance</th>
                                     <th><center>No Telepon</th>
                                     <th><center>No HP</th>
                                     <th><center>No Fax</th>
@@ -64,11 +68,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     function add() {
-        window.location.replace('<?php echo site_url('receiver')?>');
+        window.location.replace('<?php echo site_url('shipper')?>');
     }
 
     function edit(id) {
-        window.location.replace('<?php echo site_url('receiver/edit/')?>'+id);
+        window.location.replace('<?php echo site_url('shipper/edit/')?>'+id);
     }
 
     $(document).ready(function(){
@@ -80,7 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             // Load data for the table's content from an Ajax source
             ajax: {
-                "url": "<?php echo site_url('receiver/ajax_list')?>" ,
+                "url": "<?php echo site_url('shipper/ajax_list')?>" ,
                 "type": "POST",
             },
         });
@@ -100,7 +104,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }, function (isConfirm) {
             if (isConfirm) {
                 $.ajax({
-                    url : "<?php echo site_url('receiver/delete')?>/"+id,
+                    url : "<?php echo site_url('shipper/delete')?>/"+id,
                     type: "POST",
                     dataType: "JSON",
                     success: function(data)
