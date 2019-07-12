@@ -61,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">people</i>
                                         </span>
                                         <div class="form-line">
-                                            <input value="<?php echo $attr['data']->pic?>" required id="kota" name="kota" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->pic?>" required id="pic" name="pic" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
