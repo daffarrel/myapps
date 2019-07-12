@@ -121,7 +121,7 @@ class M_shipper extends MY_Model {
         $account    = $this->db->escape_str($post['no_rek']);
 
         $where = array(
-            'idm_receiver' => $this->db->escape_str($post['idm'])
+            'idm_shipper' => $this->db->escape_str($post['idm'])
         );
 
         $data = array(
