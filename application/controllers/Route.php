@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Route extends MY_Controller{
     public function index(){
         $data['tipe'] = $this->route->getOptionData('truck');
-        $data['size'] = $this->route->getOptionData('size');;
+        $data['size'] = $this->route->getOptionData('size');
+        $data['city'] = $this->city->getAllData();
         $this->navmenu('Input Data Rute','add/vw_input_data_route','','',$data);
     }
 
