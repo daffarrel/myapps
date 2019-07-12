@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class M_route extends MY_Model {
     var $table             = 'm_route';
+    var $option            = 'm_option';
 
     var $column_order      = array('idm_route'); //set column field database for datatable orderable
     var $column_search     = array('route_name,origin,destination,type,size,fare'); //set column field database for datatable searchable
@@ -134,6 +135,16 @@ class M_route extends MY_Model {
         $this->db->update($this->table);
 
         return $this->db->affected_rows();
+    }
+
+    public function getOptionData($grup){
+        $this->db->select('subID,value');
+        $this->db->where('nama_grup',$grup);
+        $query = $this->db->get($this->option);
+
+        if($query->num_rows() > 0){
+            return $query->result();
+        }
     }
 }
 ?>
