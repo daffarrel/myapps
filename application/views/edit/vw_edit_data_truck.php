@@ -53,11 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <script type="text/javascript">
     function cancel() {
-        window.location.replace('<?php echo site_url('master/page/city')?>')
-    }
-
-    function master() {
-        window.location.replace('<?php echo site_url('master/page/city')?>')
+        window.location.replace('<?php echo site_url('master/page/truck')?>')
     }
 
     $(function () {
