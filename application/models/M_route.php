@@ -55,7 +55,6 @@ class M_route extends MY_Model {
 
     function countFiltered() {
         $this->get_datatables_query();
-        $this->db->where('soft_delete','0');
         $query = $this->db->get();
         return $query->num_rows();
     }
