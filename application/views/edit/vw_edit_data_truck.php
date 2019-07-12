@@ -15,27 +15,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <form id="form_input" action="<?php echo base_url('truck/updateData')?>" method="POST" enctype="multipart/form-data">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="city_code" class="form-label">Kode Kota</label>
-                                    <input hidden value="<?php echo $attr['city']['idm_city']?>" id="idm_city" name="idm_city">
+                                    <label for="city_code" class="form-label">Kode Truk</label>
+                                    <input hidden value="<?php echo $attr['truck']['idm_truck']?>" id="idm" name="idm">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" id="city_code" name="city_code" required="required" class="form-control" value="<?php echo $attr['city']['city_code']?>">
+                                            <input type="text" id="kode_truk" name="kode_truk" required="required" class="form-control" value="<?php echo $attr['truck']['truck_code']?>">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="city_name" class="form-label">Nama Bank</label>
+                                    <label for="city_name" class="form-label">No Polisi</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">keyboard</i>
                                         </span>
                                         <div class="form-line">
-                                            <input id="city_name" name="city_name" value="<?php echo $attr['city']['city_name']?>" required="required" class="form-control" type="text">
+                                            <input id="no_polisi" name="no_polisi" value="<?php echo $attr['truck']['plate_number']?>" required="required" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
