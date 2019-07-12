@@ -159,6 +159,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <script type="text/javascript">
     function cancel() {
-        window.location.replace('<?php echo site_url('master/page/bank')?>')
+        window.location.replace('<?php echo site_url('master/page/receiver')?>')
     }
 </script>
