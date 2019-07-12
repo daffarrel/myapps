@@ -3,13 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_shipper extends MY_Model {
     var $table             = 'm_shipper';
-    //var $view              = 'vw_receiver';
+    var $view              = 'vw_shipper';
     var $column_order      = array('idm_shipper'); //set column field database for datatable orderable
     var $column_search     = array('debitur_name,address,city,pic,finance,telp,hp,fax,corporate_name,bank_name,account_number'); //set column field database for datatable searchable
     var $order             = array('idm_shipper' => 'asc'); // default order
 
     function get_datatables_query() {
-        $this->db->from($this->table);
+        $this->db->from($this->view);
 
         $i = 0;
 
@@ -59,7 +59,7 @@ class M_shipper extends MY_Model {
     }
 
     public function countAll() {
-        $this->db->from($this->table);
+        $this->db->from($this->view);
         return $this->db->count_all_results();
     }
 
