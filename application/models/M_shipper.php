@@ -4,12 +4,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_shipper extends MY_Model {
     var $table             = 'm_shipper';
     //var $view              = 'vw_receiver';
-    var $column_order      = array('idm_receiver'); //set column field database for datatable orderable
-    var $column_search     = array('receiver_name,address,city,telp,hp,fax,corporate_name,bank_name,account_number'); //set column field database for datatable searchable
-    var $order             = array('idm_receiver' => 'asc'); // default order
+    var $column_order      = array('idm_shipper'); //set column field database for datatable orderable
+    var $column_search     = array('debitur_name,address,city,pic,finance,telp,hp,fax,corporate_name,bank_name,account_number'); //set column field database for datatable searchable
+    var $order             = array('idm_shipper' => 'asc'); // default order
 
     function get_datatables_query() {
-        $this->db->from($this->view);
+        $this->db->from($this->table);
 
         $i = 0;
 
@@ -59,13 +59,13 @@ class M_shipper extends MY_Model {
     }
 
     public function countAll() {
-        $this->db->from($this->view);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     public function getData($id){
-        $this->db->from($this->view);
-        $this->db->where('idm_receiver',$id);
+        $this->db->from($this->table);
+        $this->db->where('idm_shipper',$id);
         $query = $this->db->get();
 
         if($query->num_rows() > 0)
@@ -73,9 +73,11 @@ class M_shipper extends MY_Model {
     }
 
     public function saveData($post){
-        $receiver   = $this->db->escape_str($post['penerima']);
+        $debitur    = $this->db->escape_str($post['pengirim']);
         $address    = $this->db->escape_str($post['alamat']);
         $city       = $this->db->escape_str($post['kota']);
+        $pic        = $this->db->escape_str($post['pic']);
+        $finance    = $this->db->escape_str($post['finance']);
         $telp       = $this->db->escape_str($post['telp']);
         $hp         = $this->db->escape_str($post['hp']);
         $fax        = $this->db->escape_str($post['fax']);
@@ -84,9 +86,11 @@ class M_shipper extends MY_Model {
         $account    = $this->db->escape_str($post['no_rek']);
 
         $data = array(
-            'receiver_name'     => $receiver,
+            'debitur_name'      => $debitur,
             'address'           => $address,
             'city'              => $city,
+            'pic'               => $pic,
+            'finance'           => $finance,
             'telp'              => $telp,
             'hp'                => $hp,
             'fax'               => $fax,
@@ -104,9 +108,11 @@ class M_shipper extends MY_Model {
     }
 
     public function updateData($post){
-        $receiver   = $this->db->escape_str($post['penerima']);
+        $debitur    = $this->db->escape_str($post['pengirim']);
         $address    = $this->db->escape_str($post['alamat']);
         $city       = $this->db->escape_str($post['kota']);
+        $pic        = $this->db->escape_str($post['pic']);
+        $finance    = $this->db->escape_str($post['finance']);
         $telp       = $this->db->escape_str($post['telp']);
         $hp         = $this->db->escape_str($post['hp']);
         $fax        = $this->db->escape_str($post['fax']);
@@ -119,9 +125,11 @@ class M_shipper extends MY_Model {
         );
 
         $data = array(
-            'receiver_name'     => $receiver,
+            'debitur_name'      => $debitur,
             'address'           => $address,
             'city'              => $city,
+            'pic'               => $pic,
+            'finance'           => $finance,
             'telp'              => $telp,
             'hp'                => $hp,
             'fax'               => $fax,
@@ -140,7 +148,7 @@ class M_shipper extends MY_Model {
 
     public function deleteData($id){
         $this->db->set('soft_delete','1');
-        $this->db->where('idm_receiver', $id);
+        $this->db->where('idm_shipper', $id);
         $this->db->update($this->table);
 
         return $this->db->affected_rows();
