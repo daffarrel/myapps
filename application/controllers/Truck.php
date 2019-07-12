@@ -3,12 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Truck extends MY_Controller{
     public function index(){
-        $this->navmenu('Input Data Truk','add/vw_input_data_truk','','','');
+        $this->navmenu('Input Data Truk','add/vw_input_data_truck','','','');
     }
 
     public function edit($id){
         $data['truck'] = $this->truck->getData($id);
-        $this->navmenu('Edit Data Kota','edit/vw_edit_data_truk','','',$data);
+        $this->navmenu('Edit Data Kota','edit/vw_edit_data_truck','','',$data);
     }
 
     public function ajax_list(){
