@@ -1,11 +1,11 @@
-  <?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_city extends MY_Model{
-    var $table            = 'm_city';
-    var $column_order     = array('idm_city'); //set column field database for datatable orderable
-    var $column_search    = array('city_code,city_name'); //set column field database for datatable searchable
-    var $order            = array('idm_city' => 'asc'); // default order
+class M_truck extends MY_Model{
+    var $table            = 'm_truck';
+    var $column_order     = array('idm_truck'); //set column field database for datatable orderable
+    var $column_search    = array('truck_code,plate_number'); //set column field database for datatable searchable
+    var $order            = array('idm_truck' => 'asc'); // default order
 
     public function get_datatable() {
         $this->_get_datatables_query();
@@ -32,7 +32,7 @@ class M_city extends MY_Model{
 
     public function getData($id){
         $this->db->from($this->table);
-        $this->db->where('idm_city',$id);
+        $this->db->where('idm_truck',$id);
         $query = $this->db->get();
 
         if($query->num_rows() > 0)
@@ -48,12 +48,12 @@ class M_city extends MY_Model{
     }
 
     public function saveData($post){
-        $city_code = $this->db->escape_str($post['city_code']);
-        $city_name = $this->db->escape_str($post['city_name']);
+        $truck_code     = $this->db->escape_str($post['kode_truk']);
+        $plate_number   = $this->db->escape_str($post['no_polisi']);
 
         $data = array(
-            'city_code' => $city_code,
-            'city_name' => $city_name,
+            'truck_code'    => $truck_code,
+            'plate_number'  => $plate_number,
         );
 
         $result = $this->save_where($this->table,$data);
@@ -65,17 +65,18 @@ class M_city extends MY_Model{
     }
 
     public function updateData($post){
-        $city_code = $this->db->escape_str($post['city_code']);
-        $city_name = $this->db->escape_str($post['city_name']);
+        $truck_code     = $this->db->escape_str($post['kode_truk']);
+        $plate_number   = $this->db->escape_str($post['no_polisi']);
 
         $where = array(
-            'idm_city' => $this->db->escape_str($post['idm_city'])
+            'idm_truck' => $this->db->escape_str($post['idm'])
         );
 
         $data = array(
-            'city_code' => $city_code,
-            'city_name' => $city_name,
+            'truck_code'    => $truck_code,
+            'plate_number'  => $plate_number,
         );
+
         $result= $this->update_where($this->table,$where,$data);
 
         if($result)
@@ -86,7 +87,7 @@ class M_city extends MY_Model{
 
     public function deleteData($id){
         $this->db->set('soft_delete','1');
-        $this->db->where('idm_city', $id);
+        $this->db->where('idm_truck', $id);
         $this->db->update($this->table);
     }
 }

@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>Edit Data Penerima</h2>
+                        <h2>Ubah Data Penerima</h2>
                     </div>
                     <div class="body">
                         <?php echo $this->session->flashdata('notif');?>
@@ -21,7 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="nama_penerima" name="nama_penerima" class="form-control" type="text">
+                                            <input hidden value="<?php echo $attr['data']->idm_receiver?>" name="idm" id="idm">
+                                            <input value="<?php echo $attr['data']->receiver_name?>" required id="penerima" name="penerima" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -34,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">format_list_numbered</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="alamat" name="alamat" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->address?>" required id="alamat" name="alamat" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -47,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">place</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="kota" name="kota" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->city?>" required id="kota" name="kota" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">phone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_telp" name="no_telp" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->telp?>" id="telp" name="telp" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">speaker_phone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_hp" name="no_hp" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->hp?>" id="hp" name="hp" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">phonelink_ring</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_fax" name="no_fax" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->fax?>" id="fax" name="fax" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">local_shipping</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="perusahaan" name="perusahaan" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->corporate_name?>" required id="perusahaan" name="perusahaan" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +113,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">business_center</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="bank" name="bank" class="form-control" type="text">
+                                            <select id="bank" name="bank" class="form-control">
+                                                <?php
+                                                foreach ($attr['bank'] as $data){
+                                                    if($data->bank_name == $attr['data']->bank_name){
+                                                    ?>
+                                                    <option selected value="<?php echo $data->idm_bank?>"><?php echo $data->bank_name?></option>
+                                                <?php
+                                                    }
+                                                    else{
+                                                        ?>
+                                                        <option value="<?php echo $data->idm_bank?>"><?php echo $data->bank_name?></option>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +141,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_rek" name="no_rek" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->account_number?>" required id="no_rek" name="no_rek" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -143,6 +159,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <script type="text/javascript">
     function cancel() {
-        window.location.replace('<?php echo site_url('master/page/bank')?>')
+        window.location.replace('<?php echo site_url('master/page/receiver')?>')
     }
 </script>

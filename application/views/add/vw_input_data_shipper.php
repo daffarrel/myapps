@@ -8,20 +8,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>Input Data Penerima</h2>
+                        <h2>Input Data Pengirim</h2>
                     </div>
                     <div class="body">
                         <?php echo $this->session->flashdata('notif');?>
-                        <form id="form_input" action="<?php echo base_url('receiver/addData')?>" method="POST" enctype="multipart/form-data">
+                        <form id="form_input" action="<?php echo base_url('shipper/addData')?>" method="POST" enctype="multipart/form-data">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Nama Penerima</label>
+                                    <label for="agent_name" class="form-label">Nama Pengirim</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="penerima" name="penerima" class="form-control" type="text">
+                                            <input required id="pengirim" name="pengirim" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -48,6 +48,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <input required id="kota" name="kota" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">PIC</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">people</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input required id="pic" name="pic" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Finance</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">people_outline</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input required id="finance" name="finance" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -151,6 +177,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <script type="text/javascript">
     function cancel() {
-        window.location.replace('<?php echo site_url('master/page/receiver')?>')
+        window.location.replace('<?php echo site_url('master/page/shipper')?>')
     }
 </script>
