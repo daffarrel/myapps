@@ -27,7 +27,7 @@ class Route extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->origin;
             $row[] = '<center style="font-size: small">'.$r->destination;
             $row[] = '<center style="font-size: small">'.$r->type;
-            $row[] = '<center style="font-size: small">'.$r->ukuran;
+            $row[] = '<center style="font-size: small">'.$r->size;
             $row[] = '<center style="font-size: small">'.$r->fare;
 
             $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_route."'".')"><i class="material-icons">launch</i></a>
