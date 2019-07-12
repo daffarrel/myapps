@@ -8,11 +8,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>Input Data Rute</h2>
+                        <h2>Ubah Data Rute</h2>
                     </div>
                     <div class="body">
                         <?php echo $this->session->flashdata('notif');?>
-                        <form id="form_input" action="<?php echo base_url('route/addData')?>" method="POST" enctype="multipart/form-data">
+                        <form id="form_input" action="<?php echo base_url('route/updateData')?>" method="POST" enctype="multipart/form-data">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Nama Rute</label>
@@ -21,7 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="nama_rute" name="nama_rute" class="form-control" type="text">
+                                            <input hidden value="<?php echo $attr['data']->idm_route?>" name="idm" id="idm">
+                                            <input value="<?php echo $attr['data']->route_name?>" required id="nama_rute" name="nama_rute" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -37,12 +38,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <select id="asal" name="asal" class="form-control">
                                                 <?php
                                                 foreach ($attr['city'] as $data){
+                                                    if($data->idm_city == $attr['data']->origin){
                                                     ?>
-                                                    <option value="<?php echo $data->idm_city?>"><?php echo $data->city_name?></option>
+                                                        <option selected value="<?php echo $data->idm_city?>"><?php echo $data->city_name?></option>
                                                 <?php
+                                                    }
+                                                    else{
+                                                        ?>
+                                                        <option value="<?php echo $data->idm_city?>"><?php echo $data->city_name?></option>
+                                                        <?php
+                                                    }
                                                 }
                                                 ?>
-                                            </select>                                              </div>
+                                            </select>                                              
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -55,14 +64,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <select id="tujuan" name="tujuan" class="form-control">
-                                                <?php
+                                            <?php
                                                 foreach ($attr['city'] as $data){
+                                                    if($data->idm_city == $attr['data']->destination){
                                                     ?>
-                                                    <option value="<?php echo $data->idm_city?>"><?php echo $data->city_name?></option>
+                                                        <option selected value="<?php echo $data->idm_city?>"><?php echo $data->city_name?></option>
                                                 <?php
+                                                    }
+                                                    else{
+                                                        ?>
+                                                        <option value="<?php echo $data->idm_city?>"><?php echo $data->city_name?></option>
+                                                        <?php
+                                                    }
                                                 }
                                                 ?>
-                                            </select>                                            </div>
+                                            </select>                                            
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -77,12 +94,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <select id="tipe" name="tipe" class="form-control">
                                                 <?php
                                                 foreach ($attr['tipe'] as $data){
+                                                    if($data->subID == $attr['type']){
                                                     ?>
-                                                    <option value="<?php echo $data->subID?>"><?php echo $data->value?></option>
+                                                        <option selected value="<?php echo $data->subID?>"><?php echo $data->value?></option>
                                                 <?php
+                                                    } else{
+                                                        ?>
+                                                        <option value="<?php echo $data->subID?>"><?php echo $data->value?></option>
+                                                        <?php
+                                                    }
                                                 }
                                                 ?>
-                                            </select>                                        </div>
+                                            </select>                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -97,12 +121,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <select id="size" name="size" class="form-control">
                                                 <?php
                                                 foreach ($attr['size'] as $data){
+                                                    if($data->subID == $attr['data']->size){
                                                     ?>
-                                                    <option value="<?php echo $data->subID?>"><?php echo $data->value?></option>
+                                                        <option selected value="<?php echo $data->subID?>"><?php echo $data->value?></option>
                                                 <?php
+                                                    } else{
+                                                        ?>
+                                                        <option value="<?php echo $data->subID?>"><?php echo $data->value?></option>
+                                                    <?php
+                                                    }
                                                 }
                                                 ?>
-                                            </select>                                        </div>
+                                            </select>                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +145,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="biaya" name="biaya" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->fare?>" required id="biaya" name="biaya" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
