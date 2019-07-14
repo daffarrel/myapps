@@ -220,10 +220,7 @@
                             <span>Biaya</span>
                         </a>
                         <ul class="ml-menu">
-                            <li <?php if($this->uri->segment(3)=="cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/cuti");?>">Daftar Pengajuan Cuti Pegawai</a></li>
-                            <li <?php if($this->uri->segment(3)=="persetujuan_cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/persetujuan_cuti");?>">Persetujuan Cuti Pegawai</a></li>
-                            <li <?php if($this->uri->segment(3)=="dokumen_cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/dokumen_cuti");?>">Dokumen Cuti Pegawai</a></li>
-                            <li <?php if($this->uri->segment(3)=="rekap_cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/rekap_cuti");?>">Rekap Cuti Pegawai</a></li>
+                            <li <?php if($this->uri->segment(3)=="shipment_doc"){echo ' class="active"';}?>><a href="<?php echo base_url("master/page/shipment_doc");?>">Dokumen Kapal</a></li>
                         </ul>                           
                     </li>
                     <li <?php if($this->uri->segment(2)=="invoice") echo ' class="active"'; ?>>
@@ -233,9 +230,6 @@
                         </a>
                         <ul class="ml-menu">
                             <li <?php if($this->uri->segment(3)=="cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/cuti");?>">Daftar Pengajuan Cuti Pegawai</a></li>
-                            <li <?php if($this->uri->segment(3)=="persetujuan_cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/persetujuan_cuti");?>">Persetujuan Cuti Pegawai</a></li>
-                            <li <?php if($this->uri->segment(3)=="dokumen_cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/dokumen_cuti");?>">Dokumen Cuti Pegawai</a></li>
-                            <li <?php if($this->uri->segment(3)=="rekap_cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/rekap_cuti");?>">Rekap Cuti Pegawai</a></li>
                         </ul>
                     </li>
                     <li <?php if($this->uri->segment(2)=="payment") echo ' class="active"'; ?>>
@@ -245,9 +239,7 @@
                         </a>
                         <ul class="ml-menu">
                             <li <?php if($this->uri->segment(3)=="cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/cuti");?>">Daftar Pengajuan Cuti Pegawai</a></li>
-                            <li <?php if($this->uri->segment(3)=="persetujuan_cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/persetujuan_cuti");?>">Persetujuan Cuti Pegawai</a></li>
-                            <li <?php if($this->uri->segment(3)=="dokumen_cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/dokumen_cuti");?>">Dokumen Cuti Pegawai</a></li>
-                            <li <?php if($this->uri->segment(3)=="rekap_cuti"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cuti/rekap_cuti");?>">Rekap Cuti Pegawai</a></li>
+                        
                         </ul>
                     </li>
                 </ul>
