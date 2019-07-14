@@ -220,7 +220,7 @@
                             <span>Biaya</span>
                         </a>
                         <ul class="ml-menu">
-                            <li <?php if($this->uri->segment(3)=="shipment_doc"){echo ' class="active"';}?>><a href="<?php echo base_url("master/page/shipment_doc");?>">Dokumen Kapal</a></li>
+                            <li <?php if($this->uri->segment(3)=="shipment_doc"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cost/shipment_doc");?>">Dokumen Kapal</a></li>
                         </ul>                           
                     </li>
                     <li <?php if($this->uri->segment(2)=="invoice") echo ' class="active"'; ?>>
