@@ -31,9 +31,8 @@ class Route extends MY_Controller{
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
             $row[] = '<center style="font-size: small">'.$r->seal_number.'/'.$r->container_num;
-            $row[] = '<center style="font-size: small">'.$r->process_date;
+            $row[] = '<center style="font-size: small">'.$r->ba_recv_date.'/'.$r->process_date;
             $row[] = '<center style="font-size: small">'.$r->company;
-            $row[] = '<center style="font-size: small">'.$r->ba_recv_date;
             $row[] = '<center style="font-size: small">'.$r->agent;
             $row[] = '<center style="font-size: small">'.$r->origin_city;
             $row[] = '<center style="font-size: small">'.$r->shipper.'/'.$r->receiver;
