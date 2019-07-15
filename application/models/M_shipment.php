@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_shipment extends MY_Model {
     var $table             = 'shipment_doc';
-    var $view              = 'vw_shipment';
+    var $view              = 'vw_shipment_doc';
     var $column_order      = array('id_doc'); //set column field database for datatable orderable
-    var $column_search     = array('debitur_name,address,city,pic,finance,telp,hp,fax,corporate_name,bank_name,account_number'); //set column field database for datatable searchable
+    var $column_search     = array('seal_number,process_date,origin_city,company,ba_recv_date,agent,container,shipper,receiver,report_num,safeconduct_num,po,do,io,condition,product,stuffing'); //set column field database for datatable searchable
     var $order             = array('id_doc' => 'asc'); // default order
 
     function get_datatables_query() {
