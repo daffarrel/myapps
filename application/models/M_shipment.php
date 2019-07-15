@@ -65,7 +65,7 @@ class M_shipment extends MY_Model {
 
     public function getData($id){
         $this->db->from($this->view);
-        $this->db->where('idm_shipper',$id);
+        $this->db->where('id_doc',$id);
         $query = $this->db->get();
 
         if($query->num_rows() > 0)
@@ -73,30 +73,42 @@ class M_shipment extends MY_Model {
     }
 
     public function saveData($post){
-        $debitur    = $this->db->escape_str($post['pengirim']);
-        $address    = $this->db->escape_str($post['alamat']);
-        $city       = $this->db->escape_str($post['kota']);
-        $pic        = $this->db->escape_str($post['pic']);
-        $finance    = $this->db->escape_str($post['finance']);
-        $telp       = $this->db->escape_str($post['telp']);
-        $hp         = $this->db->escape_str($post['hp']);
-        $fax        = $this->db->escape_str($post['fax']);
-        $corporate  = $this->db->escape_str($post['perusahaan']);
-        $bank       = $this->db->escape_str($post['bank']);
-        $account    = $this->db->escape_str($post['no_rek']);
+        $seal_number        = $this->db->escape_str($post['seal_num']);
+        $process_date       = $this->db->escape_str($post['tgl_proses']);
+        $company            = $this->db->escape_str($post['perusahaan']);
+        $ba_recv_date       = $this->db->escape_str($post['tgl_terima_ba']);
+        $id_agent           = $this->db->escape_str($post['agent']);
+        $origin_city        = $this->db->escape_str($post['kota_asal']);
+        $id_container       = $this->db->escape_str($post['container']);
+        $id_shipper         = $this->db->escape_str($post['pengirim']);
+        $id_receiver        = $this->db->escape_str($post['penerima']);
+        $report_num         = $this->db->escape_str($post['no_ba']);
+        $safeconduct_num    = $this->db->escape_str($post['no_surat_jalan']);
+        $po                 = $this->db->escape_str($post['po']);
+        $do                 = $this->db->escape_str($post['do']);
+        $io                 = $this->db->escape_str($post['io']);
+        $condition          = $this->db->escape_str($post['kondisi']);
+        $product            = $this->db->escape_str($post['produk']);
+        $stuffing           = $this->db->escape_str($post['stuffing']);
 
         $data = array(
-            'debitur_name'      => $debitur,
-            'address'           => $address,
-            'city'              => $city,
-            'pic'               => $pic,
-            'finance'           => $finance,
-            'telp'              => $telp,
-            'hp'                => $hp,
-            'fax'               => $fax,
-            'corporate_name'    => $corporate,
-            'id_bank'           => $bank,
-            'account_number'    => $account
+            'seal_number'           => $seal_number,
+            'process_date'          => $process_date,
+            'company'               => $company,
+            'ba_recv_date'          => $ba_recv_date,
+            'id_agent'              => $id_agent,
+            'origin_city'           => $origin_city,
+            'id_container'          => $id_container,
+            'id_shipper'            => $id_shipper,
+            'id_receiver'           => $id_receiver,
+            'report_num'            => $report_num,
+            'safeconduct_num'       => $safeconduct_num,
+            'po'                    => $po,
+            'do'                    => $do,
+            'io'                    => $io,
+            'condition'             => $condition,
+            'product'               => $product,
+            'stuffing'              => $stuffing,
         );
 
         $result = $this->save_where($this->table,$data);
@@ -108,34 +120,46 @@ class M_shipment extends MY_Model {
     }
 
     public function updateData($post){
-        $debitur    = $this->db->escape_str($post['pengirim']);
-        $address    = $this->db->escape_str($post['alamat']);
-        $city       = $this->db->escape_str($post['kota']);
-        $pic        = $this->db->escape_str($post['pic']);
-        $finance    = $this->db->escape_str($post['finance']);
-        $telp       = $this->db->escape_str($post['telp']);
-        $hp         = $this->db->escape_str($post['hp']);
-        $fax        = $this->db->escape_str($post['fax']);
-        $corporate  = $this->db->escape_str($post['perusahaan']);
-        $bank       = $this->db->escape_str($post['bank']);
-        $account    = $this->db->escape_str($post['no_rek']);
+        $seal_number        = $this->db->escape_str($post['seal_num']);
+        $process_date       = $this->db->escape_str($post['tgl_proses']);
+        $company            = $this->db->escape_str($post['perusahaan']);
+        $ba_recv_date       = $this->db->escape_str($post['tgl_terima_ba']);
+        $id_agent           = $this->db->escape_str($post['agent']);
+        $origin_city        = $this->db->escape_str($post['kota_asal']);
+        $id_container       = $this->db->escape_str($post['container']);
+        $id_shipper         = $this->db->escape_str($post['pengirim']);
+        $id_receiver        = $this->db->escape_str($post['penerima']);
+        $report_num         = $this->db->escape_str($post['no_ba']);
+        $safeconduct_num    = $this->db->escape_str($post['no_surat_jalan']);
+        $po                 = $this->db->escape_str($post['po']);
+        $do                 = $this->db->escape_str($post['do']);
+        $io                 = $this->db->escape_str($post['io']);
+        $condition          = $this->db->escape_str($post['kondisi']);
+        $product            = $this->db->escape_str($post['produk']);
+        $stuffing           = $this->db->escape_str($post['stuffing']);
 
         $where = array(
             'id_doc' => $this->db->escape_str($post['idm'])
         );
 
         $data = array(
-            'debitur_name'      => $debitur,
-            'address'           => $address,
-            'city'              => $city,
-            'pic'               => $pic,
-            'finance'           => $finance,
-            'telp'              => $telp,
-            'hp'                => $hp,
-            'fax'               => $fax,
-            'corporate_name'    => $corporate,
-            'id_bank'           => $bank,
-            'account_number'    => $account
+            'seal_number'           => $seal_number,
+            'process_date'          => $process_date,
+            'company'               => $company,
+            'ba_recv_date'          => $ba_recv_date,
+            'id_agent'              => $id_agent,
+            'origin_city'           => $origin_city,
+            'id_container'          => $id_container,
+            'id_shipper'            => $id_shipper,
+            'id_receiver'           => $id_receiver,
+            'report_num'            => $report_num,
+            'safeconduct_num'       => $safeconduct_num,
+            'po'                    => $po,
+            'do'                    => $do,
+            'io'                    => $io,
+            'condition'             => $condition,
+            'product'               => $product,
+            'stuffing'              => $stuffing,
         );
 
         $result= $this->update_where($this->table,$where,$data);
