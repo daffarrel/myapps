@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_shipment extends MY_Model {
-    var $table             = 'm_shipment';
+    var $table             = 'shipment_doc';
     var $view              = 'vw_shipment';
     var $column_order      = array('id_doc'); //set column field database for datatable orderable
     var $column_search     = array('debitur_name,address,city,pic,finance,telp,hp,fax,corporate_name,bank_name,account_number'); //set column field database for datatable searchable
