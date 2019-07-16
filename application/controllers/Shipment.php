@@ -30,7 +30,7 @@ class Shipment extends MY_Controller{
             $no++;
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
-            $row[] = '<center style="font-size: small">'.$r->seal_number.'/'.$r->container_num;
+            $row[] = '<center style="font-size: small">'.$r->seal_number.'/'.$r->container_number;
             $row[] = '<center style="font-size: small">'.$r->ba_recv_date.'/'.$r->process_date;
             $row[] = '<center style="font-size: small">'.$r->company;
             $row[] = '<center style="font-size: small">'.$r->agent;
@@ -40,7 +40,7 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->po;
             $row[] = '<center style="font-size: small">'.$r->do;
             $row[] = '<center style="font-size: small">'.$r->io;
-            $row[] = '<center style="font-size: small">'.$r->condition;
+            $row[] = '<center style="font-size: small">'.$r->kondisi;
             $row[] = '<center style="font-size: small">'.$r->product;
             $row[] = '<center style="font-size: small">'.$r->stuffing;
 
