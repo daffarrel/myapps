@@ -16,17 +16,17 @@ class Master extends MY_Controller{
 
     public function invoice($page){
         $title = str_replace('_',' ',$page);
-        $this->navmenu('Data '.ucwords($title),'data/vw_data_'.$page,'','',$data);
+        $this->navmenu('Data '.ucwords($title),'data/vw_data_'.$page,'','','');
     }
 
     public function payment($page){
         $title = str_replace('_',' ',$page);
-        $this->navmenu('Data '.ucwords($title),'data/vw_data_'.$page,'','',$data);
+        $this->navmenu('Data '.ucwords($title),'data/vw_data_'.$page,'','','');
     }
 
     public function cost($page){
         $title = str_replace('_',' ',$page);
-        $this->navmenu('Data '.ucwords($title),'data/vw_data_'.$page,'','',$data);
+        $this->navmenu('Data '.ucwords($title),'data/vw_data_'.$page,'','','');
     }
 
     public function login(){
