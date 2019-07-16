@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Route extends MY_Controller{
+class Shipment extends MY_Controller{
     public function index(){
         $data['shipper'] = $this->shipper->getAllData();
         $data['receiver'] = $this->receiver->getAllData();
