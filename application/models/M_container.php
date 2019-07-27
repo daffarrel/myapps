@@ -5,7 +5,7 @@ class M_container extends MY_Model {
     var $table             = 'm_container';
     var $view              = 'vw_container';
     var $column_order      = array('idm_container'); //set column field database for datatable orderable
-    var $column_search     = array('container_number,size,agent_name'); //set column field database for datatable searchable
+    var $column_search     = array('container_number','size','agent_name'); //set column field database for datatable searchable
     var $order             = array('idm_container' => 'asc'); // default order
 
     function get_datatables_query() {

@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_city extends MY_Model{
     var $table            = 'm_city';
     var $column_order     = array('idm_city'); //set column field database for datatable orderable
-    var $column_search    = array('city_code,city_name'); //set column field database for datatable searchable
+    var $column_search    = array('city_code','city_name'); //set column field database for datatable searchable
     var $order            = array('idm_city' => 'asc'); // default order
 
     public function get_datatable() {

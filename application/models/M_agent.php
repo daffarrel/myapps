@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_agent extends MY_Model {
     var $table             = 'm_agent';
     var $column_order      = array('idm_agent'); //set column field database for datatable orderable
-    var $column_search     = array('agent_name,address,telp,hp,fax'); //set column field database for datatable searchable
+    var $column_search     = array('agent_name','address','telp','hp','fax'); //set column field database for datatable searchable
     var $order             = array('idm_agent' => 'desc'); // default order
 
     public function get_datatable(){
