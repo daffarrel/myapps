@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_driver extends MY_Model {
     var $table             = 'm_driver';
     var $column_order      = array('idm_driver'); //set column field database for datatable orderable
-    var $column_search     = array('driver_name,license_number,dob,dob_city,address'); //set column field database for datatable searchable
+    var $column_search     = array('driver_name','license_number','dob','dob_city','address'); //set column field database for datatable searchable
     var $order             = array('idm_driver' => 'asc'); // default order
 
     public function get_datatable(){
