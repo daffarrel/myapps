@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_truck extends MY_Model{
     var $table            = 'm_truck';
     var $column_order     = array('idm_truck'); //set column field database for datatable orderable
-    var $column_search    = array('truck_code,plate_number'); //set column field database for datatable searchable
+    var $column_search    = array('truck_code','plate_number'); //set column field database for datatable searchable
     var $order            = array('idm_truck' => 'asc'); // default order
 
     public function get_datatable() {
