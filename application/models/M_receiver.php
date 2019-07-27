@@ -5,7 +5,7 @@ class M_receiver extends MY_Model {
     var $table             = 'm_receiver';
     var $view              = 'vw_receiver';
     var $column_order      = array('idm_receiver'); //set column field database for datatable orderable
-    var $column_search     = array('receiver_name,address,city,telp,hp,fax,corporate_name,bank_name,account_number'); //set column field database for datatable searchable
+    var $column_search     = array('receiver_name','address','city','telp','hp','fax','corporate_name','bank_name','account_number'); //set column field database for datatable searchable
     var $order             = array('idm_receiver' => 'asc'); // default order
 
     function get_datatables_query() {
