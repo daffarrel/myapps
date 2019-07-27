@@ -6,7 +6,7 @@ class M_route extends MY_Model {
     var $view              = 'vw_route';
 
     var $column_order      = array('idm_route'); //set column field database for datatable orderable
-    var $column_search     = array('route_name,origin,destination,type,size,fare'); //set column field database for datatable searchable
+    var $column_search     = array('route_name','origin','destination','type','size','fare'); //set column field database for datatable searchable
     var $order             = array('idm_route' => 'asc'); // default order
 
     function get_datatables_query() {
