@@ -35,14 +35,10 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->company;
             $row[] = '<center style="font-size: small">'.$r->agent;
             $row[] = '<center style="font-size: small">'.$r->origin_city;
-            $row[] = '<center style="font-size: small">'.$r->shipper.'/'.$r->receiver;
+            $row[] = '<center style="font-size: small">'.$r->shipper;
+            $row[] = '<center style="font-size: small">'.$r->receiver;
             $row[] = '<center style="font-size: small">'.$r->report_num.'/'.$r->safeconduct_num;
-            $row[] = '<center style="font-size: small">'.$r->po;
-            $row[] = '<center style="font-size: small">'.$r->do;
-            $row[] = '<center style="font-size: small">'.$r->io;
-            $row[] = '<center style="font-size: small">'.$r->kondisi;
             $row[] = '<center style="font-size: small">'.$r->product;
-            $row[] = '<center style="font-size: small">'.$r->stuffing;
 
             $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doc."'".')"><i class="material-icons">launch</i></a>
                               <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')"><i class="material-icons">delete_forever</i></a>';

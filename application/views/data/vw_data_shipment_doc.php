@@ -24,14 +24,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <th><center>Perusahaan</th>
                                     <th><center>Agen</th>
                                     <th><center>Kota Asal</th>
-                                    <th><center>Pengirim/Penerima</th>
+                                    <th><center>Pengirim</th>
+                                    <th><center>Penerima</th>
                                     <th><center>No. BA/No. Surat Jalan</th>
-                                    <th><center>PO</th>
-                                    <th><center>DO</th>
-                                    <th><center>I/O</th>
-                                    <th><center>Kondisi</th>
                                     <th><center>Produk</th>
-                                    <th><center>Stuffing</th>
                                     <th><center>Aksi</th>
                                 </tr>
                                 </thead>
@@ -45,14 +41,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <th><center>Perusahaan</th>
                                     <th><center>Agen</th>
                                     <th><center>Kota Asal</th>
-                                    <th><center>Pengirim/Penerima</th>
+                                    <th><center>Pengirim</th>
+                                    <th><center>Penerima</th>
                                     <th><center>No. BA/No. Surat Jalan</th>
-                                    <th><center>PO</th>
-                                    <th><center>DO</th>
-                                    <th><center>I/O</th>
-                                    <th><center>Kondisi</th>
                                     <th><center>Produk</th>
-                                    <th><center>Stuffing</th>
                                     <th><center>Aksi</th>
                                 </tr>
                                 </tfoot>
