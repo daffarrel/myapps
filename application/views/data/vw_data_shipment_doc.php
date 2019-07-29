@@ -19,14 +19,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <thead>
                                 <tr>
                                     <th><center>No</th>
-                                    <th><center>No. Seal/No. Container</th>
-                                    <th><center>Tgl Terima BA/Tgl Proses Doc</th>
-                                    <th><center>Perusahaan</th>
-                                    <th><center>Agen</th>
-                                    <th><center>Kota Asal</th>
-                                    <th><center>Pengirim</th>
-                                    <th><center>Penerima</th>
-                                    <th><center>No. BA/No. Surat Jalan</th>
+                                    <th><center>Seal/Cont</th>
+                                    <th><center>Tgl. BA</th>
+                                    <th><center>Tgl. Doc</th>
+                                    <th><center>Cmpy</th>
+                                    <th><center>Agent</th>
+                                    <th><center>Origin</th>
+                                    <th><center>Sender</th>
+                                    <th><center>Recv</th>
+                                    <th><center>No. BA</th>
+                                    <th><center>No. Surat Jalan</th>
                                     <th><center>Produk</th>
                                     <th><center>Aksi</th>
                                 </tr>
@@ -36,14 +38,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <tfoot>
                                 <tr>
                                     <th><center>No</th>
-                                    <th><center>No. Seal/No. Container</th>
-                                    <th><center>Tgl Terima BA/Tgl Proses Doc</th>
-                                    <th><center>Perusahaan</th>
-                                    <th><center>Agen</th>
-                                    <th><center>Kota Asal</th>
-                                    <th><center>Pengirim</th>
-                                    <th><center>Penerima</th>
-                                    <th><center>No. BA/No. Surat Jalan</th>
+                                    <th><center>Seal/Cont</th>
+                                    <th><center>Tgl. BA</th>
+                                    <th><center>Tgl. Doc</th>
+                                    <th><center>Cmpy</th>
+                                    <th><center>Agent</th>
+                                    <th><center>Origin</th>
+                                    <th><center>Sender</th>
+                                    <th><center>Recv</th>
+                                    <th><center>No. BA</th>
+                                    <th><center>No. Surat Jalan</th>
                                     <th><center>Produk</th>
                                     <th><center>Aksi</th>
                                 </tr>

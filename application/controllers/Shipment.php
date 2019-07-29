@@ -31,13 +31,15 @@ class Shipment extends MY_Controller{
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
             $row[] = '<center style="font-size: small">'.$r->seal_number.'/'.$r->container_number;
-            $row[] = '<center style="font-size: small">'.$r->ba_recv_date.'/'.$r->process_date;
+            $row[] = '<center style="font-size: small">'.$r->ba_recv_date;
+            $row[] = '<center style="font-size: small">'.$r->process_date;
             $row[] = '<center style="font-size: small">'.$r->company;
             $row[] = '<center style="font-size: small">'.$r->agent;
             $row[] = '<center style="font-size: small">'.$r->origin_city;
             $row[] = '<center style="font-size: small">'.$r->shipper;
             $row[] = '<center style="font-size: small">'.$r->receiver;
-            $row[] = '<center style="font-size: small">'.$r->report_num.'/'.$r->safeconduct_num;
+            $row[] = '<center style="font-size: small">'.$r->report_num;
+            $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
             $row[] = '<center style="font-size: small">'.$r->product;
 
             $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doc."'".')"><i class="material-icons">launch</i></a>

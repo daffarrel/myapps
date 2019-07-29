@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_bank extends MY_Model {
     var $table            = 'm_bank';
-    var $column_order     = array('idm_bank'); //set column field database for datatable orderable
+    var $column_order     = array('idm_bank',null,null,null); //set column field database for datatable orderable
     var $column_search    = array('bank_name'); //set column field database for datatable searchable
     var $order            = array('idm_bank' => 'asc'); // default order
 
