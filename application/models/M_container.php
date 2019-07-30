@@ -72,6 +72,14 @@ class M_container extends MY_Model {
             return $query->row();
     }
 
+    public function getAllData(){
+        $this->db->from($this->view);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+            return $query->row();
+    }
+    
     public function saveData($post){
         $container_num  = $this->db->escape_str($post['no_container']);
         $size           = $this->db->escape_str($post['size']);
