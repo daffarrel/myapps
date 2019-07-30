@@ -72,6 +72,14 @@ class M_shipper extends MY_Model {
             return $query->row();
     }
 
+    public function getAllData(){
+        $this->db->from($this->view);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+            return $query->row();
+    }
+
     public function saveData($post){
         $debitur    = $this->db->escape_str($post['pengirim']);
         $address    = $this->db->escape_str($post['alamat']);
