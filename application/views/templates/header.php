@@ -44,6 +44,8 @@
     <link href="<?php echo base_url('assets/css/daterangepicker.css')?>" rel="stylesheet" />
     <!---Materialize CSS--->
     <link href="<?php echo base_url('assets/css/materialize.css') ?>" rel="stylesheet">
+    <!---Filtering Datatable CSS--->
+    <link href="<?php echo base_url('assets/css/jquery.dataTables.yadcf.css') ?>" rel="stylesheet">
     <!-- Custom Css -->
     <link href="<?php echo base_url('assets/css/style.min.css');?>" rel="stylesheet">
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
@@ -127,8 +129,8 @@
     <script src="<?php echo base_url('assets/plugins/jquery-ui/jquery-ui.js')?>"></script>
     <!---Daterangepicker---->
     <script src="<?php echo base_url('assets/js/daterangepicker.js')?>"></script>
-    <!---Fixed Header Datatable---->
-    <script src="<?php echo base_url('assets/js/dataTables.fixedHeader.min.js')?>"></script>
+    <!---Plugin Filtering Datatable---->
+    <script src="<?php echo base_url('assets/js/jquery.dataTables.yadcf.js')?>"></script>
     <!-- Custom Js -->
     <script src="<?php echo base_url('assets/js/admin.js');?>"></script>
 </head>
