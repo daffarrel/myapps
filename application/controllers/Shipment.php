@@ -6,7 +6,7 @@ class Shipment extends MY_Controller{
         $data['shipper'] = $this->shipper->getAllData();
         $data['receiver'] = $this->receiver->getAllData();
         $data['container'] = $this->container->getAllData();
-        $data['agent'] = $this->agent->getAllData();
+        $data['agent'] = $this->agent->getDataAll();
         $data['city'] = $this->city->getAllData();
         $this->navmenu('Input Dokumen Kapal','add/vw_input_data_shipment_doc','','',$data);
     }
