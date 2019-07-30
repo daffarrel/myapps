@@ -127,6 +127,8 @@
     <script src="<?php echo base_url('assets/plugins/jquery-ui/jquery-ui.js')?>"></script>
     <!---Daterangepicker---->
     <script src="<?php echo base_url('assets/js/daterangepicker.js')?>"></script>
+    <!---Fixed Header Datatable---->
+    <script src="<?php echo base_url('assets/js/dataTables.fixedHeader.min.js')?>"></script>
     <!-- Custom Js -->
     <script src="<?php echo base_url('assets/js/admin.js');?>"></script>
 </head>
