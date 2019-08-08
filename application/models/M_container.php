@@ -77,7 +77,7 @@ class M_container extends MY_Model {
         $query = $this->db->get();
 
         if($query->num_rows() > 0)
-            return $query->row();
+            return $query->result();
     }
     
     public function saveData($post){
