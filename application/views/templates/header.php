@@ -221,7 +221,7 @@
                     <li <?php if($this->uri->segment(2)=="cost") echo ' class="active"'; ?>>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">dns</i>
-                            <span>Biaya</span>
+                            <span>Dokumen</span>
                         </a>
                         <ul class="ml-menu">
                             <li <?php if($this->uri->segment(3)=="shipment_doc"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cost/shipment_doc");?>">Dokumen Kapal</a></li>

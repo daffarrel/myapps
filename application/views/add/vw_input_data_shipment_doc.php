@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="body">
                         <?php echo $this->session->flashdata('notif');?>
                         <form id="form_input" action="<?php echo base_url('shipment/addData')?>" method="POST" enctype="multipart/form-data">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">No. Seal</label>
                                     <div class="input-group">
@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">No. Container</label>
                                     <div class="input-group">
@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Tanggal Proses Dokumen</label>
                                     <div class="input-group">
@@ -61,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Perusahaan</label>
                                     <div class="input-group">
@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Tanggal Terima BA</label>
                                     <div class="input-group">
@@ -87,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Agent</label>
                                     <div class="input-group">
@@ -100,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Kota Asal</label>
                                     <div class="input-group">
@@ -113,7 +113,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Pengirim</label>
                                     <div class="input-group">
@@ -122,6 +122,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <select id="shipper" name="shipper" class="form-control select">
+                                                <option value="">------</option>
                                                 <?php
                                                 foreach ($attr['shipper'] as $data){
                                                     ?>
@@ -134,7 +135,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Penerima</label>
                                     <div class="input-group">
@@ -143,6 +144,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <select id="receiver" name="receiver" class="form-control select">
+                                                <option value="">------</option>
                                                 <?php
                                                 foreach ($attr['receiver'] as $data){
                                                     ?>
@@ -155,7 +157,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">No. BA</label>
                                     <div class="input-group">
@@ -168,7 +170,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">No. Surat Jalan</label>
                                     <div class="input-group">
@@ -181,7 +183,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">PO</label>
                                     <div class="input-group">
@@ -194,7 +196,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">DO</label>
                                     <div class="input-group">
@@ -238,19 +240,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Produk</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">monetization_on</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input required id="produk" name="produk" class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
                                     <label for="agent_name" class="form-label">Stuffing</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">
@@ -260,6 +249,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <option value="YES">YA</option>
                                             <option value="NO">TIDAK</option>
                                         </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Produk</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">monetization_on</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input required id="produk" name="produk" class="form-control" type="text">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
