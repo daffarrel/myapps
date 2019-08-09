@@ -8,6 +8,7 @@ class Shipment extends MY_Controller{
         $data['container'] = $this->container->getAllData();
         $data['agent'] = $this->agent->getDataAll();
         $data['city'] = $this->city->getAllData();
+        $data['company'] = $this->shipment->getCompany();
         $this->navmenu('Input Dokumen Kapal','add/vw_input_data_shipment_doc','','',$data);
     }
 
@@ -30,7 +31,8 @@ class Shipment extends MY_Controller{
             $no++;
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
-            $row[] = '<center style="font-size: small">'.$r->seal_number.'/'.$r->container_number;
+            $row[] = '<center style="font-size: small">'.$r->seal_number;
+            $row[] = '<center style="font-size: small">'.$r->container_number;
             $row[] = '<center style="font-size: small">'.$r->ba_recv_date;
             $row[] = '<center style="font-size: small">'.$r->process_date;
             $row[] = '<center style="font-size: small">'.$r->company;

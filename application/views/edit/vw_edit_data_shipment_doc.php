@@ -8,11 +8,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>Input Data Dokumen Kapal</h2>
+                        <h2>Ubah Data Dokumen Kapal</h2>
                     </div>
                     <div class="body">
                         <?php echo $this->session->flashdata('notif');?>
-                        <form id="form_input" action="<?php echo base_url('shipment/addData')?>" method="POST" enctype="multipart/form-data">
+                        <form id="form_input" action="<?php echo base_url('shipment/updateData')?>" method="POST" enctype="multipart/form-data">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">No. Seal</label>

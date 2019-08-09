@@ -4,13 +4,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_shipment extends MY_Model {
     var $table             = 'shipment_doc';
     var $view              = 'vw_shipment_doc';
+    var $option            = 'm_option';
+
     var $column_order      = array('id_doc',null,null,null,null,null,null,null,null,null,null,null,null,null,null); //set column field database for datatable orderable
-    var $column_search     = array('seal_number','process_date','origin_city','company','ba_recv_date','agent','container_number','shipper','receiver','report_num','safeconduct_num','product'); //set column field database for datatable searchable
+    var $column_search     = array('seal_number','container_number','ba_recv_date','process_date','company','agent','origin_city','shipper','receiver','report_num','safeconduct_num','product'); //set column field database for datatable searchable
     var $order             = array('id_doc' => 'asc'); // default order
 
     function get_datatables_query() {
-        $this->db->from($this->view);
+        //add custom filter here
+        if($this->input->post('seal_number')) {
+            $this->db->where('seal_number', $this->input->post('seal_number'));
+        }
+        if($this->input->post('container_number')) {
+            $this->db->like('container_number', $this->input->post('container_number'));
+        }
+        if($this->input->post('ba_recv_date')) {
+            $this->db->like('ba_recv_date', $this->input->post('ba_recv_date'));
+        }
+        if($this->input->post('process_date')) {
+            $this->db->like('process_date', $this->input->post('process_date'));
+        }
+        if($this->input->post('company')) {
+            $this->db->where('company', $this->input->post('company'));
+        }
+        if($this->input->post('agent')) {
+            $this->db->like('agent', $this->input->post('agent'));
+        }
+        if($this->input->post('origin_city')) {
+            $this->db->like('origin_city', $this->input->post('LastName'));
+        }
+        if($this->input->post('shipper')) {
+            $this->db->like('shipper', $this->input->post('shipper'));
+        }
+        if($this->input->post('receiver')) {
+            $this->db->where('receiver', $this->input->post('receiver'));
+        }
+        if($this->input->post('report_num')) {
+            $this->db->like('report_num', $this->input->post('report_num'));
+        }
+        if($this->input->post('safeconduct_num')) {
+            $this->db->like('safeconduct_num', $this->input->post('safeconduct_num'));
+        }
+        if($this->input->post('product')) {
+            $this->db->like('product', $this->input->post('product'));
+        }
 
+        $this->db->from($this->view);
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column
@@ -72,16 +111,25 @@ class M_shipment extends MY_Model {
             return $query->row();
     }
 
+    public function getCompany(){
+        $this->db->where('nama_grup','company');
+        $this->db->from($this->option);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+            return $query->result();
+    }
+
     public function saveData($post){
-        $seal_number        = $this->db->escape_str($post['seal_num']);
-        $process_date       = $this->db->escape_str($post['tgl_proses']);
-        $company            = $this->db->escape_str($post['perusahaan']);
-        $ba_recv_date       = $this->db->escape_str($post['tgl_terima_ba']);
+        $seal_number        = $this->db->escape_str($post['no_seal']);
+        $process_date       = $this->db->escape_str($post['tgl_proses_dok']);
+        $company            = $this->db->escape_str($post['cmpy']);
+        $ba_recv_date       = $this->db->escape_str($post['tgl_ba']);
         $id_agent           = $this->db->escape_str($post['agent']);
         $origin_city        = $this->db->escape_str($post['kota_asal']);
-        $id_container       = $this->db->escape_str($post['container']);
-        $id_shipper         = $this->db->escape_str($post['pengirim']);
-        $id_receiver        = $this->db->escape_str($post['penerima']);
+        $id_container       = $this->db->escape_str($post['no_kontainer']);
+        $id_shipper         = $this->db->escape_str($post['shipper']);
+        $id_receiver        = $this->db->escape_str($post['receiver']);
         $report_num         = $this->db->escape_str($post['no_ba']);
         $safeconduct_num    = $this->db->escape_str($post['no_surat_jalan']);
         $po                 = $this->db->escape_str($post['po']);
@@ -120,15 +168,15 @@ class M_shipment extends MY_Model {
     }
 
     public function updateData($post){
-        $seal_number        = $this->db->escape_str($post['seal_num']);
-        $process_date       = $this->db->escape_str($post['tgl_proses']);
-        $company            = $this->db->escape_str($post['perusahaan']);
-        $ba_recv_date       = $this->db->escape_str($post['tgl_terima_ba']);
+        $seal_number        = $this->db->escape_str($post['no_seal']);
+        $process_date       = $this->db->escape_str($post['tgl_proses_dok']);
+        $company            = $this->db->escape_str($post['cmpy']);
+        $ba_recv_date       = $this->db->escape_str($post['tgl_ba']);
         $id_agent           = $this->db->escape_str($post['agent']);
         $origin_city        = $this->db->escape_str($post['kota_asal']);
-        $id_container       = $this->db->escape_str($post['container']);
-        $id_shipper         = $this->db->escape_str($post['pengirim']);
-        $id_receiver        = $this->db->escape_str($post['penerima']);
+        $id_container       = $this->db->escape_str($post['no_kontainer']);
+        $id_shipper         = $this->db->escape_str($post['shipper']);
+        $id_receiver        = $this->db->escape_str($post['receiver']);
         $report_num         = $this->db->escape_str($post['no_ba']);
         $safeconduct_num    = $this->db->escape_str($post['no_surat_jalan']);
         $po                 = $this->db->escape_str($post['po']);
