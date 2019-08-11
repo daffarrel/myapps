@@ -21,7 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">perm_identity</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_seal" name="no_seal" class="form-control" type="text">
+                                            <input hidden id="idm" name="idm" value="<?php echo $attr['data']->id_doc?>">
+                                            <input value="<?php echo $attr['data']->seal_number?>" required id="no_seal" name="no_seal" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -35,14 +36,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <select id="no_kontainer" name="no_kontainer" class="form-control select selectpicker show-tick" data-live-search="true">
-                                                    <option value="">------</option>
-                                                    <?php
+                                                <?php
                                                     foreach ($attr['container'] as $data){
-                                                        ?>
-                                                        <option value="<?php echo $data->idm_container?>"><?php echo $data->container_number?></option>
-                                                    <?php
+                                                        if($data->idm_container == $attr['data']->idm_container )
+                                                            echo '<option selected value="'.$data->idm_container.'">'.$data->container_number.'</option>'; 
+                                                        else
+                                                            echo '<option value="'.$data->idm_container.'">'.$data->container_number.'</option>';                   
                                                     }
-                                                    ?>
+                                                ?>
                                             </select>                                        
                                         </div>
                                     </div>
@@ -56,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">place</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="tgl_proses_dok" name="tgl_proses_dok" class="form-control tanggal" type="text">
+                                            <input value="<?php echo $attr['data']->process_date?>" required id="tgl_proses_dok" name="tgl_proses_dok" class="form-control tanggal" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -72,9 +73,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <select required id="cmpy" name="cmpy" class="form-control select selectpicker show-tick">
                                                 <?php
                                                     foreach ($attr['company'] as $data){
-                                                        ?>
-                                                        <option value="<?php echo $data->subID?>"><?php echo $data->value?></option>
-                                                    <?php
+                                                        if($data->subID == $attr['data']->idm_company)
+                                                            echo '<option selected value="'.$data->subID.'">'.$data->value.'</option>';
+                                                        else
+                                                            echo '<option value="'.$data->subID.'">'.$data->value.'</option>';
                                                     }
                                                 ?>
                                             </select>
@@ -90,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">people_outline</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="tgl_ba" name="tgl_ba" class="form-control tanggal" type="text">
+                                            <input value="<?php echo $attr['data']->ba_recv_date?>" required id="tgl_ba" name="tgl_ba" class="form-control tanggal" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -106,10 +108,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <select required id="agent" name="agent" class="form-control select selectpicker show-tick" data-live-search="true">
                                                 <?php
                                                     foreach ($attr['agent'] as $data){
-                                                        ?>
-                                                        <option value="<?php echo $data->idm_agent?>"><?php echo $data->agent_name?></option>
-                                                    <?php
-                                                    }
+                                                        if($data->idm_agent == $attr['data']->idm_agent)
+                                                            echo '<option selected value="'.$data->idm_agent.'">'.$data->agent_name.'</option>';
+                                                        else
+                                                            echo '<option value="'.$data->idm_agent.'">'.$data->agent_name.'</option>';    
+                                                    }                
                                                 ?>
                                             </select>
                                         </div>
@@ -127,9 +130,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <select required id="kota_asal" name="kota_asal" class="form-control select selectpicker show-tick" data-live-search="true">
                                                 <?php
                                                     foreach ($attr['city'] as $data){
-                                                        ?>
-                                                        <option value="<?php echo $data->idm_city?>"><?php echo $data->city_name?></option>
-                                                    <?php
+                                                        if($data->idm_city == $attr['data']->idm_city)
+                                                            echo '<option selected value="'.$data->idm_city.'">'.$data->city_name.'</option>';
+                                                        else
+                                                            echo '<option value="'.$data->idm_city.'">'.$data->city_name.'</option>';
                                                     }
                                                 ?>
                                             </select>
@@ -146,12 +150,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <select id="shipper" name="shipper" class="form-control selectpicker show-tick" data-live-search="true">
-                                                <option value="">------</option>
                                                 <?php
                                                 foreach ($attr['shipper'] as $data){
-                                                    ?>
-                                                    <option value="<?php echo $data->idm_shipper?>"><?php echo $data->debitur_name?></option>
-                                                <?php
+                                                    if($data->idm_shipper == $attr['data']->idm_shipper)
+                                                        echo '<option selected value="'.$data->idm_shipper.'">'.$data->debitur_name.'</option>'; 
+                                                    else
+                                                        echo '<option value="'.$data->idm_shipper.'">'.$data->debitur_name.'</option>'; 
                                                 }
                                                 ?>
                                             </select>                                        
@@ -168,12 +172,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <select id="receiver" name="receiver" class="form-control selectpicker show-tick" data-live-search="true">
-                                                <option value="">------</option>
                                                 <?php
-                                                foreach ($attr['receiver'] as $data){
-                                                    ?>
-                                                    <option value="<?php echo $data->idm_receiver?>"><?php echo $data->receiver_name?></option>
-                                                <?php
+                                                foreach ($attr['receiver'] as $data){  
+                                                    if($data->idm_receiver == $attr['data']->idm_receiver)
+                                                        echo '<option selected value="'.$data->idm_receiver.'">'.$data->receiver_name.'</option>';
+                                                    else
+                                                        echo '<option value="'.$data->idm_receiver.'">'.$data->receiver_name.'</option>';
                                                 }
                                                 ?>
                                             </select>
@@ -189,7 +193,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">business_center</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_ba" name="no_ba" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->report_num?>" required id="no_ba" name="no_ba" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +206,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="no_surat_jalan" name="no_surat_jalan" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->safeconduct_num?>" required id="no_surat_jalan" name="no_surat_jalan" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +219,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="po" name="po" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->po?>" required id="po" name="po" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +232,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="do" name="do" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->do?>" required id="do" name="do" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -242,8 +246,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <select id="io" name="io" class="form-control select">
-                                                <option value="I">IN</option>
-                                                <option value="O">OUT</option>
+                                                <?php 
+                                                    if($attr['data']->io == 'I'){
+                                                        echo '<option selected value="I">IN</option>';
+                                                        echo '<option value="O">OUT</option>';
+                                                    }
+                                                    else{
+                                                        echo '<option value="I">IN</option>';
+                                                        echo '<option selected value="O">OUT</option>';
+                                                    }
+                                                ?>
                                             </select>                                        
                                         </div>
                                     </div>
@@ -257,7 +269,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="kondisi" name="kondisi" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->kondisi?>" required id="kondisi" name="kondisi" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -270,8 +282,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <select id="stuffing" name="stuffing" class="form-control select">
-                                            <option value="YES">YA</option>
-                                            <option value="NO">TIDAK</option>
+                                            <?php 
+                                                if($attr['data']->stuffing == 'yes'){
+                                                    echo '<option selected value="yes">YA</option>';
+                                                    echo '<option value="no">TIDAK</option>';
+                                                }else{
+                                                    echo '<option value="yes">YA</option>';
+                                                    echo '<option selected value="no">TIDAK</option>';
+                                                }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -284,7 +303,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <div class="form-line">
-                                            <input required id="produk" name="produk" class="form-control" type="text">
+                                            <input value="<?php echo $attr['data']->product?>" required id="produk" name="produk" class="form-control" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -302,7 +321,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <script type="text/javascript">
     function cancel() {
-        window.location.replace('<?php echo site_url('master/page/shipper')?>')
+        window.location.replace('<?php echo site_url('master/cost/shipment_doc')?>')
     }
 
     $('.tanggal').bootstrapMaterialDatePicker({

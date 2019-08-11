@@ -35,12 +35,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <select id="no_kontainer" name="no_kontainer" class="form-control select selectpicker show-tick" data-live-search="true">
-                                                    <option value="">------</option>
                                                     <?php
                                                     foreach ($attr['container'] as $data){
-                                                        ?>
-                                                        <option value="<?php echo $data->idm_container?>"><?php echo $data->container_number?></option>
-                                                    <?php
+                                                        echo '<option value="'.$data->idm_container.'">'.$data->container_number.'</option>';                
                                                     }
                                                     ?>
                                             </select>                                        
@@ -146,7 +143,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <select id="shipper" name="shipper" class="form-control selectpicker show-tick" data-live-search="true">
-                                                <option value="">------</option>
                                                 <?php
                                                 foreach ($attr['shipper'] as $data){
                                                     ?>
@@ -168,7 +164,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </span>
                                         <div class="form-line">
                                             <select id="receiver" name="receiver" class="form-control selectpicker show-tick" data-live-search="true">
-                                                <option value="">------</option>
                                                 <?php
                                                 foreach ($attr['receiver'] as $data){
                                                     ?>
@@ -270,8 +265,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <i class="material-icons">monetization_on</i>
                                         </span>
                                         <select id="stuffing" name="stuffing" class="form-control select">
-                                            <option value="YES">YA</option>
-                                            <option value="NO">TIDAK</option>
+                                            <option value="yes">YA</option>
+                                            <option value="no">TIDAK</option>
                                         </select>
                                     </div>
                                 </div>
@@ -302,7 +297,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </section>
 <script type="text/javascript">
     function cancel() {
-        window.location.replace('<?php echo site_url('master/page/shipper')?>')
+        window.location.replace('<?php echo site_url('master/cost/shipment_doc')?>')
     }
 
     $('.tanggal').bootstrapMaterialDatePicker({
