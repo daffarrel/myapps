@@ -29,8 +29,7 @@ class MY_Controller extends CI_Controller
 {
     var $md5_key = '##';
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->load->model('M_bank', 'bank');
         $this->load->model('M_city', 'city');

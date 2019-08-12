@@ -225,7 +225,7 @@
                         </a>
                         <ul class="ml-menu">
                             <li <?php if($this->uri->segment(3)=="shipment_doc"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cost/shipment_doc");?>">Dokumen Kapal</a></li>
-                            <li <?php if($this->uri->segment(3)=="shipment_arr"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cost/shipment_arr");?>">Dokumen Kapal</a></li>
+                            <li <?php if($this->uri->segment(3)=="shipment_arr"){echo ' class="active"';}?>><a href="<?php echo base_url("master/cost/shipment_arr");?>">Dokumen Kapal Tiba</a></li>
                         </ul>                           
                     </li>
                     <li <?php if($this->uri->segment(2)=="invoice") echo ' class="active"'; ?>>

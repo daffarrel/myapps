@@ -23,6 +23,22 @@ class Shipment extends MY_Controller{
         $this->navmenu('Edit Dokumen Kapal','edit/vw_edit_data_shipment_doc','','',$data);
     }
 
+    public function arr_index(){
+        $data['seal'] = $this->shipment->getSeal();
+        $this->navmenu('Input Dokumen Kapal Datang','add/vw_input_data_shipment_arr','','',$data);
+    }
+
+    public function arr_edit($id){
+        $data['seal'] = $this->shipment->getSeal();
+        $data['data'] = $this->shipment->getDataArr($id);
+        $this->navmenu('Edit Dokumen Kapal Datang','edit/vw_edit_data_shipment_arr','','',$data);
+    }
+
+    public function delete_arr($id){
+        $this->shipment->deleteDataArr($id);
+        echo json_encode(array("status" => TRUE));
+    }
+
     public function ajax_list(){
         $list = $this->shipment->get_datatable();
         $data = array();
@@ -72,17 +88,13 @@ class Shipment extends MY_Controller{
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
             $row[] = '<center style="font-size: small">'.$r->seal_number;
-            $row[] = '<center style="font-size: small">'.$r->container_number;
-            $row[] = '<center style="font-size: small">'.$r->ba_recv_date;
-            $row[] = '<center style="font-size: small">'.$r->process_date;
-            $row[] = '<center style="font-size: small">'.$r->company;
-            $row[] = '<center style="font-size: small">'.$r->agent;
-            $row[] = '<center style="font-size: small">'.$r->origin_city;
-            $row[] = '<center style="font-size: small">'.$r->shipper;
-            $row[] = '<center style="font-size: small">'.$r->receiver;
-            $row[] = '<center style="font-size: small">'.$r->report_num;
-            $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
-            $row[] = '<center style="font-size: small">'.$r->product;
+            $row[] = '<center style="font-size: small">'.$r->bl_number;
+            $row[] = '<center style="font-size: small">'.$r->bl_date;
+            $row[] = '<center style="font-size: small">'.$r->ship_name;
+            $row[] = '<center style="font-size: small">'.$r->td;
+            $row[] = '<center style="font-size: small">'.$r->weight;
+            $row[] = '<center style="font-size: small">'.$r->arrival_date;
+            $row[] = '<center style="font-size: small">'.$r->unload_load_date;
 
             $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_ship_arr."'".')"><i class="material-icons">launch</i></a>
                               <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_ship_arr."'".')"><i class="material-icons">delete_forever</i></a>';
@@ -130,6 +142,54 @@ class Shipment extends MY_Controller{
     public function updateData() {
         $id = $this->input->post('idm');
         $result = $this->shipment->updateData($_POST);
+
+        if ($result)
+            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
+                                                                    Data Berhasil Di Update, <a href="javascript:void(0)" title="Kembali Ke Halaman Depan" onclick="cancel();"> Kembali...</a>
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>');
+        else
+            $this->session->set_flashdata('notif',
+                '<div class="alert alert-danger" role="alert"> Data Gagal Di Update..Silahkan Periksa Kembali Inputan Anda 
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                       </div>');
+
+        $this->edit($id);
+    }
+
+    public function deleteArr($id){
+        $this->shipment->deleteDataArr($id);
+        echo json_encode(array("status" => TRUE));
+    }
+
+    public function addDataArr() {
+        $result = $this->shipment->saveDataArr($_POST);
+
+        if ($result)
+            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
+                                                                    Data Berhasil Ditambahkan , <a href="javascript:void(0)" title="Kembali Ke Halaman Depan" onclick="cancel();"> Kembali...</a>
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>');
+        else
+            $this->session->set_flashdata('notif',
+                '<div class="alert alert-danger" role="alert"> Data Gagal Ditambahkan..Silahkan Periksa Kembali Inputan Anda 
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                       </div>');
+
+        $this->index();
+    }
+
+    public function updateDataArr() {
+        $id = $this->input->post('idm');
+        $result = $this->shipment->updateDataArr($_POST);
 
         if ($result)
             $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 

@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <style type="text/css">
     th { font-size: 12px; }
-    td { font-size: 8px !important; }
 
     .dataTable > thead > tr > th[class*="sort"]:after{
         content: "" !important;
@@ -93,10 +92,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="agent_name" class="form-label">Tgl BA (Awal)</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">perm_identity</i>
+                                                </span>
+                                                <div class="form-line">
+                                                    <input id="tgl_ba_awal" class="form-control tanggal" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="agent_name" class="form-label">Tgl BA (Akhir)</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">perm_identity</i>
+                                                </span>
+                                                <div class="form-line">
+                                                    <input id="tgl_ba_akhir" class="form-control tanggal" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="agent_name" class="form-label">Tgl Doc (Awal)</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">perm_identity</i>
+                                                </span>
+                                                <div class="form-line">
+                                                    <input id="tgl_doc_awal" class="form-control tanggal" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="agent_name" class="form-label">Tgl Doc (Akhir)</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">perm_identity</i>
+                                                </span>
+                                                <div class="form-line">
+                                                    <input id="tgl_doc_akhir" class="form-control tanggal" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="LastName" class="col-sm-2 control-label"></label>
                                         <div class="col-sm-4">
-                                            <button type="button" id="btn-filter" class="btn btn-primary">Filter</button>
+                                            <button type="button" id="btn-filter" class="btn btn-warning">Filter</button>
                                             <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
                                         </div>
                                     </div>
@@ -181,19 +232,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "url": "<?php echo site_url('shipment/ajax_list')?>" ,
                 "type": "POST",
                 "data": function ( data ) {
-                    data.company = $('#company').val();
-                    data.shipper = $('#shipper').val();
-                    data.receiver = $('#receiver').val();
-                    data.product = $('#product').val();
-                    data.agent = $('#agent').val();
+                    data.company        = $('#company').val();
+                    data.shipper        = $('#shipper').val();
+                    data.receiver       = $('#receiver').val();
+                    data.product        = $('#product').val();
+                    data.agent          = $('#agent').val();
+                    data.tgl_ba_awal    = $('#tgl_ba_awal').val();
+                    data.tgl_ba_akhir   = $('#tgl_ba_akhir').val();
+                    data.tgl_doc_awal   = $('#tgl_doc_awal').val();
+                    data.tgl_doc_akhir  = $('#tgl_doc_akhir').val();
                 }
             },
         });
 
+        $('#agent').keyup( function() {
+            //table.draw();
+            table.ajax.reload();
+        } );
+        $('#shipper').keyup( function() {
+            table.ajax.reload();
+        } );
+        $('#receiver').keyup( function() {
+            table.ajax.reload();
+        } );
+        $('#product').keyup( function() {
+            table.ajax.reload();
+        } );
+        $('#company').keyup( function() {
+            table.ajax.reload();
+        } );
         $('#btn-filter').click(function(){ //button filter event click
             table.ajax.reload();  //just reload table
         });
-
         $('#btn-reset').click(function(){ //button reset event click
             $('#form-filter')[0].reset();
             table.ajax.reload();  //just reload table
@@ -232,4 +302,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         });
     }
+
+    $('.tanggal').bootstrapMaterialDatePicker({
+        format: 'YYYY-MM-DD',
+        clearButton: true,
+        weekStart: 1,
+        time: false
+    });
 </script>
