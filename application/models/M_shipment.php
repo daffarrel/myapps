@@ -396,5 +396,15 @@ class M_shipment extends MY_Model {
 
         return $this->db->affected_rows();
     }
+
+    public function getSealNumber(){
+        $this->db->select('id_ship_arr,id_doc,seal_number');
+        $this->db->from($this->view_arr);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+            return $query->result();
+
+    }
 }
 ?>

@@ -26,8 +26,8 @@ class Agent extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$agent->hp;
             $row[] = '<center style="font-size: small">'.$agent->fax;
             //$row[] = '<center style="font-size: small">'.$agent->fee;
-            $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$agent->idm_agent."'".')"><i class="material-icons">launch</i></a>
-                              <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$agent->idm_agent."'".')"><i class="material-icons">delete_forever</i></a>';
+            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$agent->idm_agent."'".')">E</a>
+                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$agent->idm_agent."'".')">X</a>';
             //add html for action
 
             $data[] = $row;

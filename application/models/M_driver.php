@@ -92,5 +92,13 @@ class M_driver extends MY_Model {
 
         return $this->db->affected_rows();
     }
+
+    public function getDriver(){
+        $this->db->from($this->table);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+            return $query->result();
+    }
 }
 ?>

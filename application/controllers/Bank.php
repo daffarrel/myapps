@@ -23,8 +23,8 @@ class Bank extends MY_Controller {
             $row[] = '<center style="font-size: small">'.$bank->bank_code;
             $row[] = '<center style="font-size: small">'.$bank->bank_name;
             //add html for action
-            $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$bank->idm_bank."'".')"><i class="material-icons">launch</i></a>
-                              <a href="javascript:void(0)" title="Delete" onclick="del('."'".$bank->idm_bank."'".')"><i class="material-icons">delete_forever</i></a>';
+            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$bank->idm_bank."'".')">E</a>
+                              <a class="btn btn-danger" href="javascript:void(0)" title="Delete" onclick="del('."'".$bank->idm_bank."'".')">X</a>';
 
             $data[] = $row;
         }

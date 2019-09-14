@@ -2,205 +2,113 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 ?>
-<style type="text/css">
-    th { font-size: 12px; }
-
-    .dataTable > thead > tr > th[class*="sort"]:after{
-        content: "" !important;
-    }
-</style>
-<section class="content">
+<section class="content-wrapper">
     <div class="container-fluid">
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>
-                            Data Dokumen Kapal
-                        </h2><br><br>
-                        <button class="btn btn-primary" onclick="add()"><i class="material-icons">add</i> <span>Tambah Data</span></button>
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>Data Dokumen Kapal</h1>
+            <ol class="breadcrumb">
+            <li><a href="<?php echo base_url()?>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#"> Dokumen Kapal</a></li>
+            <li class="active"><a href="#"> Dokumen Kapal</a></li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="box box-default">
+                <div class="box-header">
+                    <button class="btn btn-primary" onclick="add()"> <span>Tambah Data</span></button><br><br>   
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" >Custom Filter : </h3>
                     </div>
-                    <div class="body">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title" >Custom Filter : </h3>
+                    <div class="panel-body">
+                        <form id="form-filter">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input id="agent" class="form-control" placeholder="Agen" type="text">
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="shipper" placeholder="Pengirim" class="form-control" type="text">    
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="receiver" placeholder="Penerima" class="form-control" type="text">
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="product" placeholder="Produk" class="form-control" type="text">  
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="company" placeholder="Perusahaan" class="form-control" type="text">          
+                                </div>
+                                <br><br><br>
+                                <div class="col-md-3">
+                                    <input id="tgl_ba_awal" placeholder="Tgl BA (Awal)" class="form-control tanggal" type="text">
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="tgl_ba_akhir" placeholder="Tgl BA (Akhir)" class="form-control tanggal" type="text">    
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="tgl_doc_awal" placeholder="Tgl Doc (Awal)" class="form-control tanggal" type="text">     
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="tgl_doc_akhir" placeholder="Tgl Doc (Akhir)" class="form-control tanggal" type="text">      
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <form id="form-filter">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="agent_name" class="form-label">Agen</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">perm_identity</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input id="agent" class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="agent_name" class="form-label">Pengirim</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">perm_identity</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input id="shipper" class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="agent_name" class="form-label">Penerima</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">perm_identity</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input id="receiver" class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="agent_name" class="form-label">Produk</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">perm_identity</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input id="product" class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="agent_name" class="form-label">Perusahaan</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">perm_identity</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input id="company" class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="agent_name" class="form-label">Tgl BA (Awal)</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">perm_identity</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input id="tgl_ba_awal" class="form-control tanggal" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="agent_name" class="form-label">Tgl BA (Akhir)</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">perm_identity</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input id="tgl_ba_akhir" class="form-control tanggal" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="agent_name" class="form-label">Tgl Doc (Awal)</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">perm_identity</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input id="tgl_doc_awal" class="form-control tanggal" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="agent_name" class="form-label">Tgl Doc (Akhir)</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">perm_identity</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input id="tgl_doc_akhir" class="form-control tanggal" type="text">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="LastName" class="col-sm-2 control-label"></label>
-                                        <div class="col-sm-4">
-                                            <button type="button" id="btn-filter" class="btn btn-warning">Filter</button>
-                                            <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
-                                        </div>
-                                    </div>
-                                </form>
+                            <br>
+                            <div class="form-group">
+                                <label for="LastName" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <button type="button" id="btn-filter" class="btn btn-warning">Filter</button>
+                                    <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable" cellspacing="0" width="100%" role="grid" >
-                                <thead>
-                                <tr>
-                                    <th><center>No</th>
-                                    <th><center>No.Seal</th>
-                                    <th><center>No.Cont</th>
-                                    <th><center>Tgl.BA</th>
-                                    <th><center>Tgl.Doc</th>
-                                    <th><center>Cmpy</th>
-                                    <th><center>Agent</th>
-                                    <th><center>Origin</th>
-                                    <th><center>Sender</th>
-                                    <th><center>Recv</th>
-                                    <th><center>No.BA</th>
-                                    <th><center>Srt Jln</th>
-                                    <th><center>Produk</th>
-                                    <th><center>Aksi</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th><center>No</th>
-                                    <th><center>No.Seal</th>
-                                    <th><center>No.Cont</th>
-                                    <th><center>Tgl.BA</th>
-                                    <th><center>Tgl.Doc</th>
-                                    <th><center>Cmpy</th>
-                                    <th><center>Agent</th>
-                                    <th><center>Origin</th>
-                                    <th><center>Sender</th>
-                                    <th><center>Recv</th>
-                                    <th><center>No.BA</th>
-                                    <th><center>Srt Jln</th>
-                                    <th><center>Produk</th>
-                                    <th><center>Aksi</th>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+                        </form>
                     </div>
                 </div>
+                <div class="box-body table-responsive">
+                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable" cellspacing="0" width="100%" role="grid" >
+                        <thead>
+                        <tr>
+                            <th><center>No</th>
+                            <th><center>No.Seal</th>
+                            <th><center>No.Cont</th>
+                            <th><center>Tgl.BA</th>
+                            <th><center>Tgl.Doc</th>
+                            <th><center>Cmpy</th>
+                            <th><center>Agent</th>
+                            <th><center>Origin</th>
+                            <th><center>Sender</th>
+                            <th><center>Recv</th>
+                            <th><center>No.BA</th>
+                            <th><center>Srt Jln</th>
+                            <th><center>Produk</th>
+                            <th><center>Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th><center>No</th>
+                            <th><center>No.Seal</th>
+                            <th><center>No.Cont</th>
+                            <th><center>Tgl.BA</th>
+                            <th><center>Tgl.Doc</th>
+                            <th><center>Cmpy</th>
+                            <th><center>Agent</th>
+                            <th><center>Origin</th>
+                            <th><center>Sender</th>
+                            <th><center>Recv</th>
+                            <th><center>No.BA</th>
+                            <th><center>Srt Jln</th>
+                            <th><center>Produk</th>
+                            <th><center>Aksi</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
-        </div>
-        <!-- #END# Horizontal Layout -->
+      </section>
     </div>
 </section>
 
@@ -212,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     function add() {
-        window.location.replace('<?php echo site_url('shipment')?>');
+        window.location.replace('<?php echo site_url('shipment/')?>');
     }
 
     function edit(id) {

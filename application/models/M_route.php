@@ -144,5 +144,14 @@ class M_route extends MY_Model {
             return $query->result();
         }
     }
+
+    public function getRoute(){
+        $this->db->from($this->view);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+            return $query->result();
+
+    }
 }
 ?>

@@ -90,5 +90,14 @@ class M_truck extends MY_Model{
         $this->db->where('idm_truck', $id);
         $this->db->update($this->table);
     }
+
+    public function getTruck(){
+        $this->db->from($this->table);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+            return $query->result();
+
+    }
 }
 ?>

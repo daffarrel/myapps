@@ -35,7 +35,7 @@ class M_agent extends MY_Model {
         $query = $this->db->get();
 
         if($query->num_rows() > 0)
-            return $query->row();
+            return $query->row_array();
     }
 
     public function getDataAll(){
