@@ -2,50 +2,67 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 ?>
-<section class="content">
+<div class="content-wrapper">
     <div class="container-fluid">
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>
-                            Data Kota
-                        </h2><br><br>
-                        <button class="btn btn-primary" onclick="add()"><i class="material-icons">add</i> <span>Tambah Data</span></button>
-                    </div>
-                    <div class="body">
-                        <div class="table-responsive">
-                            <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable" cellspacing="0" width="100%" role="grid" >
-                                <thead>
-                                <tr>
-                                    <th><center>No</th>
-                                    <th><center>Kode Truk</th>
-                                    <th><center>No Polisi</th>
-                                    <th><center>Aksi</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th><center>No</th>
-                                    <th><center>Kode Truk</th>
-                                    <th><center>No Polisi</th>
-                                    <th><center>Aksi</th>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>Master Data Truck</h1>
+        <ol class="breadcrumb">
+          <li><a href="<?php echo base_url()?>"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="#"> Master Data</a></li>
+          <li class="active"><a href="#"> Data Truck</a></li>
+        </ol>
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+            <div class="box box-default">
+                <div class="box-header">
+                    <button class="btn btn-primary" onclick="add()"> <span>Tambah Data</span></button><br><br>   
+                </div>
+                <div class="box-body table-responsive">
+                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable" cellspacing="0" width="100%" role="grid" >
+                        <thead>
+                        <tr>
+                            <th><center>No</th>
+                            <th><center>Kode Truk</th>
+                            <th><center>No Polisi</th>
+                            <th><center>Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th><center>No</th>
+                            <th><center>Kode Truk</th>
+                            <th><center>No Polisi</th>
+                            <th><center>Aksi</th>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
-        </div>
-        <!-- #END# Horizontal Layout -->
+      </section>
+      <!-- /.content -->
     </div>
-</section>
+    <!-- /.container -->
+  </div>
 
 <script type="text/javascript">
     var table;
+
+    function reload_table() {
+        table.ajax.reload(null,false);
+    }
+
+    function add() {
+        window.location.replace('<?php echo site_url('truck')?>');
+    }
+
+    function edit(id) {
+        window.location.replace('<?php echo site_url('truck/edit/')?>'+id);
+    }
 
     $(document).ready(function(){
         table= $('#tabel').DataTable({
@@ -62,47 +79,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     });
 
-    function reload_table() {
-        table.ajax.reload(null,false);
-    }
-
-    function add() {
-        window.location.replace('<?php echo site_url('truck')?>');
-    }
-
-    function edit(id) {
-        window.location.replace('<?php echo site_url('truck/edit/')?>'+id);
-    }
-
     function del(id) {
         swal({
-            title: "Apakah Anda Yakin ?",
-            text: "Anda Tidak Akan Bisa Merecover Kembali Data Yang Sudah Anda Hapus !",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Ya",
-            cancelButtonText: "Batal",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        }, function (isConfirm) {
-            if (isConfirm) {
+            title: 'Apakah Anda Yakin ?',
+            text: 'Anda Tidak Akan Bisa Merecover Kembali Data Yang Sudah Anda Hapus !',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
                 $.ajax({
                     url : "<?php echo site_url('truck/delete')?>/"+id,
                     type: "POST",
                     dataType: "JSON",
                     success: function(data)
                     {
-                        swal("Terhapus !", "Data Anda Sudah Dihapus", "success");
+                        swal('Data Anda Sudah Dihapus', {
+                            icon: 'success',
+                        });
                         reload_table();
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {
-                        swal("Dibatalkan", "Data Anda Tidak Jadi Dihapus", "error");
+                        swal("Data Anda Tidak Jadi Dihapus",{
+                            icon:'error',
+                        });
                     }
                 });
             } else {
-                swal("Dibatalkan", "Data Anda Tidak Jadi Dihapus", "error");
+                swal('Data Anda Tidak Jadi Dihapus',{
+                    icon:'error'
+                });
             }
         });
     }
