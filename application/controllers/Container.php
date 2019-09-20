@@ -27,8 +27,8 @@ class Container extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$container->agent_name;
 
             //$row[] = '<center style="font-size: small">'.$agent->fee;
-            $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$container->idm_container."'".')"><i class="material-icons">launch</i></a>
-                              <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$container->idm_container."'".')"><i class="material-icons">delete_forever</i></a>';
+            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$container->idm_container."'".')">E</a>
+                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$container->idm_container."'".')">X</a>';
             //add html for action
 
             $data[] = $row;

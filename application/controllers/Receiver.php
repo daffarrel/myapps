@@ -31,8 +31,9 @@ class Receiver extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->corporate_name;
             $row[] = '<center style="font-size: small">'.$r->bank_name.'/'.$r->account_number;
 
-            $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_receiver."'".')"><i class="material-icons">launch</i></a>
-                              <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_receiver."'".')"><i class="material-icons">delete_forever</i></a>';
+            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_receiver."'".')">E</a>
+                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_receiver."'".')">X</a>';
+
             //add html for action
 
             $data[] = $row;

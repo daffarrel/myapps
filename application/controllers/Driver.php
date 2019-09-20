@@ -25,8 +25,8 @@ class Driver extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->dob_city."/".$r->dob;
             $row[] = '<center style="font-size: small">'.$r->address;
 
-            $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_driver."'".')"><i class="material-icons">launch</i></a>
-                              <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_driver."'".')"><i class="material-icons">delete_forever</i></a>';
+            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_driver."'".')">E</a>
+                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_driver."'".')">X</a>';
             //add html for action
 
             $data[] = $row;

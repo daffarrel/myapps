@@ -22,9 +22,9 @@ class City extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$no;
             $row[] = '<center style="font-size: small">'.$city->city_code;
             $row[] = '<center style="font-size: small">'.$city->city_name;
-            $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$city->idm_city."'".')"><i class="material-icons">launch</i></a>
-                              <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$city->idm_city."'".')"><i class="material-icons">delete_forever</i></a>';
-
+            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$city->idm_city."'".')">E</a>
+                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$city->idm_city."'".')">X</a>';
+            
             $data[] = $row;
         }
 

@@ -61,8 +61,9 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
             $row[] = '<center style="font-size: small">'.$r->product;
 
-            $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doc."'".')"><i class="material-icons">launch</i></a>
-                              <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')"><i class="material-icons">delete_forever</i></a>';
+            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doc."'".')">E</a>
+                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
+
             //add html for action
 
             $data[] = $row;
@@ -96,8 +97,9 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->arrival_date;
             $row[] = '<center style="font-size: small">'.$r->unload_load_date;
 
-            $row[] = '<center><a href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_ship_arr."'".')"><i class="material-icons">launch</i></a>
-                              <a href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_ship_arr."'".')"><i class="material-icons">delete_forever</i></a>';
+            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_ship_arr."'".')">E</a>
+                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_ship_arr."'".')">X</a>';
+
             //add html for action
 
             $data[] = $row;
