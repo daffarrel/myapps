@@ -2,76 +2,51 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 ?>
-<section class="content">
+<div class="content-wrapper">
     <div class="container-fluid">
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>Edit Data Kota</h2>
-                    </div>
-                    <div class="body">
-                        <?php echo $this->session->flashdata('notif');?>
-                        <form id="form_input" action="<?php echo base_url('city/updateData')?>" method="POST" enctype="multipart/form-data">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="city_code" class="form-label">Kode Kota</label>
-                                    <input hidden value="<?php echo $attr['city']['idm_city']?>" id="idm_city" name="idm_city">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">perm_identity</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="text" id="city_code" name="city_code" required="required" class="form-control" value="<?php echo $attr['city']['city_code']?>">
-                                        </div>
+        <section class="content-header">
+            <h1>Tambah Data Kota</h1>
+            <ol class="breadcrumb">
+                <li><a href="<?php echo base_url()?>"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#"> Master Data</a></li>
+                <li class="active"><a href="#"> Tambah Data Kota</a></li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box box-default">
+                        <div class="box-body">
+                            <form id="form_input" action="<?php echo base_url('city/updateData')?>" method="POST" enctype="multipart/form-data">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input hidden value="<?php echo $attr['city']['idm_city']?>" id="idm_city" name="idm_city">
+                                        <label for="city_code" class="form-label">Kode Kota</label>
+                                        <input value="<?php echo $attr['city']['city_code']?>" id="city_code" name="city_code" required="required" class="form-control" type="text">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="city_name" class="form-label">Nama Kota</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">keyboard</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input id="city_name" name="city_name" value="<?php echo $attr['city']['city_name']?>" required="required" class="form-control" type="text">
-                                        </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="city_name" class="form-label">Nama Kota</label>
+                                        <input value="<?php echo $attr['city']['city_name']?>" id="city_name" name="city_name" required="required" class="form-control" type="text">
                                     </div>
                                 </div>
-                            </div>
-                            <br>
-                            <button class="btn bg-red waves-effect" onclick="cancel();" type="button"><i class="material-icons">undo</i><span>Cancel</span></button>
-                            <button class="btn bg-blue waves-effect" type="reset"><i class="material-icons">clear</i><span>Reset</span></button>
-                            <button type="submit" class="btn bg-orange waves-effect"><i class="material-icons">save</i><span>Simpan</span></button>
-                        </form>
+                                <div class="col-md-12">
+                                    <br>
+                                    <button class="btn btn-danger" onclick="cancel();" type="button"><span>Cancel</span></button>
+                                    <button class="btn btn-warning" type="reset"><span>Reset</span></button>
+                                    <button type="submit" class="btn btn-primary"><span>Simpan</span></button>
+                                <div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-</section>
+</div>
 <script type="text/javascript">
     function cancel() {
-        window.location.replace('<?php echo site_url('master/page/city')?>')
+        window.location.replace('<?php echo site_url('main/master/city')?>')
     }
-
-    function master() {
-        window.location.replace('<?php echo site_url('master/page/city')?>')
-    }
-
-    $(function () {
-        var form = $('#form_input');
-        form.validate({
-            highlight: function (input) {
-                $(input).parents('.form-line').addClass('error');
-            },
-            unhighlight: function (input) {
-                $(input).parents('.form-line').removeClass('error');
-            },
-            errorPlacement: function (error, element) {
-                $(element).parents('.form-label').append(error);
-            }
-        });
-    });
 </script>
