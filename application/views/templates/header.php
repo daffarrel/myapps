@@ -115,6 +115,10 @@
   <script src="<?php echo base_url()?>/assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
   <!-- iCheck 1.0.1 -->
   <script src="<?php echo base_url()?>/assets/plugins/iCheck/icheck.min.js"></script>
+  <!-- Sweetalert 2 -->
+  <script src="<?php echo base_url()?>/assets/plugins/sweetalert2/dist/sweetalert2.all.js"></script>
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11 -->
+  <script src="<?php echo base_url()?>/assets/plugins/sweetalert2/dist/polyfill.js"></script>
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
     <div class="wrapper">
