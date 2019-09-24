@@ -67,6 +67,7 @@ class M_route extends MY_Model {
     public function getData($id){
         $this->db->from($this->table);
         $this->db->where('idm_route',$id);
+        $this->db->where('soft_delete','0');
         $query = $this->db->get();
 
         if($query->num_rows() > 0)
