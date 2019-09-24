@@ -95,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }).then((willDelete) => {
             if (willDelete.value) {
                 $.ajax({
-                    url : "<?php echo site_url('driverk/delete')?>/"+id,
+                    url : "<?php echo site_url('driver/delete')?>/"+id,
                     type: "POST",
                     dataType: "JSON",
                     success: function(data)
@@ -112,6 +112,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 swal.fire("Batal","Data Anda Tidak Jadi Dihapus","warning");
             }
         });
-    }
     }
 </script>

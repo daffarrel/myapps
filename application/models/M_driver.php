@@ -9,6 +9,7 @@ class M_driver extends MY_Model {
 
     public function get_datatable(){
         $this->_get_datatables_query();
+        $this->db->where('soft_delete','0');
         if($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
@@ -17,12 +18,14 @@ class M_driver extends MY_Model {
 
     function countFiltered() {
         $this->_get_datatables_query();
+        $this->db->where('soft_delete','0');
         $query = $this->db->get();
         return $query->num_rows();
     }
 
     public function countAll() {
         $this->db->from($this->table);
+        $this->db->where('soft_delete','0');
         return $this->db->count_all_results();
     }
 
