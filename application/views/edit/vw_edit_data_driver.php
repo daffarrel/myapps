@@ -5,11 +5,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <section class="content-wrapper">
     <div class="container-fluid">
         <section class="content-header">
-            <h1>Tambah Data Driver</h1>
+            <h1>Ubah Data Driver</h1>
             <ol class="breadcrumb">
                 <li><a href="<?php echo base_url()?>"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li><a href="#"> Master Data</a></li>
-                <li class="active"><a href="#"> Tambah Data Driver</a></li>
+                <li class="active"><a href="#"> Ubah Data Driver</a></li>
             </ol>
         </section>
         <section class="content">
