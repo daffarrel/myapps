@@ -88,6 +88,7 @@ class M_bank extends MY_Model {
 
     public function getDataAll(){
         $this->db->from($this->table);
+        $this->db->where('soft_delete','0');
         $query = $this->db->get();
 
         if($query->num_rows() > 0)
