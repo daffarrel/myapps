@@ -24,41 +24,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="box-body">
                         <form id="form_input_dok" action="<?php echo base_url('agent/addData')?>" method="POST" enctype="multipart/form-data">
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="col-md-6">
                                     <label for="nik" class="form-label">Nama Agen</label>
-                                    <div class="input-group">
-                                        <input id="agent_name" name="agent_name" required="required" class="form-control">
-                                    </div>
+                                    <input id="agent_name" name="agent_name" required="required" placeholder="Nama Agen" class="form-control">
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="col-md-6">
                                     <label for="kj" class="form-label">Alamat</label>
-                                    <div class="input-group">
-                                        <input required id="address" name="address" class="form-control">
-                                    </div>
+                                    <input required id="address" name="address" placeholder="Alamat" class="form-control">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="col-md-4">
                                     <label for="no_telp" class="form-label">No Telepon</label>
-                                    <div class="input-group">
-                                        <input id="no_telp" name="no_telp" class="form-control" type="text">
-                                    </div>
+                                    <input id="no_telp" name="no_telp" class="form-control" placeholder="No Telepon" type="text">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="col-md-4">
                                     <label for="no_hp" class="form-label">No HP</label>
-                                    <div class="input-group">
-                                        <input id="no_hp" name="no_hp" class="form-control" type="text">
-                                    </div>
+                                    <input id="no_hp" name="no_hp" class="form-control" placeholder="No Handphone" type="text">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="col-md-4">
                                     <label for="no_fax" class="form-label">No Fax</label>
-                                    <div class="input-group">
-                                        <input id="no_fax" name="no_fax" class="form-control">
-                                    </div>
+                                    <input id="no_fax" name="no_fax" placeholder="No Fax" class="form-control">
                                 </div>   
                             </div>
-                            <br>
-                            <button class="btn btn-danger" onclick="cancel();" type="button"><span>Cancel</span></button>
-                            <button class="btn btn-warning" type="reset"><span>Reset</span></button>
-                            <button type="submit" class="btn btn-primary"><span>Simpan</span></button>
+                            <div class=" col-md-12">
+                                <br>
+                                <button class="btn btn-danger" onclick="cancel();" type="button"><span>Cancel</span></button>
+                                <button class="btn btn-warning" type="reset"><span>Reset</span></button>
+                                <button type="submit" class="btn btn-primary"><span>Simpan</span></button>
+                            <div>
                         </form>
                     </div>
                 </div>
