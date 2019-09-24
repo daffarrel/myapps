@@ -88,36 +88,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
 
     function del(id) {
-        swal({
+        swal.fire({
             title: 'Apakah Anda Yakin ?',
             text: 'Anda Tidak Akan Bisa Merecover Kembali Data Yang Sudah Anda Hapus !',
-            icon: 'warning',
-            buttons: true,
-            dangerMode: true,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
         }).then((willDelete) => {
-            if (willDelete) {
+            if (willDelete.value) {
                 $.ajax({
                     url : "<?php echo site_url('route/delete')?>/"+id,
                     type: "POST",
                     dataType: "JSON",
                     success: function(data)
                     {
-                        swal('Data Anda Sudah Dihapus', {
-                            icon: 'success',
-                        });
+                        swal.fire('Terhapus','Data Anda Sudah Dihapus','success');
                         reload_table();
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {
-                        swal("Data Anda Tidak Jadi Dihapus",{
-                            icon:'error',
-                        });
+                        swal.fire("Gagal","Data Anda Tidak Jadi Dihapus","error");
                     }
                 });
             } else {
-                swal('Data Anda Tidak Jadi Dihapus',{
-                    icon:'error'
-                });
+                swal.fire("Batal","Data Anda Tidak Jadi Dihapus","warning");
             }
         });
     }
