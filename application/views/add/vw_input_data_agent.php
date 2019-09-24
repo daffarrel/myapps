@@ -20,6 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-12 col-md-6 col-lg-12">
                     <div class="box box-default">
                         <div class="box-body">
+                            <?php echo $this->session->flashdata('notif');?>
                             <form id="form_input_dok" action="<?php echo base_url('agent/addData')?>" method="POST" enctype="multipart/form-data">
                                 <div class="form-row">
                                     <div class="col-md-6">
