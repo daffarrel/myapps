@@ -64,7 +64,7 @@ class M_container extends MY_Model {
     }
 
     public function getData($id){
-        $this->db->from($this->table);
+        $this->db->from($this->view);
         $this->db->where('idm_container',$id);
         $query = $this->db->get();
 

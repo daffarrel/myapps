@@ -128,7 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     function edit(id) {
-        window.location.replace('<?php echo site_url('shipment/arr_edit')?>'+id);
+        window.location.replace('<?php echo site_url('shipment/arr_edit/')?>'+id);
     }
 
     $(document).ready(function(){

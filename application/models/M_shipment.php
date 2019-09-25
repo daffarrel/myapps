@@ -184,7 +184,7 @@ class M_shipment extends MY_Model {
 
     public function getDataArr($id){
         $this->db->from($this->view_arr);
-        $this->db->where('id_doc',$id);
+        $this->db->where('id_ship_arr',$id);
         $query = $this->db->get();
 
         if($query->num_rows() > 0)
@@ -342,7 +342,6 @@ class M_shipment extends MY_Model {
             'ship_name'             => $ship_name,
             'td'                    => $td,
             'weight'                => $weight,
-            'weight_remains'        => $weight,
             'arrival_date'          => $arrival_date,
             'unload_load_date'      => $unload_load_date,
         );
@@ -376,7 +375,6 @@ class M_shipment extends MY_Model {
             'ship_name'             => $ship_name,
             'td'                    => $td,
             'weight'                => $weight,
-            'weight_remains'        => $weight,
             'arrival_date'          => $arrival_date,
             'unload_load_date'      => $unload_load_date,
         );
