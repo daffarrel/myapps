@@ -31,7 +31,7 @@ class Route extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->destination;
             $row[] = '<center style="font-size: small">'.$r->type;
             $row[] = '<center style="font-size: small">'.$r->size;
-            $row[] = '<center style="font-size: small">'.$r->fare;
+            $row[] = '<center style="font-size: small">'."Rp. ".$this->rupiah($r->fare);
 
             $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_route."'".')">E</a>
                               <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_route."'".')">X</a>';

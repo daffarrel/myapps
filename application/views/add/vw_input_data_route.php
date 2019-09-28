@@ -84,7 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Biaya</label>
-                                        <input required id="biaya" name="biaya" class="form-control" type="text">
+                                        <input required id="biaya" name="biaya" class="form-control uang" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -105,4 +105,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     function cancel() {
         window.location.replace('<?php echo site_url('main/master/route')?>')
     }
+
+    $(document).ready(function(){
+        // Format mata uang.
+        $( '.uang' ).mask('000.000.000', {reverse: true});
+    });
 </script>
