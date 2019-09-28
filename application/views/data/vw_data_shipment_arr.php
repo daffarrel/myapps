@@ -135,8 +135,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     data.tgl_bm_akhir   = $('#tgl_bm_akhir').val();
                     data.tgl_tiba_awal  = $('#tgl_tiba_awal').val();
                     data.tgl_tiba_akhir = $('#tgl_tiba_akhir').val();
-                    data.tgl_bl_awal    = $('#tgl_bl_awal').val();
-                    data.tgl_bl_akhir   = $('#tgl_bl_akhir').val();
                 }
             },
         });

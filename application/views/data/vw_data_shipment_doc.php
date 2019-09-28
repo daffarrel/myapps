@@ -42,10 +42,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <br><br><br>
                                 <div class="col-md-3">
-                                    <input id="tgl_ba_awal" placeholder="Tgl Kapal Tiba (Awal)" class="form-control tanggal" type="text">
+                                    <input id="tgl_kapal_awal" placeholder="Tgl Kapal Tiba (Awal)" class="form-control tanggal" type="text">
                                 </div>
                                 <div class="col-md-3">
-                                    <input id="tgl_ba_akhir" placeholder="Tgl Kapal (Akhir)" class="form-control tanggal" type="text">    
+                                    <input id="tgl_kapal_akhir" placeholder="Tgl Kapal (Akhir)" class="form-control tanggal" type="text">    
                                 </div>
                             </div>
                             <br>
@@ -141,10 +141,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     data.receiver       = $('#receiver').val();
                     data.product        = $('#product').val();
                     data.agent          = $('#agent').val();
-                    data.tgl_ba_awal    = $('#tgl_ba_awal').val();
-                    data.tgl_ba_akhir   = $('#tgl_ba_akhir').val();
-                    data.tgl_doc_awal   = $('#tgl_doc_awal').val();
-                    data.tgl_doc_akhir  = $('#tgl_doc_akhir').val();
+                    data.tgl_kapal_awal    = $('#tgl_kapal_awal').val();
+                    data.tgl_kapal_akhir   = $('#tgl_kapal_akhir').val();
                 }
             },
         });

@@ -54,11 +54,8 @@ class M_shipment extends MY_Model {
         if($this->input->post('product')) {
             $this->db->like('product', $this->input->post('product'));
         }
-        if($this->input->post('tgl_ba_awal') && $this->input->post('tgl_ba_akhir')) {
-            $this->db->where('ba_recv_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_ba_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_ba_akhir'))) . '"');
-        }
-        if($this->input->post('tgl_doc_awal') && $this->input->post('tgl_doc_akhir')) {
-            $this->db->where('process_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_doc_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_doc_akhir'))) . '"');
+        if($this->input->post('tgl_kapal_awal') && $this->input->post('tgl_kapal_akhir')) {
+            $this->db->where('ship_arrival_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_kapal_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_kapal_akhir'))) . '"');
         }
 
         $this->db->from($this->view);
@@ -124,9 +121,6 @@ class M_shipment extends MY_Model {
         }
         if($this->input->post('tgl_bm_awal') && $this->input->post('tgl_bm_akhir')) {
             $this->db->where('unload_load_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_bm_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_bm_akhir'))) . '"');
-        }
-        if($this->input->post('tgl_bl_awal') && $this->input->post('tgl_bl_akhir')) {
-            $this->db->where('bl_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_bl_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_bl_akhir'))) . '"');
         }
 
         $this->db->from($this->view_arr);
