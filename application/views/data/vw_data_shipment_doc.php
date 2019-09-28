@@ -42,16 +42,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <br><br><br>
                                 <div class="col-md-3">
-                                    <input id="tgl_ba_awal" placeholder="Tgl BA (Awal)" class="form-control tanggal" type="text">
+                                    <input id="tgl_ba_awal" placeholder="Tgl Kapal Tiba (Awal)" class="form-control tanggal" type="text">
                                 </div>
                                 <div class="col-md-3">
-                                    <input id="tgl_ba_akhir" placeholder="Tgl BA (Akhir)" class="form-control tanggal" type="text">    
-                                </div>
-                                <div class="col-md-3">
-                                    <input id="tgl_doc_awal" placeholder="Tgl Doc (Awal)" class="form-control tanggal" type="text">     
-                                </div>
-                                <div class="col-md-3">
-                                    <input id="tgl_doc_akhir" placeholder="Tgl Doc (Akhir)" class="form-control tanggal" type="text">      
+                                    <input id="tgl_ba_akhir" placeholder="Tgl Kapal (Akhir)" class="form-control tanggal" type="text">    
                                 </div>
                             </div>
                             <br>
@@ -74,6 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th><center>No.Cont</th>
                             <th><center>Tgl.BA</th>
                             <th><center>Tgl.Doc</th>
+                            <th><center>Tgl.Kpl Tiba</th>
                             <th><center>Cmpy</th>
                             <th><center>Agent</th>
                             <th><center>Origin</th>
@@ -94,6 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th><center>No.Cont</th>
                             <th><center>Tgl.BA</th>
                             <th><center>Tgl.Doc</th>
+                            <th><center>Tgl.Kpl Tiba</th>
                             <th><center>Cmpy</th>
                             <th><center>Agent</th>
                             <th><center>Origin</th>

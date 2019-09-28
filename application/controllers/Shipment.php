@@ -52,6 +52,7 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->container_number;
             $row[] = '<center style="font-size: small">'.$r->ba_recv_date;
             $row[] = '<center style="font-size: small">'.$r->process_date;
+            $row[] = '<center style="font-size: small">'.$r->ship_arrival_date;
             $row[] = '<center style="font-size: small">'.$r->company;
             $row[] = '<center style="font-size: small">'.$r->agent;
             $row[] = '<center style="font-size: small">'.$r->origin_city;

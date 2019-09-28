@@ -51,19 +51,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-md-2">
                                     <input id="tgl_bm_akhir" placeholder="Tgl BM (Akhir)" class="form-control" type="text">          
                                 </div>
-                                <br><br><br>
-                                <div class="col-md-3">
-                                    <input id="tgl_bl_awal" placeholder="Tgl BL (Awal)" class="form-control tanggal" type="text">
-                                </div>
-                                <div class="col-md-3">
-                                    <input id="tgl_bl_akhir" placeholder="Tgl BL (Akhir)" class="form-control tanggal" type="text">    
-                                </div>
-                                <div class="col-md-3">
-                                    <input id="tgl_doc_awal" placeholder="Tgl Doc (Awal)" class="form-control tanggal" type="text">     
-                                </div>
-                                <div class="col-md-3">
-                                    <input id="tgl_doc_akhir" placeholder="Tgl Doc (Akhir)" class="form-control tanggal" type="text">      
-                                </div>
                             </div>
                             <br>
                             <div class="form-group">
