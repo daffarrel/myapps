@@ -124,6 +124,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             serverSide: true, //Feature control DataTables' server-side processing mode.
             order: [], //Initial no order.
             autowidth : true,
+            "lengthMenu" : [[25, 30, 100,500, -1], [25, 30, 100,500, "All"]],
 
             // Load data for the table's content from an Ajax source
             ajax: {
