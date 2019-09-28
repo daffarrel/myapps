@@ -151,6 +151,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#form-filter')[0].reset();
             table.ajax.reload();  //just reload table
         });
+
+        $('.tanggal').datepicker({
+            autoclose: true,
+            format:"yyyy-mm-dd",
+        });
     });
 
     function del(id) {

@@ -203,10 +203,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     }
 
-    $('.tanggal').bootstrapMaterialDatePicker({
-        format: 'YYYY-MM-DD',
-        clearButton: true,
-        weekStart: 1,
-        time: false
+    $('.tanggal').datepicker({
+            autoclose: true,
+            format:"yyyy-mm-dd",
     });
 </script>
