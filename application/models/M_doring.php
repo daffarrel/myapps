@@ -6,7 +6,7 @@ class M_doring extends MY_Model {
     var $view              = 'vw_doring';
 
     var $column_order      = array('id_doring',null,null,null,null,null,null,null,null,null,null,null,null,null,null); //set column field database for datatable orderable
-    var $column_search     = array('seal_number','container_number','ba_recv_date','process_date','company','agent','origin_city','shipper','receiver','report_num','safeconduct_num','product'); //set column field database for datatable searchable
+    var $column_search     = array('seal_number','on_chassis','unload_date','route_name','plate_number','driver_name','safeconduct_num'); //set column field database for datatable searchable
     var $order             = array('id_doring' => 'asc'); // default order
 
     function get_datatables_query() {

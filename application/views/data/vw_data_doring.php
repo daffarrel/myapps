@@ -18,6 +18,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="box-header">
                     <button class="btn btn-primary" onclick="add()"> <span>Tambah Data</span></button><br><br>   
                 </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" >Custom Filter : </h3>
+                    </div>
+                    <div class="panel-body">
+                        <form id="form-filter">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input id="tgl_bongkar_awal" placeholder="Tgl Bongkar Tiba (Awal)" class="form-control tanggal" type="text">
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="tgl_bongkar_akhir" placeholder="Tgl Bongkar (Akhir)" class="form-control tanggal" type="text">    
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="tgl_muat_awal" placeholder="Tgl Muat (Awal)" class="form-control tanggal" type="text">
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="tgl_muat_akhir" placeholder="Tgl Muat (Akhir)" class="form-control tanggal" type="text">    
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="LastName" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <button type="button" id="btn-filter" class="btn btn-warning">Filter</button>
+                                    <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="box-body table-responsive">
                     <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable" cellspacing="0" width="100%" role="grid" >
                         <thead>
@@ -85,13 +116,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "url": "<?php echo site_url('doring/ajax_list')?>" ,
                 "type": "POST",
                 "data": function ( data ) {
-                    data.kapal          = $('#kapal').val();
-                    data.tgl_bm_awal    = $('#tgl_bm_awal').val();
-                    data.tgl_bm_akhir   = $('#tgl_bm_akhir').val();
-                    data.tgl_tiba_awal  = $('#tgl_tiba_awal').val();
-                    data.tgl_tiba_akhir = $('#tgl_tiba_akhir').val();
-                    data.tgl_bl_awal    = $('#tgl_bl_awal').val();
-                    data.tgl_bl_akhir   = $('#tgl_bl_akhir').val();
+                    data.tgl_bongkar_awal    = $('#tgl_bongkar_awal').val();
+                    data.tgl_bongkar_akhir   = $('#tgl_bongkar_akhir').val();
+                    data.tgl_muat_awal  = $('#tgl_muat_awal').val();
+                    data.tgl_muat_akhir = $('#tgl_muat_akhir').val();
                 }
             },
         });

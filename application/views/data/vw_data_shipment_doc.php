@@ -65,7 +65,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <th><center>No</th>
                             <th><center>No.Seal</th>
-                            <th><center>No.Cont</th>
                             <th><center>Tgl.BA</th>
                             <th><center>Tgl.Doc</th>
                             <th><center>Tgl.Kpl Tiba</th>
@@ -86,7 +85,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <th><center>No</th>
                             <th><center>No.Seal</th>
-                            <th><center>No.Cont</th>
                             <th><center>Tgl.BA</th>
                             <th><center>Tgl.Doc</th>
                             <th><center>Tgl.Kpl Tiba</th>
