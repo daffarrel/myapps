@@ -25,7 +25,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <select id="no_seal" name="no_seal" class="form-control select2" style="width: 100%;">
                                     <?php
                                         foreach($attr['seal'] as $data){
-                                            echo '<option value"'.$data->id_doc.'">'.$data->seal_number.'</option>';
+                                            if($data->id_doc == $attr['data']->id_doc)
+                                                echo '<option selected value"'.$data->id_doc.'">'.$data->seal_number.'</option>';
+                                            else
+                                                echo '<option value"'.$data->id_doc.'">'.$data->seal_number.'</option>';
                                         }
                                     ?>
                                 </select>
@@ -34,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="form-group">
                             <label for="no_surat_jalan" class="col-sm-2 control-label">No Surat Jalan</label>
                             <div class="col-md-3 col-sm-10">
-                                <input type="text" class="form-control" id="no_surat_jalan" name="no_surat_jalan"/>
+                                <input type="text" value="<?= $attr['data']->no_surat_jalan ?>" class="form-control" id="no_surat_jalan" name="no_surat_jalan"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -43,7 +46,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <select id="rute" name="rute" class="form-control select2" style="width: 100%;">
                                     <?php
                                         foreach($attr['rute'] as $data){
-                                            echo '<option value"'.$data->idm_route.'">'.$data->route_name.' ('.$data->origin.' => '.$data->destination.')</option>';
+                                            if($data->idm_route == $attr['data']->id_route)
+                                                echo '<option selected value"'.$data->idm_route.'">'.$data->route_name.' ('.$data->origin.' => '.$data->destination.')</option>';
+                                            else
+                                                echo '<option value"'.$data->idm_route.'">'.$data->route_name.' ('.$data->origin.' => '.$data->destination.')</option>';
                                         }
                                     ?>
                                 </select>
@@ -53,21 +59,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <label for="dk_lk" class="col-sm-2 control-label">DK/LK</label>
                             <div class="col-md-3 col-sm-10">
                                 <select id="dk_lk" class="form-control">
-                                    <option value="DK">Dalam Kota</option>
-                                    <option value="LK">Luar Kota</option>
+                                    <?php
+                                        if($attr['data']->dk_lk == "DK"){
+                                    ?>
+                                            <option selected value="DK">Dalam Kota</option>
+                                            <option value="LK">Luar Kota</option>
+                                    <?php
+                                        }
+                                        else{
+                                    ?>
+                                        <option value="DK">Dalam Kota</option>
+                                        <option selected value="LK">Luar Kota</option>
+                                    <?php
+                                        }
+                                    ?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="door" class="col-sm-2 control-label">Tanggal Bongkar</label>
                             <div class="col-md-3 col-sm-10">
-                                <input type="text" class="form-control datepicker" name="door" id="door"/>
+                                <input type="text" value="<?= $attr['data']->on_chassis ?>" class="form-control datepicker" name="door" id="door"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="on_chassis" class="col-sm-2 control-label">Tanggal Muat</label>
                             <div class="col-md-3 col-sm-10">
-                                <input type="text" class="form-control datepicker" name="on_chassis" id="on_chassis"/>
+                                <input type="text" value="<?= $attr['data']->unload_date ?>" class="form-control datepicker" name="on_chassis" id="on_chassis"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -76,7 +94,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <select id="truck" name="truck" class="form-control select2" style="width: 100%;">
                                     <?php
                                         foreach($attr['truck'] as $data){
-                                            echo '<option value"'.$data->idm_truck.'">'.$data->truck_code.' ('.$data->plate_number.')</option>';
+                                            if($data->idm_truck == $attr['data']->id_truck)
+                                                echo '<option selected value"'.$data->idm_truck.'">'.$data->truck_code.' ('.$data->plate_number.')</option>';
+                                            else
+                                                echo '<option value"'.$data->idm_truck.'">'.$data->truck_code.' ('.$data->plate_number.')</option>';
                                         }
                                     ?>
                                 </select>
@@ -88,7 +109,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <select id="supir" name="supir" class="form-control select2" style="width: 100%;">
                                     <?php
                                         foreach($attr['supir'] as $data){
-                                            echo '<option value"'.$data->idm_driver.'">'.$data->driver_name.' ('.$data->license_number.')</option>';
+                                            if($data->idm_driver == $attr['data']->id_driver)
+                                                echo '<option selected value"'.$data->idm_driver.'">'.$data->driver_name.' ('.$data->license_number.')</option>';
+                                            else
+                                                echo '<option value"'.$data->idm_driver.'">'.$data->driver_name.' ('.$data->license_number.')</option>';
                                         }
                                     ?>
                                 </select>

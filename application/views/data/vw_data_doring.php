@@ -24,7 +24,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <th><center>No</th>
                             <th><center>No Seal</th>
-                            <th><center>Tanggal</th>
                             <th><center>No Surat Jalan</th>
                             <th><center>Rute</th>
                             <th><center>DK/LK</th>
@@ -41,7 +40,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <th><center>No</th>
                             <th><center>No Seal</th>
-                            <th><center>Tanggal</th>
                             <th><center>No Surat Jalan</th>
                             <th><center>Rute</th>
                             <th><center>DK/LK</th>
@@ -84,7 +82,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             // Load data for the table's content from an Ajax source
             ajax: {
-                "url": "<?php echo site_url('shipment/ajax_list_arr')?>" ,
+                "url": "<?php echo site_url('doring/ajax_list')?>" ,
                 "type": "POST",
                 "data": function ( data ) {
                     data.kapal          = $('#kapal').val();
@@ -124,7 +122,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }).then((willDelete) => {
             if (willDelete.value) {
                 $.ajax({
-                    url : "<?php echo site_url('shipment/deleteArr')?>/"+id,
+                    url : "<?php echo site_url('doring/delete')?>/"+id,
                     type: "POST",
                     dataType: "JSON",
                     success: function(data)
@@ -143,10 +141,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     }
 
-    $('.tanggal').bootstrapMaterialDatePicker({
-        format: 'YYYY-MM-DD',
-        clearButton: true,
-        weekStart: 1,
-        time: false
+    $('.tanggal').datepicker({
+            autoclose: true,
+            format:"yyyy-mm-dd",
     });
 </script>

@@ -28,17 +28,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="agent_name" class="form-label">No. Container</label>
-                                        <select id="no_kontainer" name="no_kontainer" class="form-control select2">
+                                        <label for="alamat" class="form-label">Size</label>
+                                        <select required id="size" name="size" class="form-control">
                                             <?php
-                                                foreach ($attr['container'] as $data){
-                                                    if($data->idm_container == $attr['data']->idm_container )
-                                                        echo '<option selected value="'.$data->idm_container.'">'.$data->container_number.'</option>'; 
-                                                    else
-                                                        echo '<option value="'.$data->idm_container.'">'.$data->container_number.'</option>';                   
+                                                if($attr['data']->size == '20') {
+                                                    ?>
+                                                    <option selected value="20">20</option>
+                                                    <?php
+                                                }
+                                                else {
+                                                    ?>
+                                                    <option value="20">20</option>
+                                                    <?php
+                                                }
+                                                if($attr['data']->size == '40') {
+                                                    ?>
+                                                    <option selected value="40">40</option>
+                                                    <?php
+                                                }
+                                                else {
+                                                    ?>
+                                                    <option value="40">40</option>
+                                                    <?php
+                                                }
+                                                if($attr['data']->size == 'N') {
+                                                    ?>
+                                                    <option selected value="N">N</option>
+                                                    <?php
+                                                }
+                                                else {
+                                                    ?>
+                                                    <option value="N">N</option>
+                                                    <?php
                                                 }
                                             ?>
-                                        </select>                                        
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -51,6 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Perusahaan</label>
                                         <select required id="cmpy" name="cmpy" class="form-control select selectpicker show-tick">
+                                            <option value="">----</option>
                                             <?php
                                                 foreach ($attr['company'] as $data){
                                                     if($data->subID == $attr['data']->idm_company)
@@ -66,6 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Agent</label>
                                         <select required id="agent" name="agent" class="form-control select2">
+                                            <option value="">----</option>
                                             <?php
                                                 foreach ($attr['agent'] as $data){
                                                     if($data->idm_agent == $attr['data']->idm_agent)
@@ -87,6 +113,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Kota Asal</label>
                                         <select required id="kota_asal" name="kota_asal" class="form-control select2">
+                                            <option value="">----</option>
                                             <?php
                                                 foreach ($attr['city'] as $data){
                                                     if($data->idm_city == $attr['data']->idm_city)
@@ -102,6 +129,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Pengirim</label>
                                         <select id="shipper" name="shipper" class="form-control select2" >
+                                            <option value="">----</option>
                                             <?php
                                             foreach ($attr['shipper'] as $data){
                                                 if($data->idm_shipper == $attr['data']->idm_shipper)
@@ -117,6 +145,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Penerima</label>
                                         <select id="receiver" name="receiver" class="form-control select2">
+                                            <option value="">----</option>
                                             <?php
                                             foreach ($attr['receiver'] as $data){  
                                                 if($data->idm_receiver == $attr['data']->idm_receiver)

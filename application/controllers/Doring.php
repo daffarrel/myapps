@@ -28,17 +28,17 @@ class Doring extends MY_Controller{
             $no++;
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
-            $row[] = '<center style="font-size: small">'.$r->receiver_name;
-            $row[] = '<center style="font-size: small">'.$r->address;
-            $row[] = '<center style="font-size: small">'.$r->city;
-            $row[] = '<center style="font-size: small">'.$r->telp;
-            $row[] = '<center style="font-size: small">'.$r->hp;
-            $row[] = '<center style="font-size: small">'.$r->fax;
-            $row[] = '<center style="font-size: small">'.$r->corporate_name;
-            $row[] = '<center style="font-size: small">'.$r->bank_name.'/'.$r->account_number;
+            $row[] = '<center style="font-size: small">'.$r->seal_number;
+            $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
+            $row[] = '<center style="font-size: small">'.$r->route_name;
+            $row[] = '<center style="font-size: small">'.$r->dk_lk;
+            $row[] = '<center style="font-size: small">'.$r->on_chassis;
+            $row[] = '<center style="font-size: small">'.$r->unload_date;
+            $row[] = '<center style="font-size: small">'.$r->plate_number;
+            $row[] = '<center style="font-size: small">'.$r->driver_name;
 
-            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_receiver."'".')">E</a>
-                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_receiver."'".')">X</a>';
+            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doring."'".')">E</a>
+                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doring."'".')">X</a>';
             //add html for action
 
             $data[] = $row;

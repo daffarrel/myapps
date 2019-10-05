@@ -27,14 +27,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="agent_name" class="form-label">No. Container</label>
-                                        <select id="no_kontainer" name="no_kontainer" class="form-control select2">
-                                            <?php
-                                            foreach ($attr['container'] as $data){
-                                                echo '<option value="'.$data->idm_container.'">'.$data->container_number.'</option>';                
-                                            }
-                                            ?>
-                                        </select>                                        
+                                        <label for="size" class="form-label">Size</label>
+                                        <select required id="size" name="size" class="form-control">
+                                            <option value="20">20</option>
+                                            <option value="40">40</option>
+                                            <option value="N">N</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -47,6 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Perusahaan</label>
                                         <select required id="cmpy" name="cmpy" class="form-control select2">
+                                            <option value="">----</option>
                                             <?php
                                                 foreach ($attr['company'] as $data){
                                                     ?>
@@ -61,6 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Agent</label>
                                         <select required id="agent" name="agent" class="form-control select2">
+                                            <option value="">----</option>
                                             <?php
                                                 foreach ($attr['agent'] as $data){
                                                     ?>
@@ -81,6 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Kota Asal</label>
                                         <select required id="kota_asal" name="kota_asal" class="form-control select2">
+                                            <option value="">----</option>
                                             <?php
                                                 foreach ($attr['city'] as $data){
                                                     ?>
@@ -95,6 +96,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Pengirim</label>
                                         <select id="shipper" name="shipper" class="form-control select2">
+                                            <option value="">----</option>
                                             <?php
                                             foreach ($attr['shipper'] as $data){
                                                 ?>
@@ -109,6 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Penerima</label>
                                         <select id="receiver" name="receiver" class="form-control select2">
+                                            <option value="">----</option>
                                             <?php
                                             foreach ($attr['receiver'] as $data){
                                                 ?>

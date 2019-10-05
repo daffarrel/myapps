@@ -143,7 +143,6 @@
                     <li><a href="<?php echo base_url("main/master/agent");?>">Data Agen</a></li>
                     <li><a href="<?php echo base_url("main/master/bank");?>">Data Bank</a></li>
                     <li><a href="<?php echo base_url("main/master/city");?>">Data Kota</a></li>
-                    <li><a href="<?php echo base_url("main/master/container");?>">Data Kontainer</a></li>
                     <li><a href="<?php echo base_url("main/master/driver");?>">Data Supir</a></li>
                     <li><a href="<?php echo base_url("main/master/receiver");?>">Data Penerima</a></li>
                     <li><a href="<?php echo base_url("main/master/route");?>">Data Rute</a></li>
