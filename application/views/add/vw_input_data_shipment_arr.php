@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <select id="no_seal" name="no_seal" class="form-control select2">
                                             <?php
                                             foreach ($attr['seal'] as $data){
-                                                echo '<option value="'.$data->id_doc.'">'.$data->seal_number.'</option>';                
+                                                echo '<option value="'.$data->id_doc.'">'.$data->seal_number.' => '.$data->size.'</option>';                
                                             }
                                             ?>
                                         </select>                                        

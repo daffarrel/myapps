@@ -42,10 +42,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <br><br><br>
                                 <div class="col-md-3">
+                                    <input id="nama_kapal" placeholder="Nama Kapal" class="form-control" type="text">          
+                                </div>
+                                <div class="col-md-3">
                                     <input id="tgl_kapal_awal" placeholder="Tgl Kapal Tiba (Awal)" class="form-control tanggal" type="text">
                                 </div>
                                 <div class="col-md-3">
-                                    <input id="tgl_kapal_akhir" placeholder="Tgl Kapal (Akhir)" class="form-control tanggal" type="text">    
+                                    <input id="tgl_kapal_akhir" placeholder="Tgl Kapal Tiba (Akhir)" class="form-control tanggal" type="text">    
                                 </div>
                             </div>
                             <br>
@@ -65,6 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <th><center>No</th>
                             <th><center>No.Seal</th>
+                            <th><center>Nama Kapal</th>
                             <th><center>Tgl.BA</th>
                             <th><center>Tgl.Doc</th>
                             <th><center>Tgl.Kpl Tiba</th>
@@ -85,6 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <th><center>No</th>
                             <th><center>No.Seal</th>
+                            <th><center>Nama Kapal</th>
                             <th><center>Tgl.BA</th>
                             <th><center>Tgl.Doc</th>
                             <th><center>Tgl.Kpl Tiba</th>
@@ -139,6 +144,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     data.receiver       = $('#receiver').val();
                     data.product        = $('#product').val();
                     data.agent          = $('#agent').val();
+                    data.nama_kapal        = $('#nama_kapal').val();
                     data.tgl_kapal_awal    = $('#tgl_kapal_awal').val();
                     data.tgl_kapal_akhir   = $('#tgl_kapal_akhir').val();
                 }
@@ -159,6 +165,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             table.ajax.reload();
         } );
         $('#company').keyup( function() {
+            table.ajax.reload();
+        } );
+        $('#nama_kapal').keyup( function() {
             table.ajax.reload();
         } );
         $('#btn-filter').click(function(){ //button filter event click

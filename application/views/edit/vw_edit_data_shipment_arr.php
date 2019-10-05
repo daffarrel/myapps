@@ -27,9 +27,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <?php
                                             foreach ($attr['seal'] as $data){
                                                 if($data->id_doc == $attr['data']->id_doc )
-                                                    echo '<option selected value="'.$data->id_doc.'">'.$data->seal_number.'</option>';
+                                                    echo '<option selected value="'.$data->id_doc.'">'.$data->seal_number.' => '.$data->size.'</option>';
                                                 else
-                                                    echo '<option value="'.$data->id_doc.'">'.$data->seal_number.'</option>';                   
+                                                    echo '<option value="'.$data->id_doc.'">'.$data->seal_number.' => '.$data->size.'</option>';                   
                                             }
                                             ?>
                                         </select>                                        

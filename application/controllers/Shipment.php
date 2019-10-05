@@ -48,7 +48,8 @@ class Shipment extends MY_Controller{
             $no++;
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
-            $row[] = '<center style="font-size: small">'.$r->seal_number;
+            $row[] = '<center style="font-size: small"><a class="btn" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doc."'".')">'.$r->seal_number.'</a>';
+            $row[] = '<center style="font-size: small">'.$r->ship_name;
             $row[] = '<center style="font-size: small">'.$r->ba_recv_date;
             $row[] = '<center style="font-size: small">'.$r->process_date;
             $row[] = '<center style="font-size: small">'.$r->ship_arrival_date;
@@ -61,8 +62,7 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
             $row[] = '<center style="font-size: small">'.$r->product;
 
-            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doc."'".')">E</a>
-                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
+            $row[] = '<center><a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
 
             //add html for action
 
@@ -88,7 +88,7 @@ class Shipment extends MY_Controller{
             $no++;
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
-            $row[] = '<center style="font-size: small">'.$r->seal_number;
+            $row[] = '<center style="font-size: small"><a class="btn" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_ship_arr."'".')">'.$r->seal_number.'</a>';
             $row[] = '<center style="font-size: small">'.$r->bl_number;
             $row[] = '<center style="font-size: small">'.$r->bl_date;
             $row[] = '<center style="font-size: small">'.$r->ship_name;
@@ -97,8 +97,7 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->arrival_date;
             $row[] = '<center style="font-size: small">'.$r->unload_load_date;
 
-            $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_ship_arr."'".')">E</a>
-                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_ship_arr."'".')">X</a>';
+            $row[] = '<center><a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_ship_arr."'".')">X</a>';
 
             //add html for action
 

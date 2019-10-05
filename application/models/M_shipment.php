@@ -54,6 +54,9 @@ class M_shipment extends MY_Model {
         if($this->input->post('product')) {
             $this->db->like('product', $this->input->post('product'));
         }
+        if($this->input->post('nama_kapal')) {
+            $this->db->like('ship_name', $this->input->post('nama_kapal'));
+        }
         if($this->input->post('tgl_kapal_awal') && $this->input->post('tgl_kapal_akhir')) {
             $this->db->where('ship_arrival_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_kapal_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_kapal_akhir'))) . '"');
         }
@@ -204,7 +207,7 @@ class M_shipment extends MY_Model {
     }
 
     public function getSeal(){
-        $this->db->select('id_doc,seal_number');
+        $this->db->select('id_doc,seal_number,size');
         $this->db->where('done','0');
         $this->db->from($this->view);
         $query = $this->db->get();
@@ -215,12 +218,12 @@ class M_shipment extends MY_Model {
 
     public function saveData($post){
         $seal_number        = $this->db->escape_str($post['no_seal']);
+        $size               = $this->db->escape_str($post['size']);
         $process_date       = $this->db->escape_str($post['tgl_proses_dok']);
         $company            = $this->db->escape_str($post['cmpy']);
         $ba_recv_date       = $this->db->escape_str($post['tgl_ba']);
         $id_agent           = $this->db->escape_str($post['agent']);
         $origin_city        = $this->db->escape_str($post['kota_asal']);
-        $id_container       = $this->db->escape_str($post['no_kontainer']);
         $id_shipper         = $this->db->escape_str($post['shipper']);
         $id_receiver        = $this->db->escape_str($post['receiver']);
         $report_num         = $this->db->escape_str($post['no_ba']);
@@ -234,12 +237,12 @@ class M_shipment extends MY_Model {
 
         $data = array(
             'seal_number'           => $seal_number,
+            'size'                  => $size,
             'process_date'          => $process_date,
             'company'               => $company,
             'ba_recv_date'          => $ba_recv_date,
             'id_agent'              => $id_agent,
             'origin_city'           => $origin_city,
-            'id_container'          => $id_container,
             'id_shipper'            => $id_shipper,
             'id_receiver'           => $id_receiver,
             'report_num'            => $report_num,
@@ -262,12 +265,12 @@ class M_shipment extends MY_Model {
 
     public function updateData($post){
         $seal_number        = $this->db->escape_str($post['no_seal']);
+        $size               = $this->db->escape_str($post['size']);
         $process_date       = $this->db->escape_str($post['tgl_proses_dok']);
         $company            = $this->db->escape_str($post['cmpy']);
         $ba_recv_date       = $this->db->escape_str($post['tgl_ba']);
         $id_agent           = $this->db->escape_str($post['agent']);
         $origin_city        = $this->db->escape_str($post['kota_asal']);
-        $id_container       = $this->db->escape_str($post['no_kontainer']);
         $id_shipper         = $this->db->escape_str($post['shipper']);
         $id_receiver        = $this->db->escape_str($post['receiver']);
         $report_num         = $this->db->escape_str($post['no_ba']);
@@ -285,12 +288,12 @@ class M_shipment extends MY_Model {
 
         $data = array(
             'seal_number'           => $seal_number,
+            'size'                  => $size,
             'process_date'          => $process_date,
             'company'               => $company,
             'ba_recv_date'          => $ba_recv_date,
             'id_agent'              => $id_agent,
             'origin_city'           => $origin_city,
-            'id_container'          => $id_container,
             'id_shipper'            => $id_shipper,
             'id_receiver'           => $id_receiver,
             'report_num'            => $report_num,
