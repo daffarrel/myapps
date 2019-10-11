@@ -28,7 +28,7 @@ class Doring extends MY_Controller{
             $no++;
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
-            $row[] = '<center style="font-size: small"><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doring."'".')">'.$r->seal_number.'</a>';
+            $row[] = '<center style="font-size: small"><a class="btn" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doring."'".')">'.$r->seal_number.'</a>';
             $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
             $row[] = '<center style="font-size: small">'.$r->route_name;
             $row[] = '<center style="font-size: small">'.$r->dk_lk;
