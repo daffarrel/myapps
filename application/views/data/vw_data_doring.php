@@ -54,13 +54,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No Seal</th>
+                            <th><center>No Petikemas/No Seal</th>
                             <th><center>No Surat Jalan</th>
                             <th><center>Rute</th>
                             <th><center>DK/LK</th>
-                            <th><center>Tgl Muat</th>
-                            <th><center>Tgl Bongkar</th>
-                            <th><center>No. Polisi</th>
+                            <th><center>Tanggal Muat</th>
+                            <th><center>Tanggal Bongkar</th>
+                            <th><center>No Polisi</th>
                             <th><center>Driver</th>
                             <th><center>Aksi</th>
                         </tr>
@@ -70,13 +70,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tfoot>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No Seal</th>
+                            <th><center>No Petikemas/No Seal</th>
                             <th><center>No Surat Jalan</th>
                             <th><center>Rute</th>
                             <th><center>DK/LK</th>
-                            <th><center>Tgl Muat</th>
-                            <th><center>Tgl Bongkar</th>
-                            <th><center>No. Polisi</th>
+                            <th><center>Tanggal Muat</th>
+                            <th><center>Tanggal Bongkar</th>
+                            <th><center>No Polisi</th>
                             <th><center>Driver</th>
                             <th><center>Aksi</th>
                         </tr>
@@ -110,6 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             order       : [], //Initial no order.
             autowidth   : true,
             ordering    : false,
+            "scrollX"   : true,
 
             // Load data for the table's content from an Ajax source
             ajax: {
