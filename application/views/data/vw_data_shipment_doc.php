@@ -63,22 +63,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                 <div class="box-body table-responsive">
-                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable" cellspacing="0" width="100%" role="grid" >
+                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable nowrap" cellspacing="0" role="grid" >
                         <thead>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No.Seal</th>
+                            <th><center>No Petikemas/No Seal</th>
                             <th><center>Nama Kapal</th>
-                            <th><center>Tgl.BA</th>
-                            <th><center>Tgl.Doc</th>
-                            <th><center>Tgl.Kpl Tiba</th>
-                            <th><center>Cmpy</th>
-                            <th><center>Agent</th>
+                            <th><center>Tanggal Berita Acara</th>
+                            <th><center>Tanggal Dokumen</th>
+                            <th><center>Tanggal Kapal Tiba</th>
+                            <th><center>Perusahaan</th>
+                            <th><center>Agen</th>
                             <th><center>Origin</th>
-                            <th><center>Sender</th>
-                            <th><center>Recv</th>
-                            <th><center>No.BA</th>
-                            <th><center>Srt Jln</th>
+                            <th><center>Pengirim</th>
+                            <th><center>Penerima</th>
+                            <th><center>No Berita Acara</th>
+                            <th><center>No Surat Jalan</th>
                             <th><center>Produk</th>
                             <th><center>Aksi</th>
                         </tr>
@@ -88,18 +88,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tfoot>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No.Seal</th>
+                            <th><center>No Petikemas/No Seal</th>
                             <th><center>Nama Kapal</th>
-                            <th><center>Tgl.BA</th>
-                            <th><center>Tgl.Doc</th>
-                            <th><center>Tgl.Kpl Tiba</th>
-                            <th><center>Cmpy</th>
-                            <th><center>Agent</th>
+                            <th><center>Tanggal Berita Acara</th>
+                            <th><center>Tanggal Dokumen</th>
+                            <th><center>Tanggal Kapal Tiba</th>
+                            <th><center>Perusahaan</th>
+                            <th><center>Agen</th>
                             <th><center>Origin</th>
-                            <th><center>Sender</th>
-                            <th><center>Recv</th>
-                            <th><center>No.BA</th>
-                            <th><center>Srt Jln</th>
+                            <th><center>Pengirim</th>
+                            <th><center>Penerima</th>
+                            <th><center>No Berita Acara</th>
+                            <th><center>No Surat Jalan</th>
                             <th><center>Produk</th>
                             <th><center>Aksi</th>
                         </tr>
@@ -133,6 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             order       : [], //Initial no order.
             autowidth   : true,
             ordering    : false,
+            "scrollX"   : true,
 
             // Load data for the table's content from an Ajax source
             ajax: {
