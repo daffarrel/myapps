@@ -67,14 +67,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No.Seal</th>
-                            <th><center>No.BL</th>
-                            <th><center>Tgl.BL</th>
+                            <th><center>No Seal</th>
+                            <th><center>No BL</th>
+                            <th><center>Tanggal BL</th>
                             <th><center>Nama Kapal</th>
                             <th><center>TD</th>
                             <th><center>Berat</th>
-                            <th><center>Tgl Tiba</th>
-                            <th><center>Tgl B/M</th>
+                            <th><center>Tanggal Tiba</th>
+                            <th><center>Tanggal Bongkar Muat</th>
                             <th><center>Aksi</th>
                         </tr>
                         </thead>
@@ -83,14 +83,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tfoot>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No.Seal</th>
-                            <th><center>No.BL</th>
-                            <th><center>Tgl.BL</th>
+                            <th><center>No Seal</th>
+                            <th><center>No BL</th>
+                            <th><center>Tanggal BL</th>
                             <th><center>Nama Kapal</th>
                             <th><center>TD</th>
                             <th><center>Berat</th>
-                            <th><center>Tgl Tiba</th>
-                            <th><center>Tgl B/M</th>
+                            <th><center>Tanggal Tiba</th>
+                            <th><center>Tanggal Bongkar Muat</th>
                             <th><center>Aksi</th>
                         </tr>
                         </tfoot>
