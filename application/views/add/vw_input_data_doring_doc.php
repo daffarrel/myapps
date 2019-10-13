@@ -6,11 +6,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="container-fluid">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>Tambah Data Doring</h1>
+            <h1>Tambah Data Dokumen Doring</h1>
             <ol class="breadcrumb">
             <li><a href="<?php echo base_url()?>"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#"> Dokumen Kapal</a></li>
-            <li class="active"><a href="#"> Tambah Data Doring</a></li>
+            <li class="active"><a href="#"> Tambah Data Dokumen Doring</a></li>
             </ol>
         </section>
         <section class="content">
