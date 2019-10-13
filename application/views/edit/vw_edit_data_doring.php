@@ -28,9 +28,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php
                                         foreach($attr['seal'] as $data){
                                             if($data->id_doc == $attr['data']->id_doc)
-                                                echo '<option selected value="'.$data->id_doc.'">'.$data->seal_number.'</option>';
+                                                echo '<option selected value="'.$data->id_ship_arr.'">'.$data->seal_number.'</option>';
                                             else
-                                                echo '<option value="'.$data->id_doc.'">'.$data->seal_number.'</option>';
+                                                echo '<option value="'.$data->id_ship_arr.'">'.$data->seal_number.'</option>';
                                         }
                                     ?>
                                 </select>
@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="form-group">
                             <label for="no_surat_jalan" class="col-sm-2 control-label">No Surat Jalan</label>
                             <div class="col-md-3 col-sm-10">
-                                <input type="text" value="<?= $attr['data']->no_surat_jalan ?>" class="form-control" id="no_surat_jalan" name="no_surat_jalan"/>
+                                <input type="text" value="<?= $attr['data']->safeconduct_num ?>" class="form-control" id="no_surat_jalan" name="no_surat_jalan"/>
                             </div>
                         </div>
                         <div class="form-group">

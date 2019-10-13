@@ -393,7 +393,7 @@ class M_shipment extends MY_Model {
     }
 
     public function getSealNumber(){
-        $this->db->select('id_ship_arr,seal_number');
+        $this->db->select('id_ship_arr,id_doc,seal_number');
         $this->db->from($this->view_arr);
         $query = $this->db->get();
 

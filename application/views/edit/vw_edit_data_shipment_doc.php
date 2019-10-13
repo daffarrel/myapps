@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <form id="form_input" action="<?php echo base_url('shipment/updateData')?>" method="POST" enctype="multipart/form-data">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="agent_name" class="form-label">No. Seal</label>
+                                        <label for="agent_name" class="form-label">No. Kontainer</label>
                                         <input hidden id="idm" name="idm" value="<?php echo $attr['data']->id_doc?>">
                                         <input value="<?php echo $attr['data']->seal_number?>" required id="no_seal" name="no_seal" class="form-control" type="text">
                                     </div>

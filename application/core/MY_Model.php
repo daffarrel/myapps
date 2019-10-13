@@ -122,6 +122,15 @@ class MY_Model extends CI_Model {
         return $query->row();
     }
 
+    public function getOption($input){
+        $get_option_proc = "CALL GetOption(?)";
+        $result = $this->db->query($get_option_proc, $input);
+        if ($result !== NULL) {
+            return $result;
+        }
+        return FALSE;
+    }
+    
 }
 
 ?>

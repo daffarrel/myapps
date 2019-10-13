@@ -32,6 +32,8 @@
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/dist/css/skins/_all-skins.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/datatables.net-bs/css/fixedColumns.dataTables.min.css">
+  <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/datatables.net-bs/css/fixedColumns.bootstrap.min.css">
   <!-- daterange picker -->
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap datepicker -->
@@ -96,6 +98,7 @@
   <!-- Datatables -->
   <script src="<?php echo base_url()?>/assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?php echo base_url()?>/assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="<?php echo base_url()?>/assets/bower_components/datatables.net/js/dataTables.fixedColumns.min.js"></script>
   <!-- Select2 -->
   <script src="<?php echo base_url()?>/assets/bower_components/select2/dist/js/select2.full.min.js"></script>
   <!-- InputMask -->
@@ -120,6 +123,7 @@
   <script src="<?php echo base_url()?>/assets/plugins/sweetalert2/dist/sweetalert2.all.js"></script>
   <!-- Include a polyfill for ES6 Promises (optional) for IE11 -->
   <script src="<?php echo base_url()?>/assets/plugins/sweetalert2/dist/polyfill.js"></script>
+  
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
     <div class="wrapper">
@@ -156,6 +160,7 @@
                     <li class="nav-item"><a href="<?php echo base_url("main/document/shipment_doc");?>" class="nav-link">Dokumen Kapal</a></li>
                     <li class="nav-item"><a href="<?php echo base_url("main/document/shipment_arr");?>" class="nav-link">Dokumen Kapal Tiba</a></li>
                     <li class="nav-item"><a href="<?php echo base_url("main/document/doring");?>" class="nav-link">Doring</a></li>
+                    <li class="nav-item"><a href="<?php echo base_url("main/document/doring_doc");?>" class="nav-link">Dokumen Doring</a></li>
                 </ul>
               </li>
             </ul>

@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <form id="form_input" action="<?php echo base_url('shipment/addDataArr')?>" method="POST" enctype="multipart/form-data">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="no_seal" class="form-label">No. Seal</label>
+                                        <label for="no_seal" class="form-label">No. Kontainer</label>
                                         <select id="no_seal" name="no_seal" class="form-control select2">
                                             <?php
                                             foreach ($attr['seal'] as $data){

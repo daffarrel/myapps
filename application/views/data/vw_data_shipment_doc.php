@@ -133,7 +133,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             order       : [], //Initial no order.
             autowidth   : true,
             ordering    : false,
-            "scrollX"   : true,
+            scrollY     : 300,
+            scrollX     : true,
+            scrollCollapse: true,
+            fixedColumns:   {
+                leftColumns: 2,
+                heightMatch: 'auto'
+            },
 
             // Load data for the table's content from an Ajax source
             ajax: {
@@ -151,6 +157,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             },
         });
+        $('#container').css( 'display', 'block' );
+        table.columns.adjust().draw();
 
         $('#agent').keyup( function() {
             //table.draw();

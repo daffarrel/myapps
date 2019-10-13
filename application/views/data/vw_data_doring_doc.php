@@ -54,14 +54,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No Seal</th>
+                            <th><center>Kasir</th>
+                            <th><center>Surat Jalan</th>
+                            <th><center>Berita Acara</th>
+                            <th><center>Check List</th>
+                            <th><center>Inspeksi Kendaraan</th>
+                            <th><center>Shipment Pengirim</th>
+                            <th><center>No Berita Acara</th>
                             <th><center>No Surat Jalan</th>
-                            <th><center>Rute</th>
-                            <th><center>DK/LK</th>
-                            <th><center>Tgl Muat</th>
-                            <th><center>Tgl Bongkar</th>
-                            <th><center>No. Polisi</th>
-                            <th><center>Driver</th>
+                            <th><center>PO</th>
+                            <th><center>DO</th>
+                            <th><center>Delivery</th>
+                            <th><center>PP</th>
+                            <th><center>Receiving</th>
+                            <th><center>Stripping</th>
+                            <th><center>Cancel Loading</th>
+                            <th><center>Lain Lain</th>
                             <th><center>Aksi</th>
                         </tr>
                         </thead>
@@ -70,14 +78,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tfoot>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No Seal</th>
+                            <th><center>Kasir</th>
+                            <th><center>Surat Jalan</th>
+                            <th><center>Berita Acara</th>
+                            <th><center>Check List</th>
+                            <th><center>Inspeksi Kendaraan</th>
+                            <th><center>Shipment Pengirim</th>
+                            <th><center>No Berita Acara</th>
                             <th><center>No Surat Jalan</th>
-                            <th><center>Rute</th>
-                            <th><center>DK/LK</th>
-                            <th><center>Tgl Muat</th>
-                            <th><center>Tgl Bongkar</th>
-                            <th><center>No. Polisi</th>
-                            <th><center>Driver</th>
+                            <th><center>PO</th>
+                            <th><center>DO</th>
+                            <th><center>Delivery</th>
+                            <th><center>PP</th>
+                            <th><center>Receiving</th>
+                            <th><center>Stripping</th>
+                            <th><center>Cancel Loading</th>
+                            <th><center>Lain Lain</th>
                             <th><center>Aksi</th>
                         </tr>
                         </tfoot>
@@ -96,11 +112,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     function add() {
-        window.location.replace('<?php echo site_url('doring/')?>');
+        window.location.replace('<?php echo site_url('doring/index_doc')?>');
     }
 
     function edit(id) {
-        window.location.replace('<?php echo site_url('doring/edit/')?>'+id);
+        window.location.replace('<?php echo site_url('doring/edit_doc/')?>'+id);
     }
 
     $(document).ready(function(){
@@ -110,16 +126,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             order       : [], //Initial no order.
             autowidth   : true,
             ordering    : false,
+            "scrollX"   : true,
 
             // Load data for the table's content from an Ajax source
             ajax: {
-                "url": "<?php echo site_url('doring/ajax_list')?>" ,
+                "url": "<?php echo site_url('doring/ajax_list_doc')?>" ,
                 "type": "POST",
                 "data": function ( data ) {
                     data.tgl_bongkar_awal    = $('#tgl_bongkar_awal').val();
                     data.tgl_bongkar_akhir   = $('#tgl_bongkar_akhir').val();
-                    data.tgl_muat_awal  = $('#tgl_muat_awal').val();
-                    data.tgl_muat_akhir = $('#tgl_muat_akhir').val();
+                    data.tgl_muat_awal       = $('#tgl_muat_awal').val();
+                    data.tgl_muat_akhir      = $('#tgl_muat_akhir').val();
                 }
             },
         });
@@ -150,7 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }).then((willDelete) => {
             if (willDelete.value) {
                 $.ajax({
-                    url : "<?php echo site_url('doring/delete')?>/"+id,
+                    url : "<?php echo site_url('doring/delete_doc')?>/"+id,
                     type: "POST",
                     dataType: "JSON",
                     success: function(data)
