@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No Petikemas/No Seal</th>
+                            <th><center>No Petikemas</th>
                             <th><center>Nama Kapal</th>
                             <th><center>Tanggal Berita Acara</th>
                             <th><center>Tanggal Dokumen</th>
@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tfoot>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No Petikemas/No Seal</th>
+                            <th><center>No Petikemas</th>
                             <th><center>Nama Kapal</th>
                             <th><center>Tanggal Berita Acara</th>
                             <th><center>Tanggal Dokumen</th>
