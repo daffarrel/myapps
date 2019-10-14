@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No Petikemas/No Seal</th>
+                            <th><center>No Petikemas</th>
                             <th><center>No Surat Jalan</th>
                             <th><center>Rute</th>
                             <th><center>DK/LK</th>
@@ -70,7 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tfoot>
                         <tr>
                             <th><center>No</th>
-                            <th><center>No Petikemas/No Seal</th>
+                            <th><center>No Petikemas</th>
                             <th><center>No Surat Jalan</th>
                             <th><center>Rute</th>
                             <th><center>DK/LK</th>
