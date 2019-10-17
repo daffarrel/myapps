@@ -108,7 +108,7 @@ class Doring extends MY_Controller{
         $data['supir']  = $this->driver->getDriver();
         $data['truck']  = $this->truck->getTruck();
         $data['rute']   = $this->route->getRoute();
-        $this->navmenu('Input Data Doring','add/vw_input_data_doring','','',$data);
+        $this->navmenu('Input Data Doring','add/vw_input_data_doring_doc','','',$data);
     }
 
     public function edit_doc($id){
@@ -117,7 +117,7 @@ class Doring extends MY_Controller{
         $data['truck']  = $this->truck->getTruck();
         $data['rute']   = $this->route->getRoute();
         $data['data']   = $this->doring->getData($id);
-        $this->navmenu('Edit Data Doring','edit/vw_edit_data_doring','','',$data);
+        $this->navmenu('Edit Data Doring','edit/vw_edit_data_doring_doc','','',$data);
     }
 
     public function ajax_list_doc(){
