@@ -129,16 +129,23 @@ class Doring extends MY_Controller{
             $no++;
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
-            $row[] = '<center style="font-size: small"><a class="btn" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doring."'".')">'.$r->seal_number.'</a>';
-            $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
-            $row[] = '<center style="font-size: small">'.$r->route_name;
-            $row[] = '<center style="font-size: small">'.$r->dk_lk;
-            $row[] = '<center style="font-size: small">'.$r->on_chassis;
-            $row[] = '<center style="font-size: small">'.$r->unload_date;
-            $row[] = '<center style="font-size: small">'.$r->plate_number;
-            $row[] = '<center style="font-size: small">'.$r->driver_name;
+            $row[] = '<center style="font-size: small">'.$r->id_doring.'</a>';
+            $row[] = '<center style="font-size: small"><a class="btn" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doring_doc."'".')">'.$r->seal_number.'</a>';
+            $row[] = '<center style="font-size: small">'.$r->BA;
+            $row[] = '<center style="font-size: small">'.$r->SRT_JLN;
+            $row[] = '<center style="font-size: small">'.$r->INS_KEN;
+            $row[] = '<center style="font-size: small">'.$r->SHP_PNGRIM;
+            $row[] = '<center style="font-size: small">'.$r->PO;
+            $row[] = '<center style="font-size: small">'.$r->DO;
+            $row[] = '<center style="font-size: small">'.$r->DELIV;
+            $row[] = '<center style="font-size: small">'.$r->RCVING;
+            $row[] = '<center style="font-size: small">'.$r->PP;
+            $row[] = '<center style="font-size: small">'.$r->STRIP;
+            $row[] = '<center style="font-size: small">'.$r->CNCL_LOAD;
+            $row[] = '<center style="font-size: small">'.$r->CASHIER;
+            $row[] = '<center style="font-size: small">'.$r->OTHER;
 
-            $row[] = '<center><a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doring."'".')">X</a>';
+            $row[] = '<center><a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doring_doc."'".')">X</a>';
             //add html for action
 
             $data[] = $row;
@@ -146,8 +153,8 @@ class Doring extends MY_Controller{
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->doring->countAll(),
-            "recordsFiltered" => $this->doring->countFiltered(),
+            "recordsTotal" => $this->doring->countAll_doc(),
+            "recordsFiltered" => $this->doring->countFiltered_doc(),
             "data" => $data,
         );
         //output to json format

@@ -16,8 +16,8 @@ class M_doring extends MY_Model {
     var $order             = array('id_doring' => 'asc'); // default order
 
     //doring_doc
-    var $column_order_doc      = array('id_doring_doc',null,null,null,null,null,null,null,null,null,null,null,null,null,null); //set column field database for datatable orderable
-    var $column_search_doc     = array('seal_number','on_chassis','unload_date','route_name','plate_number','driver_name','safeconduct_num'); //set column field database for datatable searchable
+    var $column_order_doc      = array('id_doring_doc'); //set column field database for datatable orderable
+    var $column_search_doc     = array('seal_number'); //set column field database for datatable searchable
     var $order_doc             = array('id_doring_doc' => 'asc'); // default order
 
     //doring
