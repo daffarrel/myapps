@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="box box-default">
                 <div class="box-header">
                 </div>
-                <form class="form-horizontal" action="<?php echo base_url('doring/addData')?>" method="POST" enctype="multipart/form-data">
+                <form class="form-horizontal" action="<?php echo base_url('doring/addData_doc')?>" method="POST" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="no_seal" class="col-sm-2 control-label">No Seal</label>
@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <select id="no_seal" name="no_seal" class="form-control select2" style="width: 100%;">
                                     <option value="">---</option>
                                     <?php
-                                        foreach($attr['seal'] as $data){
+                                        foreach($attr['doring'] as $data){
                                             echo '<option value="'.$data->id_ship_arr.'">'.$data->seal_number.' => '.$data->size.'</option>';
                                         }
                                     ?>

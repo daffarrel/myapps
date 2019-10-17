@@ -104,7 +104,7 @@ class Doring extends MY_Controller{
     //doring_doc
 
     public function index_doc(){
-        $data['seal']   = $this->shipment->getSealNumber();
+        $data['doring'] = $this->doring->getDoring();
         $data['supir']  = $this->driver->getDriver();
         $data['truck']  = $this->truck->getTruck();
         $data['rute']   = $this->route->getRoute();
