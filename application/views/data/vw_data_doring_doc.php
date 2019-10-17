@@ -54,6 +54,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                         <tr>
                             <th><center>No</th>
+                            <th><center>ID Doring</th>
+                            <th><center>No Kontainer</th>
                             <th><center>Kasir</th>
                             <th><center>Surat Jalan</th>
                             <th><center>Berita Acara</th>
@@ -78,6 +80,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tfoot>
                         <tr>
                             <th><center>No</th>
+                            <th><center>ID Doring</th>
+                            <th><center>No Kontainer</th>
                             <th><center>Kasir</th>
                             <th><center>Surat Jalan</th>
                             <th><center>Berita Acara</th>
