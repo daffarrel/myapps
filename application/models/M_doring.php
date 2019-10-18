@@ -7,8 +7,8 @@ class M_doring extends MY_Model {
     var $view              = 'vw_doring';
     
     //doring_doc
-    var $table_dok         = 'doring_doc';
-    var $view_dok          = 'vw_doring_doc';
+    var $table_doc         = 'doring_doc';
+    var $view_doc          = 'vw_doring_doc';
 
     //doring
     var $column_order      = array('id_doring',null,null,null,null,null,null,null,null,null,null,null,null,null,null); //set column field database for datatable orderable

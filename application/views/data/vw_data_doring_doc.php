@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="container-fluid">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>Data Doring</h1>
+            <h1>Data Dokumen Doring</h1>
             <ol class="breadcrumb">
             <li><a href="<?php echo base_url()?>"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#"> Dokumen Kapal</a></li>
@@ -50,20 +50,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                 <div class="box-body table-responsive">
-                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable" cellspacing="0" width="100%" role="grid" >
+                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable" cellspacing="0" role="grid" >
                         <thead>
                         <tr>
                             <th><center>No</th>
                             <th><center>ID Doring</th>
                             <th><center>No Kontainer</th>
-                            <th><center>Kasir</th>
-                            <th><center>Surat Jalan</th>
                             <th><center>Berita Acara</th>
-                            <th><center>Check List</th>
+                            <th><center>Surat Jalan</th>
+                            <th><center>Kasir</th>
                             <th><center>Inspeksi Kendaraan</th>
                             <th><center>Shipment Pengirim</th>
-                            <th><center>No Berita Acara</th>
-                            <th><center>No Surat Jalan</th>
                             <th><center>PO</th>
                             <th><center>DO</th>
                             <th><center>Delivery</th>
@@ -82,14 +79,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th><center>No</th>
                             <th><center>ID Doring</th>
                             <th><center>No Kontainer</th>
-                            <th><center>Kasir</th>
-                            <th><center>Surat Jalan</th>
                             <th><center>Berita Acara</th>
-                            <th><center>Check List</th>
+                            <th><center>Surat Jalan</th>
+                            <th><center>Kasir</th>
                             <th><center>Inspeksi Kendaraan</th>
                             <th><center>Shipment Pengirim</th>
-                            <th><center>No Berita Acara</th>
-                            <th><center>No Surat Jalan</th>
                             <th><center>PO</th>
                             <th><center>DO</th>
                             <th><center>Delivery</th>
@@ -130,7 +124,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             order       : [], //Initial no order.
             autowidth   : true,
             ordering    : false,
-            "scrollX"   : true,
+            scrollY     : 300,
+            scrollX     : true,
+            scrollCollapse: true,
+            fixedColumns:   {
+                leftColumns: 3,
+                heightMatch: 'auto'
+            },
 
             // Load data for the table's content from an Ajax source
             ajax: {
@@ -144,10 +144,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             },
         });
-
-        $('#kapal').keyup( function() {
-            table.ajax.reload();
-        } );
+        $('#container').css( 'display', 'block' );
+        table.columns.adjust().draw();
 
         $('#btn-filter').click(function(){ //button filter event click
             table.ajax.reload();  //just reload table
