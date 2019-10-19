@@ -5,11 +5,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="content-wrapper">
     <div class="container-fluid">
         <section class="content-header">
-            <h1>Ubah Data Rute</h1>
+            <h1>Ubah Data Daftar Gaji</h1>
             <ol class="breadcrumb">
                 <li><a href="<?php echo base_url()?>"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li><a href="#"> Master Data</a></li>
-                <li class="active"><a href="#"> Ubah Data Rute</a></li>
+                <li class="active"><a href="#"> Ubah Data Daftar Gaji</a></li>
             </ol>
         </section>
         <section class="content">
@@ -111,7 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Biaya</label>
-                                        <input value="<?php echo $attr['data']->fare?>" required id="biaya" name="biaya" class="form-control uang" type="text">
+                                        <input value="<?php echo $attr['data']->fare?>" required id="biaya" name="biaya" class="form-control uang" type="number">
                                     </div>
                                 </div>
                                 <div class="col-md-12">

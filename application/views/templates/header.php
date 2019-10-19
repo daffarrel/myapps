@@ -149,9 +149,10 @@
                     <li><a href="<?php echo base_url("main/master/city");?>">Data Kota</a></li>
                     <li><a href="<?php echo base_url("main/master/driver");?>">Data Supir</a></li>
                     <li><a href="<?php echo base_url("main/master/receiver");?>">Data Penerima</a></li>
-                    <li><a href="<?php echo base_url("main/master/route");?>">Data Rute</a></li>
+                    <li><a href="<?php echo base_url("main/master/route");?>">Data Daftar Gaji</a></li>
                     <li><a href="<?php echo base_url("main/master/shipper");?>">Data Pengirim</a></li>
                     <li><a href="<?php echo base_url("main/master/truck");?>">Data Truk</a></li>
+                    <li><a href="<?php echo base_url("main/master/document");?>">Data Jenis Document</a></li>
                 </ul>
               </li>
               <li <?php echo $this->uri->segment(2) == 'document' ? 'active' : ''; ?>class="dropdown">

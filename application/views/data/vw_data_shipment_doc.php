@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 ?>
+<style>
+table.dataTable thead {
+  border-bottom: 5px solid black !important;
+}
+</style>
 <section class="content-wrapper">
     <div class="container-fluid">
         <!-- Content Header (Page header) -->
@@ -63,7 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                 <div class="box-body table-responsive">
-                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable nowrap" cellspacing="0" role="grid" >
+                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable nowrap cell-border" cellspacing="0" role="grid" >
                         <thead>
                         <tr>
                             <th><center>No</th>

@@ -5,11 +5,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="content-wrapper">
     <div class="container-fluid">
         <section class="content-header">
-            <h1>Tambah Data Rute</h1>
+            <h1>Tambah Data Daftar Gaji</h1>
             <ol class="breadcrumb">
                 <li><a href="<?php echo base_url()?>"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li><a href="#"> Master Data</a></li>
-                <li class="active"><a href="#"> Tambah Data Rute</a></li>
+                <li class="active"><a href="#"> Tambah Data Daftar Gaji</a></li>
             </ol>
         </section>
         <section class="content">
@@ -84,7 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="agent_name" class="form-label">Biaya</label>
-                                        <input required id="biaya" name="biaya" class="form-control uang" type="text">
+                                        <input required id="biaya" name="biaya" class="form-control" data-inputmask="'alias': 'currency'" data-mask type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -108,6 +108,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     $(document).ready(function(){
         // Format mata uang.
-        $( '.uang' ).mask('000.000.000', {reverse: true});
+        $('[data-mask]').inputmask();
     });
 </script>
