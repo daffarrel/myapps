@@ -25,7 +25,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <section class="content">
             <div class="box box-default">
                 <div class="box-header">
-                    <button class="btn btn-primary" onclick="add()"> <span>Tambah Data</span></button><br><br>   
+                    <button class="btn btn-primary" onclick="add()"> <span>Tambah Data</span></button>
+                    <br><br>   
                 </div>
                 <div class="box-body table-responsive">
                     <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable nowrap cell-border" cellspacing="0" role="grid" >
