@@ -68,13 +68,12 @@ table.dataTable thead {
                     </div>
                 </div>
                 <div class="box-body table-responsive">
-                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable nowrap cell-border" cellspacing="0" role="grid" >
+                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable nowrap cell-border" cellspacing="0" width="100%" role="grid" >
                         <thead>
                         <tr>
                             <th><center>No</th>
                             <th><center>No Petikemas</th>
                             <th><center>Nama Kapal</th>
-                            <th><center>Tanggal Berita Acara</th>
                             <th><center>Tanggal Dokumen</th>
                             <th><center>Tanggal Kapal Tiba</th>
                             <th><center>Perusahaan</th>
@@ -82,10 +81,8 @@ table.dataTable thead {
                             <th><center>Origin</th>
                             <th><center>Pengirim</th>
                             <th><center>Penerima</th>
-                            <th><center>No Berita Acara</th>
-                            <th><center>No Surat Jalan</th>
                             <th><center>Produk</th>
-                            <th><center>Aksi</th>
+                            <th style="width:7%;"><center>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -95,7 +92,6 @@ table.dataTable thead {
                             <th><center>No</th>
                             <th><center>No Petikemas</th>
                             <th><center>Nama Kapal</th>
-                            <th><center>Tanggal Berita Acara</th>
                             <th><center>Tanggal Dokumen</th>
                             <th><center>Tanggal Kapal Tiba</th>
                             <th><center>Perusahaan</th>
@@ -103,8 +99,6 @@ table.dataTable thead {
                             <th><center>Origin</th>
                             <th><center>Pengirim</th>
                             <th><center>Penerima</th>
-                            <th><center>No Berita Acara</th>
-                            <th><center>No Surat Jalan</th>
                             <th><center>Produk</th>
                             <th><center>Aksi</th>
                         </tr>
@@ -116,11 +110,172 @@ table.dataTable thead {
     </div>
 </section>
 
+<!-- Bootstrap modal For Datatable-->
+<div class="modal fade" id="md-table" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Dokumen Kapal</h3>
+            </div>
+            <div class="modal-body form">
+				<table id="tb_doc" class="table table-bordered table-hover" width='100%'>
+                    <thead>
+                        <tr>
+                        <th>#</th>
+                        <th>Jenis Dokumen</th>
+                        <th>No Dokumen</th>
+                        <th>Tanggal Dokumen</th>
+                        <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>	
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer bg-warning" >
+                <div class="form-group">
+                    <form id="form-modal">
+                        <div class='row'>
+                            <div class="col-md-12">
+                                <input type="hidden" name="id_doc" id="id_doc">
+                                <input type="hidden" name="id_ship_doc" id="id_ship_doc">
+                                <input name="no_doc" type="text" class="form-control" id="no_doc" placeholder="No Dokumen">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class="col-md-4">
+                                <select name="jenis_doc" id="jenis_doc" class="form-control">
+                                    <option value="">---Please Select An Option---</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <input name="doc_date" type="text" class="form-control tanggal" id="doc_date" placeholder="Tanggal Dokumen">
+                                <span class="help-block"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <input name="doc_file" type="text" class="form-control" id="doc_file" placeholder="File">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button onclick='save_doc()' id='btnSaveDoc' type='button' class='btn btn-primary' >Save</button>
+                                <button onclick='cancel()' type='button' class='btn btn-danger' >Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+				</div>
+			</div>				
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<!-- End Bootstrap modal -->
+
 <script type="text/javascript">
     var table;
+    var table_doc;
+    var iddoc = 0;
+    var save_method; //for save method string
+    var save_method_doc = 'add';
+
+    function cancel(){
+        save_method_doc = 'add';
+        $('input[name=activity]').val('');
+        $('#btnSave2').text('Save'); //change button text
+        $('#btnSave2').attr('class','btn btn-primary'); //set button disable 
+        $('#md-table').modal('hide');
+    }
+
+    function edit_doc(id){
+        save_method_doc = 'update';
+        $('#form-modal')[0].reset(); // reset form on modals
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
+        
+        //Ajax Load data from ajax
+        $.ajax({
+            url : "<?php echo site_url('document/ajax_edit_doc/')?>" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data)
+            {		
+                $('[name="id_ship_doc"]').val(data.id_ship_doc);
+                $('[name="jenis_doc"]').val(data.jenis_doc).change();
+                $('[name="no_doc"]').val(data.no_doc);
+                $('[name="doc_date"]').val(data.date_doc);
+                $('[name="file"]').val(data.file);
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error get data from ajax');
+            }
+        });
+    }
+
+    function save_doc(){    
+        var url;
+
+        if(save_method_doc == 'add') {
+            $('#btnSaveDoc').text('Saving...'); //change button text
+            $('#btnSaveDoc').attr('disabled',true); //set button disable 
+            url = "<?php echo site_url('document/ajax_add_doc/');?>";
+        } else {
+            $('#btnSaveDoc').text('Updating...'); //change button text
+            $('#btnSaveDoc').attr('disabled',true); //set button disable 
+            url = "<?php echo site_url('document/ajax_update_doc');?>";
+        }
+
+        formData = new FormData();
+        
+        if(save_method_doc != 'add')
+            formData.append( 'id_ship_doc', $('input[name=id_ship_doc]').val());        
+        
+        formData.append( 'id_doc', $('input[name=id_doc]').val());
+        formData.append( 'no_doc', $('input[name=no_doc]').val());
+        formData.append( 'jenis_doc', $('input[name=jenis_doc]').val());
+        formData.append( 'doc_date', $('input[name=doc_date]').val());
+        formData.append( 'file', $('input[name=doc_file]').val());
+        
+        // ajax adding data to database
+        $.ajax({
+            url : url,
+            type: "POST",
+            data: formData,
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+            success: function(data){
+                //if success close modal and reload ajax table
+                if(data.status){
+                    reload_table();
+                    $('input[name=doc_date]').val('');
+                    $('input[name=no_doc]').val('');
+                    $('input[name=jenis_doc]').val('').change();
+                    $('input[name=doc_file]').val('');
+                }
+                else{
+                    for (var i = 0; i < data.inputerror.length; i++) {
+                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                        $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
+                    }
+                }
+
+                $('#btnSaveDoc').text('Save'); //change button text
+                $('#btnSaveDoc').attr('disabled',false); //set button enable 
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                alert('Error adding data');
+                $('#btnSaveDoc').text('Save'); //change button text
+                $('#btnSaveDoc').attr('disabled',false); //set button enable 
+            }
+        });
+    }
 
     function reload_table() {
         table.ajax.reload(null,false);
+        table_doc.ajax.reload(null,false); //reload datatable ajax 
     }
 
     function add() {
@@ -220,6 +375,86 @@ table.dataTable thead {
                 });
             } else {
                 swal.fire("Batal","Data Anda Tidak Jadi Dihapus","warning");
+            }
+        });
+    }
+
+    function del_doc(id) {
+        swal.fire({
+            title: 'Apakah Anda Yakin ?',
+            text: 'Anda Tidak Akan Bisa Merecover Kembali Data Yang Sudah Anda Hapus !',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+        }).then((willDelete) => {
+            if (willDelete.value) {
+                $.ajax({
+                    url : "<?php echo site_url('document/ajax_delete_doc')?>/"+id,
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function(data)
+                    {
+                        swal.fire('Terhapus','Data Anda Sudah Dihapus','success');
+                        reload_table();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        swal.fire("Gagal","Data Anda Tidak Jadi Dihapus","error");
+                    }
+                });
+            } else {
+                swal.fire("Batal","Data Anda Tidak Jadi Dihapus","warning");
+            }
+        });
+    }
+
+    function doc(id){
+        $.ajax({
+            url : "<?php echo site_url('shipment/ajax_edit_doc_table/')?>" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data){
+                console.log(data);
+                //tabel untuk dokumen kapal
+                table_doc = $('#tb_doc').DataTable({
+                    processing  : true, //Feature control the processing indicator.
+                    serverSide  : true, //Feature control DataTables' server-side processing mode.
+                    order       : [], //Initial no order.
+                    autowidth   : true,
+                    ordering    : false,
+                    ajax : {
+                        url : "<?php echo base_url('document/ajax_list_doc_table/');?>",
+                        type : 'POST',
+                        data : function ( data ) {
+                            data.id = id;
+                        },
+                    },
+                });		
+                //Unit Select Box
+                let dropdown = $('#jenis_doc');
+                dropdown.empty();
+                dropdown.append('<option value="">Pilih Jenis Dokumen</option>');
+                dropdown.prop('selectedIndex', 0);
+
+                const url = '<?php echo base_url('document/getJenisDoc/');?>';
+
+                // Populate dropdown with list
+                $.getJSON(url, function (data) {
+                    $.each(data, function (key, entry) {
+                        dropdown.append($('<option></option>').attr('value', entry.idm_document).text(entry.jenis_doc));
+                    })
+                });
+                // Set id doc
+                $('#id_doc').val(id);
+                // show bootstrap modal
+                $('#md-table').modal('show'); 
+                title = data.seal_number + ' - ' + data.process_date;
+                $('.modal-title').text('Dokumen Kapal : ' + ' [ ' + title + " ]"); // Set Title to Bootstrap modal title
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                alert('Error get data from ajax');
             }
         });
     }

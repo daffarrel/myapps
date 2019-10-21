@@ -50,7 +50,6 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$no;
             $row[] = '<center style="font-size: small"><a class="btn" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doc."'".')">'.$r->seal_number.'</a>';
             $row[] = '<center style="font-size: small">'.$r->ship_name;
-            $row[] = '<center style="font-size: small">'.$r->ba_recv_date;
             $row[] = '<center style="font-size: small">'.$r->process_date;
             $row[] = '<center style="font-size: small">'.$r->ship_arrival_date;
             $row[] = '<center style="font-size: small">'.$r->company;
@@ -58,11 +57,10 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->origin_city;
             $row[] = '<center style="font-size: small">'.$r->shipper;
             $row[] = '<center style="font-size: small">'.$r->receiver;
-            $row[] = '<center style="font-size: small">'.$r->report_num;
-            $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
             $row[] = '<center style="font-size: small">'.$r->product;
 
-            $row[] = '<center><a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
+            $row[] = '<center><a class="btn btn-info" href="javascript:void(0)" title="Hapus" onclick="doc('."'".$r->id_doc."'".')">D</a>
+            <center><a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
 
             //add html for action
 
@@ -208,6 +206,11 @@ class Shipment extends MY_Controller{
                        </div>');
 
         $this->arr_edit($id);
+    }
+
+    public function ajax_edit_doc_table($id){
+		$data = $this->shipment->getData($id);
+		echo json_encode($data);
     }
 }
 ?>
