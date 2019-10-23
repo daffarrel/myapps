@@ -59,8 +59,8 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->receiver;
             $row[] = '<center style="font-size: small">'.$r->product;
 
-            $row[] = '<center><a class="btn btn-info" href="javascript:void(0)" title="Hapus" onclick="doc('."'".$r->id_doc."'".')">D</a>
-            <center><a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
+            $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
+            <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
 
             //add html for action
 

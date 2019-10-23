@@ -110,6 +110,14 @@ class Document extends MY_Controller{
     }
 
     public function ajax_add_doc() {
+        if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != ''){
+            $file_name = explode(".",$_FILES['file']['name']);
+            $fileData = $this->singleUpload('file','your folder name',$file_name[1],'2',$_FILES['file']['name']);
+            if($fileData['upload']=='True') {
+                $name = $fileData['data']['file_name'];
+            }
+        }
+
 		$data = array(
             'id_doc'    => $this->input->post('id_doc'),
             'jenis_doc' => $this->input->post('jenis_doc'),
@@ -126,6 +134,14 @@ class Document extends MY_Controller{
     }
 
 	public function ajax_update_doc() {
+        if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != ''){
+            $file_name = explode(".",$_FILES['file']['name']);
+            $fileData = $this->singleUpload('file','your folder name',$file_name[1],'2',$_FILES['file']['name']);
+            if($fileData['upload']=='True') {
+                $name = $fileData['data']['file_name'];
+            }
+        }
+
 		$data = array(
             'id_doc'    => $this->input->post('id_doc'),
             'jenis_doc' => $this->input->post('jenis_doc'),

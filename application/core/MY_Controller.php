@@ -113,6 +113,36 @@ class MY_Controller extends CI_Controller
         return $result;
     }
 
+    function singleUpload($upload_name,$folder,$extension,$bnr,$filename){
+        if($folder == ''){
+            $config['upload_path'] = 'dokumen/etc';
+        } else{
+            $config['upload_path'] = 'dokumen/'.$folder."/";
+        }
+
+        $config['allowed_types'] = '*';
+        
+        if($bnr == 2){
+            $config['max_width'] = '3000';
+            $config['max_height'] = '3000';
+        } elseif ($bnr == 1)
+        {}
+        // $config['file_name'] = $user_name.date('YmdHis').".".$extension;
+        $config['file_name'] = $filename;
+
+        $this->upload->initialize($config);
+        $this->load->library('upload', $config);
+        if ( ! $this->upload->do_upload($upload_name)){
+            $arrayRetutn['upload'] = 'False';
+            $arrayRetutn['error'] = $this->upload->display_errors();
+        } else {
+            $arrayRetutn['upload'] = 'True';
+            $arrayRetutn['data'] = $this->upload->data();
+        }
+        //echo '<pre>';print_r($arrayRetutn);echo '</pre>'; die;
+        return $arrayRetutn;
+    }
+
     function debug_to_console( $data ) {
         $output = $data;
         if ( is_array( $output ) )

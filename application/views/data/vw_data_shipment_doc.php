@@ -122,11 +122,11 @@ table.dataTable thead {
 				<table id="tb_doc" class="table table-bordered table-hover" width='100%'>
                     <thead>
                         <tr>
-                        <th>#</th>
-                        <th>Jenis Dokumen</th>
-                        <th>No Dokumen</th>
-                        <th>Tanggal Dokumen</th>
-                        <th>Aksi</th>
+                        <th><center>#</th>
+                        <th><center>Jenis Dokumen</th>
+                        <th><center>No Dokumen</th>
+                        <th><center>Tanggal Dokumen</th>
+                        <th><center>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>	
@@ -155,7 +155,7 @@ table.dataTable thead {
                                 <span class="help-block"></span>
                             </div>
                             <div class="col-md-4">
-                                <input name="doc_file" type="text" class="form-control" id="doc_file" placeholder="File">
+                                <input name="doc_file" type="file" class="form-control" id="doc_file" placeholder="File">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -232,11 +232,13 @@ table.dataTable thead {
         if(save_method_doc != 'add')
             formData.append( 'id_ship_doc', $('input[name=id_ship_doc]').val());        
         
+        if( !$('#doc_file').get(0).files.length === 0 )
+            formData.append( 'file', $('#doc_file')[0].files[0]);
+
         formData.append( 'id_doc', $('input[name=id_doc]').val());
         formData.append( 'no_doc', $('input[name=no_doc]').val());
-        formData.append( 'jenis_doc', $('input[name=jenis_doc]').val());
+        formData.append( 'jenis_doc', $('#jenis_doc').val());
         formData.append( 'doc_date', $('input[name=doc_date]').val());
-        formData.append( 'file', $('input[name=doc_file]').val());
         
         // ajax adding data to database
         $.ajax({
@@ -416,7 +418,7 @@ table.dataTable thead {
             type: "GET",
             dataType: "JSON",
             success: function(data){
-                console.log(data);
+                //console.log(data);
                 //tabel untuk dokumen kapal
                 table_doc = $('#tb_doc').DataTable({
                     processing  : true, //Feature control the processing indicator.
@@ -424,6 +426,7 @@ table.dataTable thead {
                     order       : [], //Initial no order.
                     autowidth   : true,
                     ordering    : false,
+                    destroy     : true,
                     ajax : {
                         url : "<?php echo base_url('document/ajax_list_doc_table/');?>",
                         type : 'POST',
