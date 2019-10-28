@@ -96,6 +96,11 @@ class Receiver extends MY_Controller{
 
         $this->edit($id);
     }
+
+    public function getData($id = ''){
+        $data = $this->receiver->getData($id);
+        echo json_encode($data);
+    }
 }
 ?>
 

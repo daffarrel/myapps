@@ -90,6 +90,11 @@ class Agent extends MY_Controller{
 
         $this->edit($id);
     }
+
+    public function getData($id = ''){
+        $data = $this->agent->getData($id);
+        echo json_encode($data);
+    }
 }
 ?>
 

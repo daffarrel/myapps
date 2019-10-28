@@ -113,31 +113,24 @@ class MY_Controller extends CI_Controller
         return $result;
     }
 
-    function singleUpload($upload_name,$folder,$extension,$bnr,$filename){
-        if($folder == ''){
-            $config['upload_path'] = 'dokumen/etc';
-        } else{
-            $config['upload_path'] = 'dokumen/'.$folder."/";
+    function singleUpload($upload_name,$folder,$filename){
+        if(!is_dir('./dokumen/'.$folder)){
+            mkdir('./dokumen/'.$folder,0775,true);
         }
 
-        $config['allowed_types'] = '*';
-        
-        if($bnr == 2){
-            $config['max_width'] = '3000';
-            $config['max_height'] = '3000';
-        } elseif ($bnr == 1)
-        {}
         // $config['file_name'] = $user_name.date('YmdHis').".".$extension;
-        $config['file_name'] = $filename;
+        $config['file_name']     = $filename;
+        $config['allowed_types'] = 'pdf|png|jpg|jpeg|bmp';
+        $config['upload_path']   = 'dokumen/'.$folder."/";
 
         $this->upload->initialize($config);
-        $this->load->library('upload', $config);
-        if ( ! $this->upload->do_upload($upload_name)){
-            $arrayRetutn['upload'] = 'False';
-            $arrayRetutn['error'] = $this->upload->display_errors();
-        } else {
+
+        if ($this->upload->do_upload($upload_name)){
             $arrayRetutn['upload'] = 'True';
             $arrayRetutn['data'] = $this->upload->data();
+        } else {
+            $arrayRetutn['upload'] = 'False';
+            $arrayRetutn['error'] = $this->upload->display_errors();
         }
         //echo '<pre>';print_r($arrayRetutn);echo '</pre>'; die;
         return $arrayRetutn;
@@ -151,8 +144,7 @@ class MY_Controller extends CI_Controller
         echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
     }
 
-    public function Romawi($angka)
-    {
+    public function Romawi($angka) {
         $hsl = "";
         if ($angka < 1 || $angka > 5000) {
             // Statement di atas buat nentuin angka ngga boleh dibawah 1 atau di atas 5000

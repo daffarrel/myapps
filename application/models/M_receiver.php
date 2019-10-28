@@ -63,21 +63,20 @@ class M_receiver extends MY_Model {
         return $this->db->count_all_results();
     }
 
-    public function getData($id){
+    public function getData($id = ''){
         $this->db->from($this->view);
-        $this->db->where('idm_receiver',$id);
+
+        if($id != '')
+            $this->db->where('idm_receiver',$id);
+        
         $query = $this->db->get();
 
-        if($query->num_rows() > 0)
-            return $query->row();
-    }
-
-    public function getAllData(){
-        $this->db->from($this->view);
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0)
-            return $query->result();
+        if($query->num_rows() > 0){
+            if($id != '')
+                return $query->row();
+            else
+                return $query->result();
+        }    
     }
 
     public function saveData($post){

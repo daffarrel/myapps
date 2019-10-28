@@ -29,22 +29,19 @@ class M_agent extends MY_Model {
         return $this->db->count_all_results();
     }
 
-    public function getData($id){
-        $this->db->from($this->table);
-        $this->db->where('idm_agent',$id);
-        $query = $this->db->get();
+    public function getData($id = ''){
+        if($id != '')
+            $this->db->where('idm_agent',$id);
 
-        if($query->num_rows() > 0)
-            return $query->row_array();
-    }
-
-    public function getDataAll(){
-        $this->db->from($this->table);
         $this->db->where('soft_delete','0');
-        $query = $this->db->get();
+        $query = $this->db->get($this->table);
 
-        if($query->num_rows() > 0)
-            return $query->result();
+        if($query->num_rows() > 0){
+            if($id != '')
+                return $query->row();
+            else
+                return $query->result();
+        }   
     }
 
     public function saveData($post){

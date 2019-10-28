@@ -3,22 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Shipment extends MY_Controller{
     public function index(){
-        $data['shipper'] = $this->shipper->getAllData();
-        $data['receiver'] = $this->receiver->getAllData();
-        $data['container'] = $this->container->getAllData();
-        $data['agent'] = $this->agent->getDataAll();
-        $data['city'] = $this->city->getAllData();
-        $data['company'] = $this->shipment->getCompany();
         $this->navmenu('Input Dokumen Kapal','add/vw_input_data_shipment_doc','','',$data);
     }
 
     public function edit($id){
-        $data['shipper'] = $this->shipper->getAllData();
-        $data['receiver'] = $this->receiver->getAllData();
-        $data['container'] = $this->container->getAllData();
-        $data['agent'] = $this->agent->getDataAll();
-        $data['city'] = $this->city->getAllData();
-        $data['company'] = $this->shipment->getCompany();
         $data['data'] = $this->shipment->getData($id);
         $this->navmenu('Edit Dokumen Kapal','edit/vw_edit_data_shipment_doc','','',$data);
     }
@@ -211,6 +199,67 @@ class Shipment extends MY_Controller{
     public function ajax_edit_doc_table($id){
 		$data = $this->shipment->getData($id);
 		echo json_encode($data);
+    }
+
+    public function ajax_edit($id){
+		$data = $this->shipment->getData($id,'id_doc','shipment_doc');
+		echo json_encode($data);
+    }
+
+    public function save(){
+        $table = 'shipment_doc';
+        $save  = $this->input->post('save_method');
+        $post  = $_POST;
+
+        $seal_number        = $this->db->escape_str($post['no_seal']);
+        $size               = $this->db->escape_str($post['size']);
+        $process_date       = $this->db->escape_str($post['tgl_proses_dok']);
+        $company            = $this->db->escape_str($post['cmpy']);
+        $id_agent           = $this->db->escape_str($post['agen']);
+        $ship_name          = $this->db->escape_str($post['nama_kapal']);
+        $origin_city        = $this->db->escape_str($post['kota_asal']);
+        $id_shipper         = $this->db->escape_str($post['pengirim']);
+        $id_receiver        = $this->db->escape_str($post['penerima']);
+        $io                 = $this->db->escape_str($post['io']);
+        $condition          = $this->db->escape_str($post['kondisi']);
+        $product            = $this->db->escape_str($post['produk']);
+        $stuffing           = $this->db->escape_str($post['stuffing']);
+
+        $data = array(
+            'seal_number'           => $seal_number,
+            'size'                  => $size,
+            'process_date'          => $process_date,
+            'company'               => $company,
+            'id_agent'              => $id_agent,
+            'ship_name'             => $ship_name,
+            'origin_city'           => $origin_city,
+            'id_shipper'            => $id_shipper,
+            'id_receiver'           => $id_receiver,
+            'io'                    => $io,
+            'condition'             => $condition,
+            'product'               => $product,
+            'stuffing'              => $stuffing,
+        );
+        
+        if($save == 'add'){
+            if ($this->shipment->save_where($table,$data) > 0){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }else{
+            $id = $this->input->post('idm');
+            if ($this->shipment->update_where($table ,array('id_doc' => $id ), $data)){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }
+    }
+
+    public function getCompany(){
+        $data = $this->shipment->getCompany();
+        echo json_encode($data);
     }
 }
 ?>

@@ -88,6 +88,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     var table;
     var save_method; //for save method string
 
+    $('#frmadd').on('keyup keypress', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) { 
+            e.preventDefault();
+            return false;
+        }
+    });
+
     function reload_table() {
         table.ajax.reload(null,false);
     }
@@ -101,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('.modal-title').text('New Jenis Document Data'); // Set Title to Bootstrap modal title
 	}
 
-    function save(id){
+    function save(){
         $('#btnSave').text('Saving...'); //change button text
         $('#btnSave').attr('disabled',true); //set button disable 
         
@@ -111,7 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         var url;
 
         if(save_method == 'add') {
-            url = "<?php echo site_url('document/ajax_add/');?>" + id;
+            url = "<?php echo site_url('document/ajax_add/');?>";
         } else {
             url = "<?php echo site_url('document/ajax_update');?>";
         }

@@ -45,10 +45,21 @@ class Document extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->jenis_doc;
             $row[] = '<center style="font-size: small">'.$r->no_doc;
             $row[] = '<center style="font-size: small">'.$r->date_doc;
-
-            $row[] = '<center>
-            <button class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_doc('."'".$r->id_ship_doc."'".')">E</button>
-            <button class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del_doc('."'".$r->id_ship_doc."'".')">X</button>';
+            
+            if($r->file != NULL || $r->file != ''){
+                $row[] = '<center>
+                <button class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_doc('."'".$r->id_ship_doc."'".')">E</button>
+                <button class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del_doc('."'".$r->id_ship_doc."'".')">X</button>
+                <button class="btn btn-success" href="javascript:void(0)" title="Doc" onclick="open_doc('."'".$r->file."'".')">F</button>
+                <button class="btn btn-danger" href="javascript:void(0)" title="Del File" onclick="delete_file('."'".$r->id_ship_doc."'".')">XF</button>
+                ';
+            } else{
+                $row[] = '<center>
+                <button class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_doc('."'".$r->id_ship_doc."'".')">E</button>
+                <button class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del_doc('."'".$r->id_ship_doc."'".')">X</button>
+                ';
+            }
+            
 
             //add html for action
 
@@ -66,12 +77,12 @@ class Document extends MY_Controller{
     }
 
     public function delete($id){
-        $this->document->deleteData($id);
+        $this->document->deleteData($id,'idm_document','m_document');
         echo json_encode(array("status" => TRUE));
     }
 
     public function ajax_edit($id){
-		$data = $this->document->getData($id);
+		$data = $this->document->getData($id,'idm_document','m_document');
 		echo json_encode($data);
     }
 
@@ -100,33 +111,40 @@ class Document extends MY_Controller{
     }
 
     public function ajax_delete_doc($id){
-        $this->document->deleteDocData($id);
+        $this->document->deleteData($id,'id_ship_doc','ship_doc');
         echo json_encode(array("status" => TRUE));
     }
 
     public function ajax_edit_doc($id){
-		$data = $this->document->getDocData($id);
+		$data = $this->document->getData($id,'id_ship_doc','ship_doc');
 		echo json_encode($data);
     }
 
     public function ajax_add_doc() {
-        if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != ''){
-            $file_name = explode(".",$_FILES['file']['name']);
-            $fileData = $this->singleUpload('file','your folder name',$file_name[1],'2',$_FILES['file']['name']);
-            if($fileData['upload']=='True') {
-                $name = $fileData['data']['file_name'];
-            }
-        }
-
-		$data = array(
+        $table = 'ship_doc';
+        $id_doc = $this->input->post('id_doc');
+        $data = array(
             'id_doc'    => $this->input->post('id_doc'),
             'jenis_doc' => $this->input->post('jenis_doc'),
             'no_doc'    => $this->input->post('no_doc'),
             'date_doc'  => $this->input->post('doc_date'),
-            'file'      => $this->input->post('file'),
 		);
 
-		if ($this->document->save_where('ship_doc',$data) > 0){
+		if (($id = $this->document->save_where($table,$data)) > 0){
+            if(isset($_FILES['doc_file']['name']) && $_FILES['doc_file']['name'] != ''){
+                $url = $id_doc.'/'.$id['insert_id'];
+                //$file_name = explode(".",$_FILES['doc_file']['name']);
+                $fileData = $this->singleUpload('doc_file',$url,$_FILES['doc_file']['name']);
+                
+                if($fileData['upload']=='True') {
+                    $name      = $fileData['data']['file_name'];
+                    $file_path = 'dokumen/'.$url.'/'.$name;
+                }
+
+                $where = array('id_ship_doc' => $id['insert_id']);
+                $data  = array('file' => $file_path);
+                $this->document->update_where($table,$where,$data);
+            }
 			echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
 		}else{
 			echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
@@ -134,23 +152,37 @@ class Document extends MY_Controller{
     }
 
 	public function ajax_update_doc() {
-        if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != ''){
-            $file_name = explode(".",$_FILES['file']['name']);
-            $fileData = $this->singleUpload('file','your folder name',$file_name[1],'2',$_FILES['file']['name']);
-            if($fileData['upload']=='True') {
-                $name = $fileData['data']['file_name'];
-            }
-        }
-
+        $table  = 'ship_doc';
+        $id     = $this->input->post('id_ship_doc');
 		$data = array(
             'id_doc'    => $this->input->post('id_doc'),
             'jenis_doc' => $this->input->post('jenis_doc'),
             'no_doc'    => $this->input->post('no_doc'),
             'date_doc'  => $this->input->post('doc_date'),
-            'file'      => $this->input->post('file'),
-		);
+        );
+        
+        if(isset($_FILES['doc_file']['name']) && $_FILES['doc_file']['name'] != ''){
+            $id_doc = $this->input->post('id_doc');
+            $url = $id_doc.'/'.$id;
+            $name = explode('/',$this->document->getFileName($id));
+            $filename = str_replace('dokumen'.$id_doc.$id,"",$name);
 
-		if ($this->document->update_where('ship_doc',array('id_ship_doc' => $this->input->post('id_ship_doc') ), $data)) {
+            if($filename != $_FILES['doc_file']['name']){
+                $fileData = $this->singleUpload('doc_file',$url,$_FILES['doc_file']['name']);
+                if($fileData['upload']=='True') {
+                    $name      = $fileData['data']['file_name'];
+                    $file_path = 'dokumen/'.$url.'/'.$name;
+                }
+    
+                $where = array('id_ship_doc' => $id);
+                $data  = array('file' => $file_path);
+                $this->document->update_where($table,$where,$data);
+            }else{
+                $data['doc_file'] = $this->input->post('doc_file');
+            }
+        }
+
+		if ($this->document->update_where($table ,array('id_ship_doc' => $id ), $data)) {
 			echo json_encode(array("status" => TRUE, "info" => "Update data sukses"));
 		}else{
 			echo json_encode(array("status" => FALSE, "info" => "Update data gagal"));
@@ -160,6 +192,21 @@ class Document extends MY_Controller{
     function getJenisDoc() {
         $unit = $this->document->getOptionAll(); 
         echo json_encode($unit);
+    }
+
+    function deleteFile($id){
+        $table  = 'ship_doc';
+        $data   = array('file' => '');
+        $url    = $this->document->getFileName($id);
+        $base   = '/var/www/html/myapps/';
+        $path   = $base.$url;
+        
+        if ($this->document->update_where($table ,array('id_ship_doc' => $id ), $data)) {
+            unlink($path); 
+			echo json_encode(array("status" => TRUE, "info" => "Update data sukses"));
+		}else{
+			echo json_encode(array("status" => FALSE, "info" => "Update data gagal"));
+		}
     }
     
 }

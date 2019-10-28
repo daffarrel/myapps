@@ -86,8 +86,8 @@ class City extends MY_Controller{
         $this->edit($id);
     }
 
-    public function get_data($id){
-        $result = $this->city->get_data($id);
+    public function getData($id = ''){
+        $result = $this->city->getData($id);
         echo json_encode($result);
     }
 }

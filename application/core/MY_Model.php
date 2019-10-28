@@ -99,8 +99,8 @@ class MY_Model extends CI_Model {
         $this->db->insert($where, $data);
 
         $status = array(
+            'insert_id' => $this->db->insert_id(),
             'status' => $this->db->affected_rows(),
-            'insert_id' => $this->db->insert_id()
         );
 
         return $status;
@@ -120,6 +120,21 @@ class MY_Model extends CI_Model {
         $query = $this->db->get();
 
         return $query->row();
+    }
+
+    public function getDataa($id = '',$primary_key = '',$table){
+        if($id != '')
+            $this->db->where($primary_key,$id);
+        
+        $this->db->where('soft_delete','0');
+        $query = $this->db->get($table);
+
+        if($query->num_rows() > 0){
+            if($id != '')
+                return $query->row();
+            else
+                return $query->result();
+        }
     }
 
     public function getOption($input){

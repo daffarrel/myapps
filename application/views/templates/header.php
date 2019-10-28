@@ -131,7 +131,7 @@
       <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a href="<?php echo base_url()?>" class="navbar-brand"><b>BILL System</b></a>
+            <a href="<?php echo site_url()?>" class="navbar-brand"><b>BILL System</b></a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
               <i class="fa fa-bars"></i>
             </button>
@@ -140,28 +140,35 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
             <ul class="nav navbar-nav">
-              <li ><a href="<?php echo base_url()?>">Home <span class="sr-only">(current)</span></a></li>
+              <li ><a href="<?php echo site_url()?>">Home <span class="sr-only">(current)</span></a></li>
               <li <?php if($this->uri->segment(2)=="master"){echo ' class="active"';}?> class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Master Data <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="<?php echo base_url("main/master/agent");?>">Data Agen</a></li>
-                    <li><a href="<?php echo base_url("main/master/bank");?>">Data Bank</a></li>
-                    <li><a href="<?php echo base_url("main/master/city");?>">Data Kota</a></li>
-                    <li><a href="<?php echo base_url("main/master/driver");?>">Data Supir</a></li>
-                    <li><a href="<?php echo base_url("main/master/receiver");?>">Data Penerima</a></li>
-                    <li><a href="<?php echo base_url("main/master/route");?>">Data Daftar Gaji</a></li>
-                    <li><a href="<?php echo base_url("main/master/shipper");?>">Data Pengirim</a></li>
-                    <li><a href="<?php echo base_url("main/master/truck");?>">Data Truk</a></li>
-                    <li><a href="<?php echo base_url("main/master/document");?>">Data Jenis Document</a></li>
+                    <li><a href="<?php echo site_url("main/master/agent");?>">Data Agen</a></li>
+                    <li><a href="<?php echo site_url("main/master/bank");?>">Data Bank</a></li>
+                    <li><a href="<?php echo site_url("main/master/city");?>">Data Kota</a></li>
+                    <li><a href="<?php echo site_url("main/master/driver");?>">Data Supir</a></li>
+                    <li><a href="<?php echo site_url("main/master/receiver");?>">Data Penerima</a></li>
+                    <li><a href="<?php echo site_url("main/master/route");?>">Data Daftar Gaji</a></li>
+                    <li><a href="<?php echo site_url("main/master/shipper");?>">Data Pengirim</a></li>
+                    <li><a href="<?php echo site_url("main/master/truck");?>">Data Truk</a></li>
+                    <li><a href="<?php echo site_url("main/master/document");?>">Data Jenis Document</a></li>
                 </ul>
               </li>
-              <li <?php echo $this->uri->segment(2) == 'document' ? 'active' : ''; ?>class="dropdown">
+              <li <?php if($this->uri->segment(2)=="document"){echo ' class="active"';}?> class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dokumen Kapal <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li class="nav-item"><a href="<?php echo base_url("main/document/shipment_doc");?>" class="nav-link">Dokumen Kapal</a></li>
-                    <li class="nav-item"><a href="<?php echo base_url("main/document/shipment_arr");?>" class="nav-link">Dokumen Kapal Tiba</a></li>
-                    <li class="nav-item"><a href="<?php echo base_url("main/document/doring");?>" class="nav-link">Doring</a></li>
-                    <li class="nav-item"><a href="<?php echo base_url("main/document/doring_doc");?>" class="nav-link">Dokumen Doring</a></li>
+                    <li class="nav-item"><a href="<?php echo site_url("main/document/shipment_doc");?>" class="nav-link">Dokumen Kapal</a></li>
+                    <li class="nav-item"><a href="<?php echo site_url("main/document/shipment_arr");?>" class="nav-link">Dokumen Kapal Tiba</a></li>
+                    <li class="nav-item"><a href="<?php echo site_url("main/document/doring");?>" class="nav-link">Doring</a></li>
+                    <li class="nav-item"><a href="<?php echo site_url("main/document/doring_doc");?>" class="nav-link">Dokumen Doring</a></li>
+                </ul>
+              </li>
+              <li <?php if($this->uri->segment(2)=="report"){echo ' class="active"';}?> class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Report <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="nav-item"><a href="<?php echo site_url("main/report/gaji");?>" class="nav-link">Laporan Gaji</a></li>
+                    
                 </ul>
               </li>
             </ul>

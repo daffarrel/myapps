@@ -130,30 +130,20 @@ class M_document extends MY_Model {
         return $this->db->count_all_results();
     }
 
-    public function getData($id){
-        $this->db->from($this->table);
-        $this->db->where('idm_document',$id);
-        $query = $this->db->get();
+    public function getData($id = '',$primary_key = '',$table){     
+        if($id != '')
+            $this->db->where($primary_key,$id);
+        
+        $this->db->where('soft_delete','0');
+        $query = $this->db->get($table);
 
-        if($query->num_rows() > 0)
-            return $query->row();
-    }
-
-    public function getDocData($id){
-        $this->db->from($this->table_doc);
-        $this->db->where('id_ship_doc',$id);
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0)
-            return $query->row();
-    }
-
-    public function getDataAll(){
-        $this->db->from($this->table);
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0)
-            return $query->result();
+        if($query->num_rows() > 0){
+            if($id != '')
+                return $query->row();
+            else
+                return $query->result();
+        }
+            
     }
 
     function getOptionAll() {
@@ -163,30 +153,23 @@ class M_document extends MY_Model {
         
         if($records->num_rows() > 0)
             return $records->result();
-        //$data=array(); 
-        //$data[0] = 'SELECT';
-        /* 
-        foreach ($records->result() as $row){
-            $data[$row->idm_document] = $row->jenis_doc;
-        }
-        return ($data);
-        */
     }
 
-    public function deleteData($id){
+    public function deleteData($id,$primary_key,$table){
         $this->db->set('soft_delete','1');
-        $this->db->where('idm_document', $id);
-        $this->db->update($this->table);
+        $this->db->where($primary_key, $id);
+        $this->db->update($table);
 
         return $this->db->affected_rows();
     }
 
-    public function deleteDocData($id){
-        $this->db->set('soft_delete','1');
-        $this->db->where('id_ship_doc', $id);
-        $this->db->update($this->table_doc);
+    public function getFileName($id){
+        $this->db->from($this->table_doc);
+        $this->db->where('id_ship_doc',$id);
+        $query = $this->db->get();
 
-        return $this->db->affected_rows();
+        if($query->num_rows() > 0)
+            return $query->row()->file;
     }
 }
 ?>

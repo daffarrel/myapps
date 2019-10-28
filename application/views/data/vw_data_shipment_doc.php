@@ -135,7 +135,7 @@ table.dataTable thead {
             </div>
             <div class="modal-footer bg-warning" >
                 <div class="form-group">
-                    <form id="form-modal">
+                    <form id="form-modal" enctype="multipart/form-data">
                         <div class='row'>
                             <div class="col-md-12">
                                 <input type="hidden" name="id_doc" id="id_doc">
@@ -149,13 +149,14 @@ table.dataTable thead {
                                 <select name="jenis_doc" id="jenis_doc" class="form-control">
                                     <option value="">---Please Select An Option---</option>
                                 </select>
+                                <span class="help-block"></span>
                             </div>
                             <div class="col-md-4">
                                 <input name="doc_date" type="text" class="form-control tanggal" id="doc_date" placeholder="Tanggal Dokumen">
                                 <span class="help-block"></span>
                             </div>
                             <div class="col-md-4">
-                                <input name="doc_file" type="file" class="form-control" id="doc_file" placeholder="File">
+                                <input name="doc_file" type="file" class="form-control" id="doc_file">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -169,23 +170,338 @@ table.dataTable thead {
 				</div>
 			</div>				
         </div>
+    </div>
+</div>
+<!-- End Bootstrap modal -->
+
+<!-- Bootstrap modal For Datatable-->
+<div class="modal fade" id="md-form" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Dokumen Kapal</h3>
+            </div>
+            <div class="modal-body form">
+                <div class="form-group">
+                    <form id="frm-modal" action="#" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">No. Kontainer</label>
+                                    <input hidden id="idm" name="idm">
+                                    <input required id="no_seal" name="no_seal" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="size" class="form-label">Size</label>
+                                    <select required id="size" name="size" class="form-control">
+                                        <option value="20">20</option>
+                                        <option value="40">40</option>
+                                        <option value="N">N</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tanggal Proses Dokumen</label>
+                                    <input required id="tgl_proses_dok" name="tgl_proses_dok" class="form-control tanggal" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Perusahaan</label>
+                                    <select required id="cmpy" name="cmpy" class="form-control select2">
+                                        <option value="">----</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Agent</label>
+                                    <select required id="agen" name="agen" class="form-control select2">
+                                        <option value="">----</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Kota Asal</label>
+                                    <select required id="kota_asal" name="kota_asal" class="form-control select2">
+                                        <option value="">----</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Nama Kapal</label>
+                                    <input id="nama_kapal" name="nama_kapal" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Pengirim</label>
+                                    <select id="pengirim" name="pengirim" class="form-control select2">
+                                        <option value="">----</option>
+                                    </select>                                        
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Penerima</label>
+                                    <select id="penerima" name="penerima" class="form-control select2">
+                                        <option value="">----</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">I/O</label>
+                                    <select id="io" name="io" class="form-control select">
+                                        <option value="I">IN</option>
+                                        <option value="O">OUT</option>
+                                    </select>                                        
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Kondisi</label>
+                                    <select required id="kondisi" name="kondisi" class="form-control">
+                                        <option value="FULL">FULL</option>
+                                        <option value="CURAH">CURAH</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Stuffing</label>
+                                    <select id="stuffing" name="stuffing" class="form-control select">
+                                        <option value="yes">YA</option>
+                                        <option value="no">TIDAK</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Produk</label>
+                                    <input required id="produk" name="produk" class="form-control" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer bg-warning" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <button onclick='save()' id='btnSave' type='button' class='btn btn-primary' >Save</button>
+                        <button onclick='batal()' type='button' class='btn btn-danger' >Cancel</button>
+                    </div>
+                </div>
+			</div>				
+        </div>
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 <!-- End Bootstrap modal -->
 
+
 <script type="text/javascript">
     var table;
     var table_doc;
-    var iddoc = 0;
     var save_method; //for save method string
     var save_method_doc = 'add';
 
     function cancel(){
         save_method_doc = 'add';
-        $('input[name=activity]').val('');
-        $('#btnSave2').text('Save'); //change button text
-        $('#btnSave2').attr('class','btn btn-primary'); //set button disable 
-        $('#md-table').modal('hide');
+        $('#form-modal')[0].reset();
+        $('#btnSaveDoc').text('Save'); //change button text
+        $('#btnSaveDoc').attr('class','btn btn-primary'); //set button disable 
+        $('#md-form').modal('hide');
+    }
+
+    function batal(){
+        $('#frm-modal')[0].reset();
+        $('#btnSave').text('Save'); //change button text
+        $('#btnSave').attr('class','btn btn-primary'); //set button disable 
+        $('#md-form').modal('hide');
+    }
+
+    function init_select(){
+        //Unit Select Box
+        let dropdown_cmpy = $('#cmpy');
+        dropdown_cmpy.empty();
+        dropdown_cmpy.append('<option value="">Pilih Perusahaan</option>');
+        dropdown_cmpy.prop('selectedIndex', 0);
+        const url_cmpy = '<?php echo base_url('shipment/getCompany/');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url_cmpy, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown_cmpy.append($('<option></option>').attr('value', entry.subID).text(entry.value));
+            })
+        });
+
+        //Unit Select Box
+        let dropdown_agent = $('#agen');
+        dropdown_agent.empty();
+        dropdown_agent.append('<option value="">Pilih Agen</option>');
+        dropdown_agent.prop('selectedIndex', 0);
+        const url_agent = '<?php echo base_url('agent/getData/');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url_agent, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown_agent.append($('<option></option>').attr('value', entry.idm_agent).text(entry.agent_name));
+            })
+        });
+
+        //Unit Select Box
+        let dropdown_city = $('#kota_asal');
+        dropdown_city.empty();
+        dropdown_city.append('<option value="">Pilih Kota</option>');
+        dropdown_city.prop('selectedIndex', 0);
+        const url_city = '<?php echo base_url('city/getData/');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url_city, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown_city.append($('<option></option>').attr('value', entry.idm_city).text(entry.city_name));
+            })
+        });
+
+        //Unit Select Box
+        let dropdown_shipper = $('#pengirim');
+        dropdown_shipper.empty();
+        dropdown_shipper.append('<option value="">Pilih Pengirim</option>');
+        dropdown_shipper.prop('selectedIndex', 0);
+        const url_shipper = '<?php echo base_url('shipper/getData/');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url_shipper, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown_shipper.append($('<option></option>').attr('value', entry.idm_shipper).text(entry.debitur_name));
+            })
+        });
+
+        //Unit Select Box
+        let dropdown_receiver = $('#penerima');
+        dropdown_receiver.empty();
+        dropdown_receiver.append('<option value="">Pilih Penerima</option>');
+        dropdown_receiver.prop('selectedIndex', 0);
+        const url_receiver = '<?php echo base_url('receiver/getData/');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url_receiver, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown_receiver.append($('<option></option>').attr('value', entry.idm_receiver).text(entry.receiver_name));
+            })
+        });
+    }
+
+    function add(){
+        save_method = 'add';
+        $('#frm-modal')[0].reset(); // reset form on modals
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
+        $('#btnSave').text('Save');
+        init_select();
+        $('.select2').select2({
+            dropdownParent: $("#md-form")
+        });
+        $('#md-form').modal('show'); // show bootstrap modal when complete loaded
+        $('.modal-title').text('Tambah Dokumen Kapal'); // Set title to Bootstrap modal title
+    }
+
+    function edit(id){
+        save_method = 'update';
+        $('#frm-modal')[0].reset(); // reset form on modals
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
+        $('#btnSave').text('Update');
+        init_select();
+        $('.select2').select2({
+            dropdownParent: $("#md-form")
+        });
+
+        //Ajax Load data from ajax
+        $.ajax({
+            url : "<?php echo site_url('shipment/ajax_edit/')?>" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data)
+            {		
+                $('#idm').val(data.id_doc);
+                $('#no_seal').val(data.seal_number);
+                $('#size').val(data.size).change();
+                $('#tgl_proses_dok').val(data.process_date);
+                $('#cmpy').val(data.company).change();
+                $('#agent').val(data.id_agent).change();
+                $('#kota_asal').val(data.origin_city).change();
+                $('#shipper').val(data.id_shipper).change();
+                $('#receiver').val(data.id_receiver).change();
+                $('#nama_kapal').val(data.ship_name);
+                $('#io').val(data.io).change();
+                $('#kondisi').val(data.condition).change();
+                $('#produk').val(data.product);
+                $('#stuffing').val(data.stuffing).change();
+
+                $('#md-form').modal('show'); // show bootstrap modal when complete loaded
+                $('.modal-title').text('Edit Equipment'); // Set title to Bootstrap modal title
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error get data from ajax');
+            }
+        });
+    }
+
+    function save(){    
+        var url;
+
+        if(save_method == 'add') {
+            $('#btnSave').text('Saving...'); //change button text
+            $('#btnSave').attr('disabled',true); //set button disable 
+        } else {
+            $('#btnSave').text('Updating...'); //change button text
+            $('#btnSave').attr('disabled',true); //set button disable 
+        }
+        
+        url = "<?php echo site_url('shipment/ajax_save');?>";
+        formData = new FormData($('#frm-modal')[0]);
+        formData.append( 'save_method', save_method );
+
+        // ajax adding data to database
+        $.ajax({
+            url : url,
+            type: "POST",
+            data: formData,
+            async: false,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success: function(data){
+                //if success close modal and reload ajax table
+                if(data.status){
+                    reload_table();
+                    $('#frm-modal')[0].reset();
+                }
+                else{
+                    for (var i = 0; i < data.inputerror.length; i++) {
+                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                        $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
+                    }
+                }
+
+                $('#btnSave').text('Save'); //change button text
+                $('#btnSave').attr('disabled',false); //set button enable 
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                alert('Error adding data');
+                $('#btnSave').text('Save'); //change button text
+                $('#btnSave').attr('disabled',false); //set button enable 
+            }
+        });
     }
 
     function edit_doc(id){
@@ -205,7 +521,6 @@ table.dataTable thead {
                 $('[name="jenis_doc"]').val(data.jenis_doc).change();
                 $('[name="no_doc"]').val(data.no_doc);
                 $('[name="doc_date"]').val(data.date_doc);
-                $('[name="file"]').val(data.file);
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -226,36 +541,23 @@ table.dataTable thead {
             $('#btnSaveDoc').attr('disabled',true); //set button disable 
             url = "<?php echo site_url('document/ajax_update_doc');?>";
         }
-
-        formData = new FormData();
         
-        if(save_method_doc != 'add')
-            formData.append( 'id_ship_doc', $('input[name=id_ship_doc]').val());        
-        
-        if( !$('#doc_file').get(0).files.length === 0 )
-            formData.append( 'file', $('#doc_file')[0].files[0]);
-
-        formData.append( 'id_doc', $('input[name=id_doc]').val());
-        formData.append( 'no_doc', $('input[name=no_doc]').val());
-        formData.append( 'jenis_doc', $('#jenis_doc').val());
-        formData.append( 'doc_date', $('input[name=doc_date]').val());
+        formData = new FormData($('#form-modal')[0]);
         
         // ajax adding data to database
         $.ajax({
             url : url,
             type: "POST",
             data: formData,
-            dataType: "JSON",
+            async: false,
             contentType: false,
             processData: false,
+            dataType: "JSON",
             success: function(data){
                 //if success close modal and reload ajax table
                 if(data.status){
                     reload_table();
-                    $('input[name=doc_date]').val('');
-                    $('input[name=no_doc]').val('');
-                    $('input[name=jenis_doc]').val('').change();
-                    $('input[name=doc_file]').val('');
+                    $('#form-modal')[0].reset();
                 }
                 else{
                     for (var i = 0; i < data.inputerror.length; i++) {
@@ -280,12 +582,34 @@ table.dataTable thead {
         table_doc.ajax.reload(null,false); //reload datatable ajax 
     }
 
-    function add() {
-        window.location.replace('<?php echo site_url('shipment/')?>');
+    function open_doc(id){
+        window.open('<?php echo base_url()?>'+id,'_blank');
+        window.focus();
     }
 
-    function edit(id) {
-        window.location.replace('<?php echo site_url('shipment/edit/')?>'+id);
+    function delete_file(id){
+        if (confirm('Are you sure you want to delete this?')) {
+            $.ajax({
+                url : '<?php echo site_url('document/deleteFile/')?>'+id,
+                type: "GET",
+                async: false,
+                contentType: false,
+                processData: false,
+                dataType: "JSON",
+                success: function(data){
+                    if(data.status){
+                        reload_table();
+                        alert('Sukses Menghapus File');
+                    }
+                    else{
+                        alert('something missing');
+                    }                
+                },
+                error: function (jqXHR, textStatus, errorThrown){
+                    alert('Error deleting file');
+                }
+            });
+        }
     }
 
     $(document).ready(function(){
@@ -319,8 +643,8 @@ table.dataTable thead {
                 }
             },
         });
-        $('#container').css( 'display', 'block' );
-        table.columns.adjust().draw();
+        //$('#container').css( 'display', 'block' );
+        //table.columns.adjust().draw();
 
         $('#agent').keyup( function() {
             //table.draw();
