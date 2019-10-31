@@ -6,6 +6,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 table.dataTable thead {
   border-bottom: 5px solid black !important;
 }
+
+.select2-container {
+    width: 100% !important;
+    padding: 0;
+}
 </style>
 <section class="content-wrapper">
     <div class="container-fluid">
@@ -21,7 +26,8 @@ table.dataTable thead {
         <section class="content">
             <div class="box box-default">
                 <div class="box-header">
-                    <button class="btn btn-primary" onclick="add()"> <span>Tambah Data</span></button><br><br>   
+                    <button class="btn btn-primary" onclick="add()"> <span>Tambah Data</span></button>
+                    <button class="btn btn-info" onclick="refresh()"> <span>Refresh Halaman</span></button><br><br>   
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -122,11 +128,11 @@ table.dataTable thead {
 				<table id="tb_doc" class="table table-bordered table-hover" width='100%'>
                     <thead>
                         <tr>
-                        <th><center>#</th>
-                        <th><center>Jenis Dokumen</th>
-                        <th><center>No Dokumen</th>
-                        <th><center>Tanggal Dokumen</th>
-                        <th><center>Aksi</th>
+                        <th style="width:5% !important;"><center>#</th>
+                        <th style="width:20% !important;"><center>Jenis Dokumen</th>
+                        <th style="width:35% !important;"><center>No Dokumen</th>
+                        <th style="width:20% !important;"><center>Tanggal Dokumen</th>
+                        <th style="width:20% !important;"><center>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>	
@@ -211,14 +217,6 @@ table.dataTable thead {
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Perusahaan</label>
-                                    <select required id="cmpy" name="cmpy" class="form-control select2">
-                                        <option value="">----</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
                                     <label for="agent_name" class="form-label">Agent</label>
                                     <select required id="agen" name="agen" class="form-control select2">
                                         <option value="">----</option>
@@ -235,12 +233,6 @@ table.dataTable thead {
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Nama Kapal</label>
-                                    <input id="nama_kapal" name="nama_kapal" class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
                                     <label for="agent_name" class="form-label">Pengirim</label>
                                     <select id="pengirim" name="pengirim" class="form-control select2">
                                         <option value="">----</option>
@@ -253,6 +245,20 @@ table.dataTable thead {
                                     <select id="penerima" name="penerima" class="form-control select2">
                                         <option value="">----</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Perusahaan</label>
+                                    <select required id="cmpy" name="cmpy" class="form-control">
+                                        <option value="">----</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Nama Kapal</label>
+                                    <input id="ship_name" name="ship_name" class="form-control" type="text">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -317,7 +323,7 @@ table.dataTable thead {
         $('#form-modal')[0].reset();
         $('#btnSaveDoc').text('Save'); //change button text
         $('#btnSaveDoc').attr('class','btn btn-primary'); //set button disable 
-        $('#md-form').modal('hide');
+        $('#md-table').modal('hide');
     }
 
     function batal(){
@@ -405,9 +411,7 @@ table.dataTable thead {
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
         $('#btnSave').text('Save');
-        init_select();
         $('.select2').select2({
-            dropdownParent: $("#md-form")
         });
         $('#md-form').modal('show'); // show bootstrap modal when complete loaded
         $('.modal-title').text('Tambah Dokumen Kapal'); // Set title to Bootstrap modal title
@@ -419,9 +423,7 @@ table.dataTable thead {
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
         $('#btnSave').text('Update');
-        init_select();
         $('.select2').select2({
-            dropdownParent: $("#md-form")
         });
 
         //Ajax Load data from ajax
@@ -435,19 +437,19 @@ table.dataTable thead {
                 $('#no_seal').val(data.seal_number);
                 $('#size').val(data.size).change();
                 $('#tgl_proses_dok').val(data.process_date);
-                $('#cmpy').val(data.company).change();
-                $('#agent').val(data.id_agent).change();
-                $('#kota_asal').val(data.origin_city).change();
-                $('#shipper').val(data.id_shipper).change();
-                $('#receiver').val(data.id_receiver).change();
-                $('#nama_kapal').val(data.ship_name);
+                $('#cmpy').val(data.idm_company).change();
+                $('#agen').val(data.idm_agent).trigger('change.select2');;
+                $('#kota_asal').val(data.idm_city).trigger('change.select2');;
+                $('#pengirim').val(data.idm_shipper).trigger('change.select2');;
+                $('#penerima').val(data.idm_receiver).trigger('change.select2');;
+                $('#ship_name').val(data.ship_name);
                 $('#io').val(data.io).change();
-                $('#kondisi').val(data.condition).change();
+                $('#kondisi').val(data.kondisi).change();
                 $('#produk').val(data.product);
                 $('#stuffing').val(data.stuffing).change();
 
                 $('#md-form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Equipment'); // Set title to Bootstrap modal title
+                $('.modal-title').text('Edit Dokumen Kapal'); // Set title to Bootstrap modal title
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -495,6 +497,7 @@ table.dataTable thead {
 
                 $('#btnSave').text('Save'); //change button text
                 $('#btnSave').attr('disabled',false); //set button enable 
+                $('#md-form').modal('hide');
             },
             error: function (jqXHR, textStatus, errorThrown){
                 alert('Error adding data');
@@ -556,7 +559,7 @@ table.dataTable thead {
             success: function(data){
                 //if success close modal and reload ajax table
                 if(data.status){
-                    reload_table();
+                    reload_table_doc();
                     $('#form-modal')[0].reset();
                 }
                 else{
@@ -579,7 +582,18 @@ table.dataTable thead {
 
     function reload_table() {
         table.ajax.reload(null,false);
-        table_doc.ajax.reload(null,false); //reload datatable ajax 
+        //init_select();
+    }
+
+    function refresh(){
+        init_select();
+        $('#form-filter')[0].reset();
+        table.ajax.reload(null,false);
+    }
+
+    function reload_table_doc(){
+        //reload datatable ajax 
+        table_doc.ajax.reload(null,false); 
     }
 
     function open_doc(id){
@@ -645,6 +659,7 @@ table.dataTable thead {
         });
         //$('#container').css( 'display', 'block' );
         //table.columns.adjust().draw();
+        init_select();
 
         $('#agent').keyup( function() {
             //table.draw();
@@ -751,6 +766,8 @@ table.dataTable thead {
                     autowidth   : true,
                     ordering    : false,
                     destroy     : true,
+                    pageLength  : 5,
+                    lengthMenu: [5, 10, 20, 50, 100],
                     ajax : {
                         url : "<?php echo base_url('document/ajax_list_doc_table/');?>",
                         type : 'POST',
@@ -790,4 +807,9 @@ table.dataTable thead {
             autoclose: true,
             format:"yyyy-mm-dd",
     });
+
+    $('.modal').on('hidden.bs.modal', function () {
+        reload_table();
+    });
+
 </script>

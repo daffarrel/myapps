@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <button class="btn btn-primary" onclick="add()"> <span>Tambah Data</span></button><br><br>   
                 </div>
                 <div class="box-body table-responsive">
-                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable" cellspacing="0" width="100%" role="grid" >
+                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable nowrap" cellspacing="0" role="grid" >
                         <thead>
                         <tr>
                             <th><center>No</th>
@@ -31,11 +31,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th><center>PIC</th>
                             <th><center>Finance</th>
                             <th><center>No Telepon</th>
-                            <th><center>No HP</th>
-                            <th><center>No Fax</th>
-                            <th><center>Nama Perusahaan</th>
-                            <th><center>No. Rekening</th>
-                            <th><center>Aksi</th>
+                            <th style="width:10%"><center>No Handphone</th>
+                            <th style="width:10%"><center>No Fax</th>
+                            <th style="width:12%"><center>Nama Perusahaan</th>
+                            <th style="width:10%"><center>No. Rekening</th>
+                            <th style="width:7%"><center>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,11 +49,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th><center>PIC</th>
                             <th><center>Finance</th>
                             <th><center>No Telepon</th>
-                            <th><center>No HP</th>
-                            <th><center>No Fax</th>
-                            <th><center>Nama Perusahaan</th>
-                            <th><center>No. Rekening</th>
-                            <th><center>Aksi</th>
+                            <th style="width:10%"><center>No Handphone</th>
+                            <th style="width:10%"><center>No Fax</th>
+                            <th style="width:12%"><center>Nama Perusahaan</th>
+                            <th style="width:10%"><center>No. Rekening</th>
+                            <th style="width:7%"><center>Aksi</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -85,7 +85,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             processing: true, //Feature control the processing indicator.
             serverSide: true, //Feature control DataTables' server-side processing mode.
             order: [], //Initial no order.
-            autowidth : true,
+            autowidth   : true,
+            scrollX     : true,
+            scrollCollapse: true,
 
             // Load data for the table's content from an Ajax source
             ajax: {

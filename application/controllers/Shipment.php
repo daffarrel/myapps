@@ -206,7 +206,7 @@ class Shipment extends MY_Controller{
 		echo json_encode($data);
     }
 
-    public function save(){
+    public function ajax_save(){
         $table = 'shipment_doc';
         $save  = $this->input->post('save_method');
         $post  = $_POST;
@@ -216,7 +216,7 @@ class Shipment extends MY_Controller{
         $process_date       = $this->db->escape_str($post['tgl_proses_dok']);
         $company            = $this->db->escape_str($post['cmpy']);
         $id_agent           = $this->db->escape_str($post['agen']);
-        $ship_name          = $this->db->escape_str($post['nama_kapal']);
+        $ship_name          = $this->db->escape_str($post['ship_name']);
         $origin_city        = $this->db->escape_str($post['kota_asal']);
         $id_shipper         = $this->db->escape_str($post['pengirim']);
         $id_receiver        = $this->db->escape_str($post['penerima']);
