@@ -34,6 +34,7 @@ class Document extends MY_Controller{
 
     public function ajax_list_doc_table(){
         $id = $this->input->post('id');
+        $locked = $this->input->post('locked');
         $list = $this->document->get_datatable_doc($id);
         $data = array();
         $no = $_POST['start'];
@@ -46,20 +47,23 @@ class Document extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->no_doc;
             $row[] = '<center style="font-size: small">'.$r->date_doc;
             
-            if($r->file != NULL || $r->file != ''){
-                $row[] = '<center>
-                <button class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_doc('."'".$r->id_ship_doc."'".')">E</button>
-                <button class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del_doc('."'".$r->id_ship_doc."'".')">X</button>
-                <button class="btn btn-success" href="javascript:void(0)" title="Doc" onclick="open_doc('."'".$r->file."'".')">F</button>
-                <button class="btn btn-danger" href="javascript:void(0)" title="Del File" onclick="delete_file('."'".$r->id_ship_doc."'".')">XF</button>
-                ';
-            } else{
-                $row[] = '<center>
-                <button class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_doc('."'".$r->id_ship_doc."'".')">E</button>
-                <button class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del_doc('."'".$r->id_ship_doc."'".')">X</button>
-                ';
+            if($locked != '' && $locked == '1'){
+                $row[] = '';
+            }else{
+                if($r->file != NULL || $r->file != ''){
+                    $row[] = '<center>
+                    <button class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_doc('."'".$r->id_ship_doc."'".')">E</button>
+                    <button class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del_doc('."'".$r->id_ship_doc."'".')">X</button>
+                    <button class="btn btn-success" href="javascript:void(0)" title="Doc" onclick="open_doc('."'".$r->file."'".')">F</button>
+                    <button class="btn btn-danger" href="javascript:void(0)" title="Del File" onclick="delete_file('."'".$r->id_ship_doc."'".')">XF</button>
+                    ';
+                } else{
+                    $row[] = '<center>
+                    <button class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_doc('."'".$r->id_ship_doc."'".')">E</button>
+                    <button class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del_doc('."'".$r->id_ship_doc."'".')">X</button>
+                    ';
+                }
             }
-            
 
             //add html for action
 

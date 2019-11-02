@@ -114,6 +114,12 @@ class MY_Model extends CI_Model {
         //$this->db->delete($this->table);
     }
 
+    public function delete_data($id,$id_table){
+        $where = $id_table.' ='.$id;
+        $this->db->update($this->table,'soft_delete = 1',$where);
+        return $this->db->affected_rows();
+    }
+    
     public function get_by_id($where,$table) {
         $this->db->from($table);
         $this->db->where($where);

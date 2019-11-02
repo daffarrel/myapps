@@ -45,43 +45,6 @@ class M_city extends MY_Model{
         }
     }
 
-    public function saveData($post){
-        $city_code = $this->db->escape_str($post['city_code']);
-        $city_name = $this->db->escape_str($post['city_name']);
-
-        $data = array(
-            'city_code' => $city_code,
-            'city_name' => $city_name,
-        );
-
-        $result = $this->save_where($this->table,$data);
-
-        if($result['status'])
-            return TRUE;
-        else
-            return FALSE;
-    }
-
-    public function updateData($post){
-        $city_code = $this->db->escape_str($post['city_code']);
-        $city_name = $this->db->escape_str($post['city_name']);
-
-        $where = array(
-            'idm_city' => $this->db->escape_str($post['idm_city'])
-        );
-
-        $data = array(
-            'city_code' => $city_code,
-            'city_name' => $city_name,
-        );
-        $result= $this->update_where($this->table,$where,$data);
-
-        if($result)
-            return TRUE;
-        else
-            return FALSE;
-    }
-
     public function deleteData($id){
         $this->db->set('soft_delete','1');
         $this->db->where('idm_city', $id);

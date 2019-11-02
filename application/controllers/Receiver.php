@@ -2,16 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Receiver extends MY_Controller{
-    public function index(){
-        $data['bank'] = $this->bank->getDataAll();
-        $this->navmenu('Input Data Penerima','add/vw_input_data_receiver','','',$data);
-    }
-
-    public function edit($id){
-        $data['bank'] = $this->bank->getDataAll();
-        $data['data'] = $this->receiver->getData($id);
-        $this->navmenu('Edit Data Penerima','edit/vw_edit_data_receiver','','',$data);
-    }
+    var $id_table   = 'idm_receiver';
+    var $table      = 'm_receiver';
 
     public function ajax_list(){
         $list = $this->receiver->get_datatable();
@@ -49,52 +41,56 @@ class Receiver extends MY_Controller{
         echo json_encode($output);
     }
 
+    public function ajax_edit($id){
+		$data = $this->receiver->getData($id,$this->id_table,$this->table);
+		echo json_encode($data);
+    }
+
+    public function ajax_save(){
+        $save       = $this->input->post('save_method');
+        $post       = $_POST;
+
+        $receiver   = $this->db->escape_str($post['penerima']);
+        $address    = $this->db->escape_str($post['alamat']);
+        $city       = $this->db->escape_str($post['kota']);
+        $telp       = $this->db->escape_str($post['telp']);
+        $hp         = $this->db->escape_str($post['hp']);
+        $fax        = $this->db->escape_str($post['fax']);
+        $corporate  = $this->db->escape_str($post['perusahaan']);
+        $bank       = $this->db->escape_str($post['bank']);
+        $account    = $this->db->escape_str($post['no_rek']);
+
+        $data = array(
+            'receiver_name'     => $receiver,
+            'address'           => $address,
+            'city'              => $city,
+            'telp'              => $telp,
+            'hp'                => $hp,
+            'fax'               => $fax,
+            'corporate_name'    => $corporate,
+            'id_bank'           => $bank,
+            'account_number'    => $account
+        );
+        
+        if($save == 'add'){
+            if ($this->receiver->save_where($this->table,$data) > 0){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }else{
+            $id = $this->input->post('idm');
+            if ($this->receiver->update_where($this->table ,array($this->id_table => $id ), $data)){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }
+    }
+
     public function delete($id){
         $this->receiver->deleteData($id);
         echo json_encode(array("status" => TRUE));
-    }
-
-    public function addData() {
-        $result = $this->receiver->saveData($_POST);
-
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Ditambahkan
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Ditambahkan..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
-
-        $this->index();
-    }
-
-    public function updateData() {
-        $id = $this->input->post('idm');
-        $result = $this->receiver->updateData($_POST);
-
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Di Update
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Di Update..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
-
-        $this->edit($id);
     }
 
     public function getData($id = ''){

@@ -85,75 +85,20 @@ class M_doring extends MY_Model {
         return $this->db->count_all_results();
     }
 
-    public function getData($id){
-        $this->db->from($this->view);
-        $this->db->where('id_doring',$id);
+    public function getData($id = ''){
+        $this->db->from($this->table);
+
+        if($id != '')
+            $this->db->where('id_doring',$id);
+        
         $query = $this->db->get();
 
-        if($query->num_rows() > 0)
-            return $query->row();
-    }
-
-    public function saveData($post){
-        $id_ship_arr       = $this->db->escape_str($post['no_seal']);
-        $safeconduct_num   = $this->db->escape_str($post['no_surat_jalan']);
-        $id_route          = $this->db->escape_str($post['rute']);
-        $dk_lk             = $this->db->escape_str($post['dk_lk']);
-        $on_chassis        = $this->db->escape_str($post['on_chassis']);
-        $unload_date       = $this->db->escape_str($post['door']);
-        $id_truck          = $this->db->escape_str($post['truck']);
-        $id_driver         = $this->db->escape_str($post['supir']);
-
-        $data = array(
-            'id_ship_arr'      => $id_ship_arr,
-            'safeconduct_num'  => $safeconduct_num,
-            'id_route'         => $id_route,
-            'dk_lk'            => $dk_lk,
-            'on_chassis'       => $on_chassis,
-            'unload_date'      => $unload_date,
-            'id_truck'         => $id_truck,
-            'id_driver'        => $id_driver,
-        );
-
-        $result = $this->save_where($this->table,$data);
-
-        if($result['status'])
-            return $result;
-        else
-            return FALSE;
-    }
-
-    public function updateData($post){
-        $id_ship_arr       = $this->db->escape_str($post['no_seal']);
-        $safeconduct_num   = $this->db->escape_str($post['no_surat_jalan']);
-        $id_route          = $this->db->escape_str($post['rute']);
-        $dk_lk             = $this->db->escape_str($post['dk_lk']);
-        $on_chassis        = $this->db->escape_str($post['on_chassis']);
-        $unload_date       = $this->db->escape_str($post['door']);
-        $id_truck          = $this->db->escape_str($post['truck']);
-        $id_driver         = $this->db->escape_str($post['supir']);
-
-        $where = array(
-            'id_doring' => $this->db->escape_str($post['idm'])
-        );
-
-        $data = array(
-            'id_ship_arr'      => $id_ship_arr,
-            'safeconduct_num'  => $safeconduct_num,
-            'id_route'         => $id_route,
-            'dk_lk'            => $dk_lk,
-            'on_chassis'       => $on_chassis,
-            'unload_date'      => $unload_date,
-            'id_truck'         => $id_truck,
-            'id_driver'        => $id_driver,
-        );
-
-        $result= $this->update_where($this->table,$where,$data);
-
-        if($result)
-            return TRUE;
-        else
-            return FALSE;
+        if($query->num_rows() > 0){
+            if($id != '')
+                return $query->row();
+            else
+                return $query->result();
+        }    
     }
 
     public function deleteData($id){
@@ -227,15 +172,6 @@ class M_doring extends MY_Model {
     public function countAll_doc() {
         $this->db->from($this->view_doc);
         return $this->db->count_all_results();
-    }
-
-    public function getData_doc($id){
-        $this->db->from($this->view);
-        $this->db->where('id_doring',$id);
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0)
-            return $query->row();
     }
 
     public function saveData_doc($post){

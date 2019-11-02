@@ -52,14 +52,27 @@ table.dataTable thead {
                                     <input id="company" placeholder="Perusahaan" class="form-control" type="text">          
                                 </div>
                                 <br><br><br>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <input id="nama_kapal" placeholder="Nama Kapal" class="form-control" type="text">          
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <input id="tgl_kapal_awal" placeholder="Tgl Kapal Tiba (Awal)" class="form-control tanggal" type="text">
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <input id="tgl_kapal_akhir" placeholder="Tgl Kapal Tiba (Akhir)" class="form-control tanggal" type="text">    
+                                </div>
+                                <br><br><br>
+                                <div class="col-md-3">
+                                    <input id="tgl_tiba_awal" placeholder="Tgl Tiba (Awal)" class="form-control" type="text">    
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="tgl_tiba_akhir" placeholder="Tgl Tiba (Akhir)" class="form-control" type="text">
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="tgl_bm_awal" placeholder="Tgl BM (Awal)" class="form-control" type="text">  
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="tgl_bm_akhir" placeholder="Tgl BM (Akhir)" class="form-control" type="text">          
                                 </div>
                             </div>
                             <br>
@@ -82,6 +95,9 @@ table.dataTable thead {
                             <th><center>Nama Kapal</th>
                             <th><center>Tanggal Dokumen</th>
                             <th><center>Tanggal Kapal Tiba</th>
+                            <th><center>Tanggal Berangkat</th>
+                            <th><center>Tanggal Bongkar Muat</th>
+                            <th><center>Berat</th>
                             <th><center>Perusahaan</th>
                             <th><center>Agen</th>
                             <th><center>Origin</th>
@@ -100,6 +116,9 @@ table.dataTable thead {
                             <th><center>Nama Kapal</th>
                             <th><center>Tanggal Dokumen</th>
                             <th><center>Tanggal Kapal Tiba</th>
+                            <th><center>Tanggal Berangkat</th>
+                            <th><center>Tanggal Bongkar Muat</th>
+                            <th><center>Berat</th>
                             <th><center>Perusahaan</th>
                             <th><center>Agen</th>
                             <th><center>Origin</th>
@@ -197,6 +216,7 @@ table.dataTable thead {
                                     <label for="agent_name" class="form-label">No. Kontainer</label>
                                     <input hidden id="idm" name="idm">
                                     <input required id="no_seal" name="no_seal" class="form-control" type="text">
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -207,44 +227,78 @@ table.dataTable thead {
                                         <option value="40">40</option>
                                         <option value="N">N</option>
                                     </select>
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Tanggal Proses Dokumen</label>
                                     <input required id="tgl_proses_dok" name="tgl_proses_dok" class="form-control tanggal" type="text">
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Agent</label>
                                     <select required id="agen" name="agen" class="form-control select2">
                                         <option value="">----</option>
                                     </select>
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Kota Asal</label>
                                     <select required id="kota_asal" name="kota_asal" class="form-control select2">
                                         <option value="">----</option>
                                     </select>
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Pengirim</label>
                                     <select id="pengirim" name="pengirim" class="form-control select2">
                                         <option value="">----</option>
-                                    </select>                                        
+                                    </select>            
+                                    <span class="help-block"></span>                            
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Penerima</label>
                                     <select id="penerima" name="penerima" class="form-control select2">
                                         <option value="">----</option>
                                     </select>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tanggal Berangkat</label>
+                                    <input required id="td" name="td" class="form-control tanggal" type="text">
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Berat</label>
+                                    <input required id="berat" name="berat" class="form-control" type="text">
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tanggal Kapal Tiba</label>
+                                    <input required id="tgl_tiba" name="tgl_tiba" class="form-control tanggal" type="text">
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tanggal Bongkar Muat</label>
+                                    <input required id="tgl_bm" name="tgl_bm" class="form-control tanggal" type="text">
+                                    <span class="help-block"></span>    
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -253,12 +307,14 @@ table.dataTable thead {
                                     <select required id="cmpy" name="cmpy" class="form-control">
                                         <option value="">----</option>
                                     </select>
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Nama Kapal</label>
                                     <input id="ship_name" name="ship_name" class="form-control" type="text">
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -277,6 +333,7 @@ table.dataTable thead {
                                         <option value="FULL">FULL</option>
                                         <option value="CURAH">CURAH</option>
                                     </select>
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -286,12 +343,14 @@ table.dataTable thead {
                                         <option value="yes">YA</option>
                                         <option value="no">TIDAK</option>
                                     </select>
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Produk</label>
                                     <input required id="produk" name="produk" class="form-control" type="text">
+                                    <span class="help-block"></span>
                                 </div>
                             </div>
                         </div>
@@ -433,23 +492,27 @@ table.dataTable thead {
             dataType: "JSON",
             success: function(data)
             {		
+                $('#md-form').modal('show'); // show bootstrap modal when complete loaded
+                $('.modal-title').text('Edit Dokumen Kapal'); // Set title to Bootstrap modal title
+
                 $('#idm').val(data.id_doc);
                 $('#no_seal').val(data.seal_number);
                 $('#size').val(data.size).change();
                 $('#tgl_proses_dok').val(data.process_date);
-                $('#cmpy').val(data.idm_company).change();
-                $('#agen').val(data.idm_agent).trigger('change.select2');;
-                $('#kota_asal').val(data.idm_city).trigger('change.select2');;
-                $('#pengirim').val(data.idm_shipper).trigger('change.select2');;
-                $('#penerima').val(data.idm_receiver).trigger('change.select2');;
+                $('#cmpy').val(data.company).change();
+                $('#agen').val(data.id_agent).change();
+                $('#kota_asal').val(data.origin_city).change();
+                $('#pengirim').val(data.id_shipper).change();
+                $('#penerima').val(data.id_receiver).change();
                 $('#ship_name').val(data.ship_name);
                 $('#io').val(data.io).change();
-                $('#kondisi').val(data.kondisi).change();
+                $('#kondisi').val(data.condition).change();
                 $('#produk').val(data.product);
                 $('#stuffing').val(data.stuffing).change();
-
-                $('#md-form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Dokumen Kapal'); // Set title to Bootstrap modal title
+                $('#td').val(data.departure_date);
+                $('#berat').val(data.weight);
+                $('#tgl_tiba').val(data.arrival_date);
+                $('#tgl_bm').val(data.unload_load_date);
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -613,6 +676,7 @@ table.dataTable thead {
                 success: function(data){
                     if(data.status){
                         reload_table();
+                        reload_table_doc();
                         alert('Sukses Menghapus File');
                     }
                     else{
@@ -654,6 +718,10 @@ table.dataTable thead {
                     data.nama_kapal        = $('#nama_kapal').val();
                     data.tgl_kapal_awal    = $('#tgl_kapal_awal').val();
                     data.tgl_kapal_akhir   = $('#tgl_kapal_akhir').val();
+                    data.tgl_bm_awal    = $('#tgl_bm_awal').val();
+                    data.tgl_bm_akhir   = $('#tgl_bm_akhir').val();
+                    data.tgl_tiba_awal  = $('#tgl_tiba_awal').val();
+                    data.tgl_tiba_akhir = $('#tgl_tiba_akhir').val();
                 }
             },
         });
@@ -739,6 +807,7 @@ table.dataTable thead {
                     {
                         swal.fire('Terhapus','Data Anda Sudah Dihapus','success');
                         reload_table();
+                        reload_table_doc();
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {
@@ -752,6 +821,7 @@ table.dataTable thead {
     }
 
     function doc(id){
+        var locked = $('#locked' + id).val();
         $.ajax({
             url : "<?php echo site_url('shipment/ajax_edit_doc_table/')?>" + id,
             type: "GET",
@@ -773,6 +843,7 @@ table.dataTable thead {
                         type : 'POST',
                         data : function ( data ) {
                             data.id = id;
+                            data.locked = locked;
                         },
                     },
                 });		

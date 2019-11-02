@@ -64,7 +64,7 @@ class M_shipper extends MY_Model {
     }
 
     public function getData($id = ''){
-        $this->db->from($this->view);
+        $this->db->from($this->table);
 
         if($id != '')
             $this->db->where('idm_shipper',$id);
@@ -76,82 +76,7 @@ class M_shipper extends MY_Model {
                 return $query->row();
             else
                 return $query->result();
-        }
-            
-    }
-
-    public function saveData($post){
-        $debitur    = $this->db->escape_str($post['pengirim']);
-        $address    = $this->db->escape_str($post['alamat']);
-        $city       = $this->db->escape_str($post['kota']);
-        $pic        = $this->db->escape_str($post['pic']);
-        $finance    = $this->db->escape_str($post['finance']);
-        $telp       = $this->db->escape_str($post['telp']);
-        $hp         = $this->db->escape_str($post['hp']);
-        $fax        = $this->db->escape_str($post['fax']);
-        $corporate  = $this->db->escape_str($post['perusahaan']);
-        $bank       = $this->db->escape_str($post['bank']);
-        $account    = $this->db->escape_str($post['no_rek']);
-
-        $data = array(
-            'debitur_name'      => $debitur,
-            'address'           => $address,
-            'city'              => $city,
-            'pic'               => $pic,
-            'finance'           => $finance,
-            'telp'              => $telp,
-            'hp'                => $hp,
-            'fax'               => $fax,
-            'corporate_name'    => $corporate,
-            'id_bank'           => $bank,
-            'account_number'    => $account
-        );
-
-        $result = $this->save_where($this->table,$data);
-
-        if($result['status'])
-            return $result;
-        else
-            return FALSE;
-    }
-
-    public function updateData($post){
-        $debitur    = $this->db->escape_str($post['pengirim']);
-        $address    = $this->db->escape_str($post['alamat']);
-        $city       = $this->db->escape_str($post['kota']);
-        $pic        = $this->db->escape_str($post['pic']);
-        $finance    = $this->db->escape_str($post['finance']);
-        $telp       = $this->db->escape_str($post['telp']);
-        $hp         = $this->db->escape_str($post['hp']);
-        $fax        = $this->db->escape_str($post['fax']);
-        $corporate  = $this->db->escape_str($post['perusahaan']);
-        $bank       = $this->db->escape_str($post['bank']);
-        $account    = $this->db->escape_str($post['no_rek']);
-
-        $where = array(
-            'idm_shipper' => $this->db->escape_str($post['idm'])
-        );
-
-        $data = array(
-            'debitur_name'      => $debitur,
-            'address'           => $address,
-            'city'              => $city,
-            'pic'               => $pic,
-            'finance'           => $finance,
-            'telp'              => $telp,
-            'hp'                => $hp,
-            'fax'               => $fax,
-            'corporate_name'    => $corporate,
-            'id_bank'           => $bank,
-            'account_number'    => $account
-        );
-
-        $result= $this->update_where($this->table,$where,$data);
-
-        if($result)
-            return TRUE;
-        else
-            return FALSE;
+        }   
     }
 
     public function deleteData($id){

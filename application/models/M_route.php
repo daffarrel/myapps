@@ -64,68 +64,20 @@ class M_route extends MY_Model {
         return $this->db->count_all_results();
     }
 
-    public function getData($id){
+    public function getData($id = ''){
         $this->db->from($this->table);
-        $this->db->where('idm_route',$id);
-        $this->db->where('soft_delete','0');
+
+        if($id != '')
+            $this->db->where('idm_route',$id);
+        
         $query = $this->db->get();
 
-        if($query->num_rows() > 0)
-            return $query->row();
-    }
-
-    public function saveData($post){
-        $route_name     = $this->db->escape_str($post['nama_rute']);
-        $origin         = $this->db->escape_str($post['asal']);
-        $destination    = $this->db->escape_str($post['tujuan']);
-        $type           = $this->db->escape_str($post['tipe']);
-        $size           = $this->db->escape_str($post['size']);
-        $fare           = $this->db->escape_str($post['biaya']);
-        
-        $data = array(
-            'route_name'     => $route_name,
-            'origin'         => $origin,
-            'destination'    => $destination,
-            'type'           => $type,
-            'size'           => $size,
-            'fare'           => $fare,
-        );
-
-        $result = $this->save_where($this->table,$data);
-
-        if($result['status'])
-            return $result;
-        else
-            return FALSE;
-    }
-
-    public function updateData($post){
-        $route_name     = $this->db->escape_str($post['nama_rute']);
-        $origin         = $this->db->escape_str($post['asal']);
-        $destination    = $this->db->escape_str($post['tujuan']);
-        $type           = $this->db->escape_str($post['tipe']);
-        $size           = $this->db->escape_str($post['size']);
-        $fare           = $this->db->escape_str($post['biaya']);
-
-        $where = array(
-            'idm_route' => $this->db->escape_str($post['idm'])
-        );
-
-        $data = array(
-            'route_name'     => $route_name,
-            'origin'         => $origin,
-            'destination'    => $destination,
-            'type'           => $type,
-            'size'           => $size,
-            'fare'           => $fare,
-        );
-
-        $result= $this->update_where($this->table,$where,$data);
-
-        if($result)
-            return TRUE;
-        else
-            return FALSE;
+        if($query->num_rows() > 0){
+            if($id != '')
+                return $query->row();
+            else
+                return $query->result();
+        }    
     }
 
     public function deleteData($id){

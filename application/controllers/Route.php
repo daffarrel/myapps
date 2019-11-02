@@ -2,20 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Route extends MY_Controller{
-    public function index(){
-        $data['tipe'] = $this->route->getOptionData('truck');
-        $data['size'] = $this->route->getOptionData('size');
-        $data['city'] = $this->city->getAllData();
-        $this->navmenu('Input Data Rute','add/vw_input_data_route','','',$data);
-    }
-
-    public function edit($id){
-        $data['tipe'] = $this->route->getOptionData('truck');
-        $data['size'] = $this->route->getOptionData('size');
-        $data['city'] = $this->city->getAllData();
-        $data['data'] = $this->route->getData($id);
-        $this->navmenu('Edit Data Rute','edit/vw_edit_data_route','','',$data);
-    }
+    var $id_table   = 'idm_route';
+    var $table      = 'm_route';
 
     public function ajax_list(){
         $list = $this->route->get_datatable();
@@ -51,52 +39,60 @@ class Route extends MY_Controller{
         echo json_encode($output);
     }
 
+    public function ajax_edit($id){
+		$data = $this->route->getData($id,$this->id_table,$this->table);
+		echo json_encode($data);
+    }
+
+    public function ajax_save(){
+        $save       = $this->input->post('save_method');
+        $post       = $_POST;
+
+        $route_name     = $this->db->escape_str($post['nama_rute']);
+        $origin         = $this->db->escape_str($post['asal']);
+        $destination    = $this->db->escape_str($post['tujuan']);
+        $type           = $this->db->escape_str($post['tipe']);
+        $size           = $this->db->escape_str($post['size']);
+        $fare           = $this->db->escape_str($post['biaya']);
+        
+        $data = array(
+            'route_name'     => $route_name,
+            'origin'         => $origin,
+            'destination'    => $destination,
+            'type'           => $type,
+            'size'           => $size,
+            'fare'           => $fare,
+        );
+
+        if($save == 'add'){
+            if ($this->route->save_where($this->table,$data) > 0){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }else{
+            $id = $this->input->post('idm');
+            if ($this->route->update_where($this->table ,array($this->id_table => $id ), $data)){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }
+    }
+
     public function delete($id){
         $this->route->deleteData($id);
         echo json_encode(array("status" => TRUE));
     }
 
-    public function addData() {
-        $result = $this->route->saveData($_POST);
-
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Ditambahkan
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Ditambahkan..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
-
-        $this->index();
+    public function getData($id = ''){
+        $data = $this->route->getData($id);
+        echo json_encode($data);
     }
 
-    public function updateData() {
-        $id = $this->input->post('idm');
-        $result = $this->route->updateData($_POST);
-
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Di Update
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Di Update..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
-
-        $this->edit($id);
+    public function getOptionData($id){
+        $data = $this->route->getOptionData($id);
+        echo json_encode($data);
     }
 }
 ?>

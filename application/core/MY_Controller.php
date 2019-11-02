@@ -34,7 +34,6 @@ class MY_Controller extends CI_Controller
         $this->load->model('M_bank', 'bank');
         $this->load->model('M_city', 'city');
         $this->load->model('M_agent', 'agent');
-        $this->load->model('M_container', 'container');
         $this->load->model('M_driver', 'driver');
         $this->load->model('M_receiver', 'receiver');
         $this->load->model('M_route', 'route');

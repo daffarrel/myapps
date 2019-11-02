@@ -2,14 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Bank extends MY_Controller {
-    public function index(){
-        $this->navmenu('Input Data Bank','add/vw_input_data_bank','','','');
-    }
-
-    public function edit($id){
-        $data['bank']   = $this->bank->getData($id);
-        $this->navmenu('Edit Data Bank','edit/vw_edit_data_bank','','',$data);
-    }
+    var $id_table   = 'idm_bank';
+    var $table      = 'm_bank';
 
     public function ajax_list(){
         $list = $this->bank->get_datatable();
@@ -44,49 +38,42 @@ class Bank extends MY_Controller {
         echo json_encode(array("status" => TRUE));
     }
 
-    public function addData()
-    {
-        $result = $this->bank->saveData($_POST);
-
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Ditambahkan
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Ditambahkan..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
-
-        $this->index();
+    public function ajax_edit($id){
+		$data = $this->bank->getData($id,$this->id_table,$this->table);
+		echo json_encode($data);
     }
 
-    public function updateData()
-    {
-        $id = $this->input->post('idm_bank');
-        $result = $this->bank->updateData($_POST);
+    public function ajax_save(){
+        $save       = $this->input->post('save_method');
+        $post       = $_POST;
 
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Di Update
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Di Update..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
+        $bank_code = $this->db->escape_str($post['bank_code']);
+        $bank_name = $this->db->escape_str($post['bank_name']);
 
-        $this->edit($id);
+        $data = array(
+            'bank_code'  => $bank_code,
+            'bank_name' => $bank_name,
+        );
+        
+        if($save == 'add'){
+            if ($this->bank->save_where($this->table,$data) > 0){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }else{
+            $id = $this->input->post('idm');
+            if ($this->bank->update_where($this->table ,array($this->id_table => $id ), $data)){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }
+    }
+
+    public function getData($id = ''){
+        $data = $this->bank->getData($id);
+        echo json_encode($data);
     }
 }
 ?>

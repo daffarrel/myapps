@@ -159,7 +159,6 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dokumen Kapal <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li class="nav-item"><a href="<?php echo site_url("main/document/shipment_doc");?>" class="nav-link">Dokumen Kapal</a></li>
-                    <li class="nav-item"><a href="<?php echo site_url("main/document/shipment_arr");?>" class="nav-link">Dokumen Kapal Tiba</a></li>
                     <li class="nav-item"><a href="<?php echo site_url("main/document/doring");?>" class="nav-link">Doring</a></li>
                     <li class="nav-item"><a href="<?php echo site_url("main/document/doring_doc");?>" class="nav-link">Dokumen Doring</a></li>
                 </ul>

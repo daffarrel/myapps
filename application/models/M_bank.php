@@ -33,51 +33,19 @@ class M_bank extends MY_Model {
         return $this->db->count_all_results();
     }
 
-    public function getData($id){
-        $this->db->from($this->table);
-        $this->db->where('idm_bank',$id);
-        $query = $this->db->get();
+    public function getData($id = ''){
+        if($id != '')
+            $this->db->where('idm_bank',$id);
 
-        if($query->num_rows() > 0)
-            return $query->row_array();
-    }
+        $this->db->where('soft_delete','0');
+        $query = $this->db->get($this->table);
 
-    public function saveData($post){
-        $bank_code = $this->db->escape_str($post['bank_code']);
-        $bank_name = $this->db->escape_str($post['bank_name']);
-
-        $data = array(
-            'bank_code'  => $bank_code,
-            'bank_name' => $bank_name,
-        );
-
-        $result = $this->save_where($this->table,$data);
-
-        if($result['status'])
-            return TRUE;
-        else
-            return FALSE;
-    }
-
-    public function updateData($post){
-        $bank_code = $this->db->escape_str($post['bank_code']);
-        $bank_name = $this->db->escape_str($post['bank_name']);
-
-        $where = array(
-            'idm_bank' => $this->db->escape_str($post['idm_bank'])
-        );
-
-        $data = array(
-            'bank_code' => $bank_code,
-            'bank_name' => $bank_name,
-        );
-
-        $result= $this->update_where($this->table,$where,$data);
-
-        if($result)
-            return TRUE;
-        else
-            return FALSE;
+        if($query->num_rows() > 0){
+            if($id != '')
+                return $query->row();
+            else
+                return $query->result();
+        }  
     }
 
     public function deleteData($id){

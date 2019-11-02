@@ -57,19 +57,221 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- /.container -->
   </div>
 
-<script type="text/javascript">
-    var table;
+<!-- Bootstrap modal For Datatable-->
+<div class="modal fade" id="md-form" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Dokumen Kapal</h3>
+            </div>
+            <div class="modal-body form">
+                <div class="form-group">
+                    <form id="frm-modal" action="#" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Nama Rute</label>
+                                    <input hidden id="idm" name="idm">
+                                    <input required id="nama_rute" name="nama_rute" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Asal</label>
+                                    <input required id="asal" name="asal" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tujuan</label>
+                                    <input required id="tujuan" name="tujuan" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tipe Truck</label>
+                                    <select id="tipe" name="tipe" class="form-control">
+                                        <option value="">---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Size Muatan</label>
+                                    <select id="size" name="size" class="form-control">
+                                        <option value="">---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Biaya</label>
+                                    <input required id="biaya" name="biaya" class="form-control" data-inputmask="'alias': 'currency'" data-mask type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer bg-warning" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <button onclick='save()' id='btnSave' type='button' class='btn btn-primary' >Save</button>
+                        <button onclick='batal()' type='button' class='btn btn-danger' >Cancel</button>
+                    </div>
+                </div>
+			</div>				
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<!-- End Bootstrap modal -->
 
-    function reload_table() {
+<script type="text/javascript">
+    $('.modal').on('hidden.bs.modal', function () {
+        reload_table();
+    });
+
+    var table;
+    var save_method; //for save method string
+
+    function batal(){
+        $('#frm-modal')[0].reset();
+        $('#btnSave').text('Save'); //change button text
+        $('#btnSave').attr('class','btn btn-primary'); //set button disable 
+        $('#md-form').modal('hide');
+    }
+
+    function add(){
+        save_method = 'add';
+        $('#frm-modal')[0].reset(); // reset form on modals
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
+        $('#btnSave').text('Save');
+        $('.select2').select2({});
+        $('#md-form').modal('show'); // show bootstrap modal when complete loaded
+        $('.modal-title').text('Tambah Data Daftar Gaji'); // Set title to Bootstrap modal title
+    }
+
+    function edit(id){
+        save_method = 'update';
+        $('#frm-modal')[0].reset(); // reset form on modals
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
+        $('#btnSave').text('Update');
+        $('.select2').select2({});
+
+        //Ajax Load data from ajax
+        $.ajax({
+            url : "<?php echo site_url('route/ajax_edit/')?>" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data)
+            {		
+                $('#idm').val(data.idm_route);
+                $('#nama_rute').val(data.route_name);
+                $('#asal').val(data.origin);
+                $('#tujuan').val(data.destination);
+                $('#tipe').val(data.type).change();
+                $('#size').val(data.size).change();
+                $('#biaya').val(data.fare);
+
+                $('#md-form').modal('show'); // show bootstrap modal when complete loaded
+                $('.modal-title').text('Edit Data Daftar Gaji'); // Set title to Bootstrap modal title
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error get data from ajax');
+            }
+        });
+    }
+
+    function save(){    
+        var url;
+
+        if(save_method == 'add') {
+            $('#btnSave').text('Saving...'); //change button text
+            $('#btnSave').attr('disabled',true); //set button disable 
+        } else {
+            $('#btnSave').text('Updating...'); //change button text
+            $('#btnSave').attr('disabled',true); //set button disable 
+        }
+        
+        url = "<?php echo site_url('route/ajax_save');?>";
+        formData = new FormData($('#frm-modal')[0]);
+        formData.append( 'save_method', save_method );
+
+        // ajax adding data to database
+        $.ajax({
+            url : url,
+            type: "POST",
+            data: formData,
+            async: false,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success: function(data){
+                //if success close modal and reload ajax table
+                if(data.status){
+                    reload_table();
+                    $('#frm-modal')[0].reset();
+                }
+                else{
+                    for (var i = 0; i < data.inputerror.length; i++) {
+                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                        $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
+                    }
+                }
+
+                $('#btnSave').text('Save'); //change button text
+                $('#btnSave').attr('disabled',false); //set button enable 
+                $('#md-form').modal('hide');
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                alert('Error adding data');
+                $('#btnSave').text('Save'); //change button text
+                $('#btnSave').attr('disabled',false); //set button enable 
+            }
+        });
+    }
+
+    function init_select(){
+        //Unit Select Box
+        let dropdown_tipe = $('#tipe');
+        dropdown_tipe.empty();
+        dropdown_tipe.append('<option value="">Pilih Truk</option>');
+        dropdown_tipe.prop('selectedIndex', 0);
+        const url_tipe = '<?php echo base_url('route/getOptionData/truck');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url_tipe, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown_tipe.append($('<option></option>').attr('value', entry.subID).text(entry.value));
+            })
+        });
+
+        //Unit Select Box
+        let dropdown_size = $('#size');
+        dropdown_size.empty();
+        dropdown_size.append('<option value="">Pilih Size</option>');
+        dropdown_size.prop('selectedIndex', 0);
+        const url_size = '<?php echo base_url('route/getOptionData/size');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url_size, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown_size.append($('<option></option>').attr('value', entry.subID).text(entry.value));
+            })
+        });
+    }
+
+    function refresh(){
+        init_select();
         table.ajax.reload(null,false);
     }
 
-    function add() {
-        window.location.replace('<?php echo site_url('route')?>');
-    }
-
-    function edit(id) {
-        window.location.replace('<?php echo site_url('route/edit/')?>'+id);
+    function reload_table() {
+        table.ajax.reload(null,false);
     }
 
     $(document).ready(function(){
@@ -85,6 +287,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "type": "POST",
             },
         });
+        $('[data-mask]').inputmask();
+        init_select();
     });
 
     function del(id) {

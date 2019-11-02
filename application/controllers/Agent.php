@@ -2,14 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Agent extends MY_Controller{
-    public function index(){
-        $this->navmenu('Input Data Agent','add/vw_input_data_agent','','','');
-    }
-
-    public function edit($id){
-        $data['agent'] = $this->agent->getData($id);
-        $this->navmenu('Edit Data Agent','edit/vw_edit_data_agent','','',$data);
-    }
+    var $id_table   = 'idm_agent';
+    var $table      = 'm_agent';
 
     public function ajax_list(){
         $list = $this->agent->get_datatable();
@@ -43,52 +37,61 @@ class Agent extends MY_Controller{
         echo json_encode($output);
     }
 
+    public function ajax_edit($id){
+		$data       = $this->agent->getData($id,$this->id_table,$this->table);
+		echo json_encode($data);
+    }
+
+    public function ajax_save(){
+        $save       = $this->input->post('save_method');
+        $post       = $_POST;
+
+        $agent_name = $this->db->escape_str($post['agent_name']);
+        $address    = $this->db->escape_str($post['address']);
+        $telp       = $this->db->escape_str($post['no_telp']);
+        $hp         = $this->db->escape_str($post['no_hp']);
+        $fax        = $this->db->escape_str($post['no_fax']);
+
+        if("" == trim($post['address'])){
+            $address = ' ';
+        }
+        if("" == trim($post['no_telp'])){
+            $telp = ' ';
+        }
+        if("" == trim($post['no_hp'])){
+            $hp = ' ';
+        }
+        if("" == trim($post['no_fax'])){
+            $fax = ' ';
+        }
+
+        $data = array(
+            'agent_name'    => $agent_name,
+            'address'       => $address,
+            'telp'          => $telp,
+            'hp'            => $hp,
+            'fax'           => $fax,
+        );
+        
+        if($save == 'add'){
+            if ($this->agent->save_where($this->table,$data) > 0){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }else{
+            $id = $this->input->post('idm');
+            if ($this->agent->update_where($this->table ,array($this->id_table => $id ), $data)){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }
+    }
+
     public function delete($id){
         $this->agent->deleteData($id);
         echo json_encode(array("status" => TRUE));
-    }
-
-    public function addData() {
-        $result = $this->agent->saveData($_POST);
-
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Ditambahkan
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Ditambahkan..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
-
-        $this->index();
-    }
-
-    public function updateData() {
-        $id = $this->input->post('idm_agent');
-        $result = $this->agent->updateData($_POST);
-
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Di Update
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Di Update..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
-
-        $this->edit($id);
     }
 
     public function getData($id = ''){

@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                 <div class="box-body table-responsive">
-                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable" cellspacing="0" width="100%" role="grid" >
+                    <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable nowrap" cellspacing="0" width="100%" role="grid" >
                         <thead>
                         <tr>
                             <th><center>No</th>
@@ -88,19 +88,225 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </section>
 
+<!-- Bootstrap modal For Datatable-->
+<div class="modal fade" id="md-form" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Dokumen Kapal</h3>
+            </div>
+            <div class="modal-body form">
+                <div class="form-group">
+                    <form id="frm-modal" action="#" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="no_seal" class="form-label">No. Kontainer</label>
+                                    <input hidden id="idm" name="idm">
+                                    <select id="no_seal" name="no_seal" class="form-control select2"></select>    
+                                    <span class="help-block"></span>                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">No. BL</label>
+                                    <input required id="no_bl" name="no_bl" class="form-control" type="text">
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">TD</label>
+                                    <input required id="td" name="td" class="form-control" type="text">
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Berat</label>
+                                    <input required id="berat" name="berat" class="form-control" type="text">
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tanggal BL</label>
+                                    <input required id="tgl_bl" name="tgl_bl" class="form-control tanggal" type="text">
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tanggal Kapal Tiba</label>
+                                    <input required id="tgl_tiba" name="tgl_tiba" class="form-control tanggal" type="text">
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tanggal Bongkar Muat</label>
+                                    <input required id="tgl_bm" name="tgl_bm" class="form-control tanggal" type="text">
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer bg-warning" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <button onclick='save()' id='btnSave' type='button' class='btn btn-primary' >Save</button>
+                        <button onclick='batal()' type='button' class='btn btn-danger' >Cancel</button>
+                    </div>
+                </div>
+			</div>				
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<!-- End Bootstrap modal -->
+
 <script type="text/javascript">
+     $('.modal').on('hidden.bs.modal', function () {
+        reload_table();
+    });
+
     var table;
+    //for save method string
+    var save_method; 
 
     function reload_table() {
         table.ajax.reload(null,false);
     }
 
-    function add() {
-        window.location.replace('<?php echo site_url('doring/')?>');
+    function batal(){
+        $('#frm-modal')[0].reset();
+        $('#btnSave').text('Save'); //change button text
+        $('#btnSave').attr('class','btn btn-primary'); //set button disable 
+        $('#md-form').modal('hide');
     }
 
-    function edit(id) {
-        window.location.replace('<?php echo site_url('doring/edit/')?>'+id);
+    function init_select(){
+        //Unit Select Box
+        let dropdown = $('#no_seal');
+        dropdown.empty();
+        dropdown.append('<option value="">Pilih Kontainer</option>');
+        dropdown.prop('selectedIndex', 0);
+        const url = '<?php echo base_url('shipment/getSeal/');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown.append($('<option></option>').attr('value', entry.id_doc).text(entry.seal_number + ' => ' + entry.size));
+            })
+        });
+    }
+
+    function add(){
+        save_method = 'add';
+        init_select();
+        $('#no_seal').prop( "disabled", false );
+        $('#frm-modal')[0].reset(); // reset form on modals
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
+        $('#btnSave').text('Save');
+        $('.select2').select2();
+        $('#md-form').modal('show'); // show bootstrap modal when complete loaded
+        $('.modal-title').text('Tambah Dokumen Kapal Tiba'); // Set title to Bootstrap modal title
+    }
+
+    function edit(id){
+        save_method = 'update';
+        init_select();
+        $('#frm-modal')[0].reset(); // reset form on modals
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
+        $('#btnSave').text('Update');
+        $('.select2').select2();
+
+        //Ajax Load data from ajax
+        $.ajax({
+            url : "<?php echo site_url('shipment/ajax_edit_arr/')?>" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data)
+            {		
+                $('#idm').val(data.id_ship_arr);
+                $('#no_seal').prop( "disabled", true );
+                $('#no_bl').val(data.bl_number);
+                $('#tgl_bl').val(data.bl_date);
+                $('#td').val(data.td);
+                $('#berat').val(data.weight);
+                $('#tgl_tiba').val(data.arrival_date);
+                $('#tgl_bm').val(data.unload_load_date);
+
+                $('#md-form').modal('show'); // show bootstrap modal when complete loaded
+                $('.modal-title').text('Edit Dokumen Kapal Tiba'); // Set title to Bootstrap modal title
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error get data from ajax');
+            }
+        });
+    }
+
+    function save(){    
+        var url;
+
+        if(save_method == 'add') {
+            $('#btnSave').text('Saving...'); //change button text
+            $('#btnSave').attr('disabled',true); //set button disable 
+        } else {
+            $('#btnSave').text('Updating...'); //change button text
+            $('#btnSave').attr('disabled',true); //set button disable 
+        }
+        
+        url = "<?php echo site_url('shipment/ajax_save_arr');?>";
+        formData = new FormData($('#frm-modal')[0]);
+        formData.append( 'save_method', save_method );
+
+        // ajax adding data to database
+        $.ajax({
+            url : url,
+            type: "POST",
+            data: formData,
+            async: false,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success: function(data){
+                //if success close modal and reload ajax table
+                if(data.status){
+                    reload_table();
+                    $('#frm-modal')[0].reset();
+                    $('#btnSave').text('Save'); //change button text
+                    $('#btnSave').attr('disabled',false); //set button enable 
+                    $('#md-form').modal('hide');
+                }
+                else{
+                    if(data.inputerror != null){
+                        for (var i = 0; i < data.inputerror.length; i++) {
+                            $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                            $('[name="'+data.inputerror[i]+'"]').next().next().text(data.error_string[i]); //select span help-block class set text error string
+                        }
+                        $('#btnSave').text('Save'); //change button text
+                        $('#btnSave').attr('disabled',false); //set button enable 
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                alert('Error adding data');
+                $('#btnSave').text('Save'); //change button text
+                $('#btnSave').attr('disabled',false); //set button enable 
+            }
+        });
+    }
+
+    function refresh(){
+        init_select();
+        $('#form-filter')[0].reset();
+        table.ajax.reload(null,false);
     }
 
     $(document).ready(function(){

@@ -2,22 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Doring extends MY_Controller{
-    public function index(){
-        $data['seal']   = $this->shipment->getSealNumber();
-        $data['supir']  = $this->driver->getDriver();
-        $data['truck']  = $this->truck->getTruck();
-        $data['rute']   = $this->route->getRoute();
-        $this->navmenu('Input Data Doring','add/vw_input_data_doring','','',$data);
-    }
-
-    public function edit($id){
-        $data['seal']   = $this->shipment->getSealNumber();
-        $data['supir']  = $this->driver->getDriver();
-        $data['truck']  = $this->truck->getTruck();
-        $data['rute']   = $this->route->getRoute();
-        $data['data']   = $this->doring->getData($id);
-        $this->navmenu('Edit Data Doring','edit/vw_edit_data_doring','','',$data);
-    }
+    var $id_table       = 'id_doring';
+    var $table          = 'doring' ;
+    var $id_table_doc   = 'id_doring_doc';
+    var $table_doc      = 'doring_doc';
 
     public function ajax_list(){
         $list = $this->doring->get_datatable();
@@ -55,71 +43,59 @@ class Doring extends MY_Controller{
 
     public function delete($id){
         $this->doring->deleteData($id);
+        $this->doring->updateLocked();
         echo json_encode(array("status" => TRUE));
     }
 
-    public function addData() {
-        $result = $this->doring->saveData($_POST);
-
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Ditambahkan
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Ditambahkan..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
-
-        $this->index();
+    public function ajax_edit($id){
+		$data       = $this->doring->getData($id,$this->id_table,$this->table);
+		echo json_encode($data);
     }
 
-    public function updateData() {
-        $id = $this->input->post('idm');
-        $result = $this->doring->updateData($_POST);
+    public function ajax_save(){
+        $this->_validate();
+        $save       = $this->input->post('save_method');
+        $post       = $_POST;
 
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Di Update
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Di Update..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
+        $id_ship_arr       = $this->db->escape_str($post['no_seal']);
+        $safeconduct_num   = $this->db->escape_str($post['no_surat_jalan']);
+        $id_route          = $this->db->escape_str($post['rute']);
+        $dk_lk             = $this->db->escape_str($post['dk_lk']);
+        $on_chassis        = $this->db->escape_str($post['on_chassis']);
+        $unload_date       = $this->db->escape_str($post['door']);
+        $id_truck          = $this->db->escape_str($post['truck']);
+        $id_driver         = $this->db->escape_str($post['supir']);
 
-        $this->edit($id);
+        $data = array(
+            'id_ship_arr'      => $id_ship_arr,
+            'safeconduct_num'  => $safeconduct_num,
+            'id_route'         => $id_route,
+            'dk_lk'            => $dk_lk,
+            'on_chassis'       => $on_chassis,
+            'unload_date'      => $unload_date,
+            'id_truck'         => $id_truck,
+            'id_driver'        => $id_driver,
+        );
+        
+        if($save == 'add'){
+            $status_locked = $this->shipment->updateLocked_arr($id_ship_arr);
+            $this->shipment->updateLocked($status_locked);
+            if ($this->doring->save_where($this->table,$data) > 0){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }else{
+            $id = $this->input->post('idm');
+            if ($this->doring->update_where($this->table ,array( $this->id_table => $id ), $data)){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }
     }
 
     //doring_doc
-
-    public function index_doc(){
-        $data['doring'] = $this->doring->getDoring();
-        $data['supir']  = $this->driver->getDriver();
-        $data['truck']  = $this->truck->getTruck();
-        $data['rute']   = $this->route->getRoute();
-        $this->navmenu('Input Data Doring','add/vw_input_data_doring_doc','','',$data);
-    }
-
-    public function edit_doc($id){
-        $data['seal']   = $this->shipment->getSealNumber();
-        $data['supir']  = $this->driver->getDriver();
-        $data['truck']  = $this->truck->getTruck();
-        $data['rute']   = $this->route->getRoute();
-        $data['data']   = $this->doring->getData($id);
-        $this->navmenu('Edit Data Doring','edit/vw_edit_data_doring_doc','','',$data);
-    }
-
     public function ajax_list_doc(){
         $list = $this->doring->get_datatable_doc();
         $data = array();
@@ -166,48 +142,92 @@ class Doring extends MY_Controller{
         echo json_encode(array("status" => TRUE));
     }
 
-    public function addData_doc() {
-        $result = $this->doring->saveData_doc($_POST);
-
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Ditambahkan
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Ditambahkan..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
-
-        $this->index_doc();
+    public function ajax_edit_doc($id){
+		$data       = $this->doring->getData($id,$this->id_table_doc,$this->table_doc);
+		echo json_encode($data);
     }
 
-    public function updateData_doc() {
-        $id = $this->input->post('idm');
-        $result = $this->doring->updateData_doc($_POST);
+    public function ajax_save_doc(){
+        $this->_validate_doc();
+        $save       = $this->input->post('save_method');
+        $post       = $_POST;
 
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Di Update
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Di Update..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
+        $id_ship_arr       = $this->db->escape_str($post['no_seal']);
+        $safeconduct_num   = $this->db->escape_str($post['no_surat_jalan']);
+        $id_route          = $this->db->escape_str($post['rute']);
+        $dk_lk             = $this->db->escape_str($post['dk_lk']);
+        $on_chassis        = $this->db->escape_str($post['on_chassis']);
+        $unload_date       = $this->db->escape_str($post['door']);
+        $id_truck          = $this->db->escape_str($post['truck']);
+        $id_driver         = $this->db->escape_str($post['supir']);
 
-        $this->edit_doc($id);
+        $data = array(
+            'id_ship_arr'      => $id_ship_arr,
+            'safeconduct_num'  => $safeconduct_num,
+            'id_route'         => $id_route,
+            'dk_lk'            => $dk_lk,
+            'on_chassis'       => $on_chassis,
+            'unload_date'      => $unload_date,
+            'id_truck'         => $id_truck,
+            'id_driver'        => $id_driver,
+        );
+        
+        if($save == 'add'){
+            if ($this->doring->save_where($this->table_doc,$data) > 0){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }else{
+            $id = $this->input->post('idm');
+            if ($this->doring->update_where($this->table_doc ,array( $this->id_table_doc => $id ), $data)){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }
     }
+
+    private function _validate_doc() {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+
+        if($this->input->post('no_seal') == NULL)
+        {
+            $data['inputerror'][] = 'no_seal';
+            $data['error_string'][] = 'No Kontainer Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }
+
+        if($data['status'] === FALSE)
+        {
+            echo json_encode($data);
+            exit();
+        }
+    }
+
+    private function _validate() {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+
+        if($this->input->post('no_seal') == NULL)
+        {
+            $data['inputerror'][] = 'no_seal';
+            $data['error_string'][] = 'No Kontainer Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }
+
+        if($data['status'] === FALSE)
+        {
+            echo json_encode($data);
+            exit();
+        }
+    }
+
 }
 ?>
 

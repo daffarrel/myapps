@@ -64,7 +64,7 @@ class M_receiver extends MY_Model {
     }
 
     public function getData($id = ''){
-        $this->db->from($this->view);
+        $this->db->from($this->table);
 
         if($id != '')
             $this->db->where('idm_receiver',$id);
@@ -77,72 +77,6 @@ class M_receiver extends MY_Model {
             else
                 return $query->result();
         }    
-    }
-
-    public function saveData($post){
-        $receiver   = $this->db->escape_str($post['penerima']);
-        $address    = $this->db->escape_str($post['alamat']);
-        $city       = $this->db->escape_str($post['kota']);
-        $telp       = $this->db->escape_str($post['telp']);
-        $hp         = $this->db->escape_str($post['hp']);
-        $fax        = $this->db->escape_str($post['fax']);
-        $corporate  = $this->db->escape_str($post['perusahaan']);
-        $bank       = $this->db->escape_str($post['bank']);
-        $account    = $this->db->escape_str($post['no_rek']);
-
-        $data = array(
-            'receiver_name'     => $receiver,
-            'address'           => $address,
-            'city'              => $city,
-            'telp'              => $telp,
-            'hp'                => $hp,
-            'fax'               => $fax,
-            'corporate_name'    => $corporate,
-            'id_bank'           => $bank,
-            'account_number'    => $account
-        );
-
-        $result = $this->save_where($this->table,$data);
-
-        if($result['status'])
-            return $result;
-        else
-            return FALSE;
-    }
-
-    public function updateData($post){
-        $receiver   = $this->db->escape_str($post['penerima']);
-        $address    = $this->db->escape_str($post['alamat']);
-        $city       = $this->db->escape_str($post['kota']);
-        $telp       = $this->db->escape_str($post['telp']);
-        $hp         = $this->db->escape_str($post['hp']);
-        $fax        = $this->db->escape_str($post['fax']);
-        $corporate  = $this->db->escape_str($post['perusahaan']);
-        $bank       = $this->db->escape_str($post['bank']);
-        $account    = $this->db->escape_str($post['no_rek']);
-
-        $where = array(
-            'idm_receiver' => $this->db->escape_str($post['idm'])
-        );
-
-        $data = array(
-            'receiver_name'     => $receiver,
-            'address'           => $address,
-            'city'              => $city,
-            'telp'              => $telp,
-            'hp'                => $hp,
-            'fax'               => $fax,
-            'corporate_name'    => $corporate,
-            'id_bank'           => $bank,
-            'account_number'    => $account
-        );
-
-        $result= $this->update_where($this->table,$where,$data);
-
-        if($result)
-            return TRUE;
-        else
-            return FALSE;
     }
 
     public function deleteData($id){

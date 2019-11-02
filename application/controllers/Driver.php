@@ -2,14 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Driver extends MY_Controller{
-    public function index(){
-        $this->navmenu('Input Data Driver','add/vw_input_data_driver','','','');
-    }
-
-    public function edit($id){
-        $data['data'] = $this->driver->getData($id);
-        $this->navmenu('Edit Data Driver','edit/vw_edit_data_driver','','',$data);
-    }
+    var $id_table   = 'idm_driver';
+    var $table      = 'm_driver';
 
     public function ajax_list(){
         $list = $this->driver->get_datatable();
@@ -47,47 +41,48 @@ class Driver extends MY_Controller{
         echo json_encode(array("status" => TRUE));
     }
 
-    public function addData() {
-        $result = $this->driver->saveData($_POST);
-
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Ditambahkan
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Ditambahkan..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
-
-        $this->index();
+    public function ajax_edit($id){
+		$data = $this->driver->getData($id,$this->id_table,$this->table);
+		echo json_encode($data);
     }
 
-    public function updateData() {
-        $id = $this->input->post('idm');
-        $result = $this->driver->updateData($_POST);
+    public function ajax_save(){
+        $save       = $this->input->post('save_method');
+        $post       = $_POST;
 
-        if ($result)
-            $this->session->set_flashdata('notif', '<div class="alert alert-success" role="alert"> 
-                                                                    Data Berhasil Di Update
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>');
-        else
-            $this->session->set_flashdata('notif',
-                '<div class="alert alert-danger" role="alert"> Data Gagal Di Update..Silahkan Periksa Kembali Inputan Anda 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                       </div>');
+        $driver_name    = $this->db->escape_str($post['nama_supir']);
+        $license_num    = $this->db->escape_str($post['no_sim']);
+        $dob            = $this->db->escape_str($post['tgl_lahir']);
+        $dob_city       = $this->db->escape_str($post['tmpt_lahir']);
+        $address        = $this->db->escape_str($post['alamat']);
 
-        $this->edit($id);
+        $data = array(
+            'driver_name'       => $driver_name,
+            'license_number'    => $license_num,
+            'dob'               => $dob,
+            'dob_city'          => $dob_city,
+            'address'           => $address
+        );
+        
+        if($save == 'add'){
+            if ($this->driver->save_where($this->table,$data) > 0){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }else{
+            $id = $this->input->post('idm');
+            if ($this->driver->update_where($this->table ,array($this->id_table => $id ), $data)){
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            }else{
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+            }
+        }
+    }
+
+    public function getData($id = ''){
+        $result = $this->driver->getData($id);
+        echo json_encode($result);
     }
 }
 ?>
