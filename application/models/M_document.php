@@ -15,6 +15,7 @@ class M_document extends MY_Model {
     var $column_search_doc     = array('jenis_doc','no_doc','date_doc'); //set column field database for datatable searchable
     var $order_doc             = array('id_ship_doc' => 'asc'); // default order
 
+    //master dokumen
     function get_datatables_query() {
         $this->db->from($this->table);
         $i = 0;
@@ -73,6 +74,24 @@ class M_document extends MY_Model {
         return $this->db->count_all_results();
     }
 
+    function getOptionAll() {
+        $this->db->select('idm_document, jenis_doc');
+        $this->db->where('soft_delete','0');
+        $records=$this->db->get($this->table);
+        
+        if($records->num_rows() > 0)
+            return $records->result();
+    }
+
+    public function deleteData($id,$primary_key,$table){
+        $this->db->set('soft_delete','1');
+        $this->db->where($primary_key, $id);
+        $this->db->update($table);
+
+        return $this->db->affected_rows();
+    }
+
+    //dokumen kapal untuk doring
     function get_datatables_query_doc($id) {
         $this->db->from($this->view_doc);
         $this->db->where('id_doc',$id);
@@ -130,6 +149,7 @@ class M_document extends MY_Model {
         return $this->db->count_all_results();
     }
 
+    //other function
     public function getData($id = '',$primary_key = '',$table){     
         if($id != '')
             $this->db->where($primary_key,$id);
@@ -146,23 +166,6 @@ class M_document extends MY_Model {
             
     }
 
-    function getOptionAll() {
-        $this->db->select('idm_document, jenis_doc');
-        $this->db->where('soft_delete','0');
-        $records=$this->db->get($this->table);
-        
-        if($records->num_rows() > 0)
-            return $records->result();
-    }
-
-    public function deleteData($id,$primary_key,$table){
-        $this->db->set('soft_delete','1');
-        $this->db->where($primary_key, $id);
-        $this->db->update($table);
-
-        return $this->db->affected_rows();
-    }
-
     public function getFileName($id){
         $this->db->from($this->table_doc);
         $this->db->where('id_ship_doc',$id);
@@ -170,6 +173,17 @@ class M_document extends MY_Model {
 
         if($query->num_rows() > 0)
             return $query->row()->file;
+    }
+
+    public function cekDok($id){
+        $this->db->where('id_doc',$id);
+        $query = $this->db->get($this->view_doc);
+
+        if($query->num_rows() > 0){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
     }
 }
 ?>

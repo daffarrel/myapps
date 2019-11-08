@@ -7,9 +7,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         margin: 0 auto !important;
         width: 50% !important;
     }
-    table.dataTable thead {
-        border-bottom: 5px solid black !important;
-    }
 </style>
 <section class="content-wrapper">
     <div class="container-fluid">

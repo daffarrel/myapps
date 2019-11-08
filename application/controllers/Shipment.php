@@ -33,10 +33,10 @@ class Shipment extends MY_Controller{
 
             if($r->locked == '0'){
                 $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
-            <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>
-            <input hidden id="locked'.$r->id_doc.'" value"'.$r->locked.'">';
+            <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
             }else{
-                $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>';
+                $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
+                <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
             }
             
             //add html for action
@@ -135,34 +135,8 @@ class Shipment extends MY_Controller{
     }
 
     public function getSeal(){
-        $id = $this->shipment->getIDDoc();
-        $temp = array();
-        foreach($id as $data){
-            $temp[] = $data->id_doc;
-        }
-
-        $data = $this->shipment->getSeal($temp);
+        $data = $this->shipment->getSeal();
         echo json_encode($data);
-    }
-
-    private function _validate_arr() {
-        $data = array();
-        $data['error_string'] = array();
-        $data['inputerror'] = array();
-        $data['status'] = TRUE;
-
-        if($this->input->post('no_seal') == NULL)
-        {
-            $data['inputerror'][] = 'no_seal';
-            $data['error_string'][] = 'No Kontainer Tidak Boleh Kosong';
-            $data['status'] = FALSE;
-        }
-
-        if($data['status'] === FALSE)
-        {
-            echo json_encode($data);
-            exit();
-        }
     }
 
     private function _validate() {

@@ -48,7 +48,14 @@ class Document extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->date_doc;
             
             if($locked != '' && $locked == '1'){
-                $row[] = '';
+                if($r->file != NULL || $r->file != ''){
+                    $row[] = '<center><button class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_doc('."'".$r->id_ship_doc."'".')">E</button>
+                    <button class="btn btn-success" href="javascript:void(0)" title="Doc" onclick="open_doc('."'".$r->file."'".')">F</button>
+                    <button class="btn btn-danger" href="javascript:void(0)" title="Del File" onclick="delete_file('."'".$r->id_ship_doc."'".')">XF</button>';
+                } else{
+                    $row[] = '<center>
+                    <button class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit_doc('."'".$r->id_ship_doc."'".')">E</button>';
+                }
             }else{
                 if($r->file != NULL || $r->file != ''){
                     $row[] = '<center>
@@ -125,6 +132,7 @@ class Document extends MY_Controller{
     }
 
     public function ajax_add_doc() {
+        $this->_validate();
         $table = 'ship_doc';
         $id_doc = $this->input->post('id_doc');
         $data = array(
@@ -156,6 +164,7 @@ class Document extends MY_Controller{
     }
 
 	public function ajax_update_doc() {
+        $this->_validate();
         $table  = 'ship_doc';
         $id     = $this->input->post('id_ship_doc');
 		$data = array(
@@ -213,5 +222,24 @@ class Document extends MY_Controller{
 		}
     }
     
+    private function _validate() {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+        
+        if($this->input->post('no_doc') == NULL || $this->input->post('no_doc') == '')
+        {
+            $data['inputerror'][] = 'no_doc';
+            $data['error_string'][] = 'No Dokumen Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }
+
+        if($data['status'] === FALSE)
+        {
+            echo json_encode($data);
+            exit();
+        }
+    }
 }
 ?>

@@ -2,6 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 ?>
+<style>
+table.dataTable thead {
+  border-bottom: 5px solid black !important;
+}
+
+.select2-container {
+    width: 100% !important;
+    padding: 0;
+}
+</style>
 <section class="content-wrapper">
     <div class="container-fluid">
         <!-- Content Header (Page header) -->
@@ -16,7 +26,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <section class="content">
             <div class="box box-default">
                 <div class="box-header">
-                    <button class="btn btn-primary" onclick="add()"> <span>Tambah Data</span></button><br><br>   
+                    <button class="btn btn-primary" onclick="add()"> <span>Tambah Data</span></button>
+                    <button class="btn btn-info" onclick="refresh()"> <span>Refresh Halaman</span></button>
+                    <br><br>   
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -104,49 +116,156 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="form-group">
                                     <label for="no_seal" class="form-label">No. Kontainer</label>
                                     <input hidden id="idm" name="idm">
+                                    <input hidden id="no_seal_temp" name="no_seal_temp">
                                     <select id="no_seal" name="no_seal" class="form-control select2"></select>    
                                     <span class="help-block"></span>                                    
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">No. BL</label>
-                                    <input required id="no_bl" name="no_bl" class="form-control" type="text">
+                                    <label for="agent_name" class="form-label">No Surat Jalan</label>
+                                    <input type="text" class="form-control" id="no_surat_jalan" name="no_surat_jalan"/>
                                     <span class="help-block"></span>    
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">TD</label>
-                                    <input required id="td" name="td" class="form-control" type="text">
+                                    <label for="agent_name" class="form-label">Rute</label>
+                                    <select id="rute" name="rute" class="form-control select2" style="width: 100%;">
+                                    </select>
                                     <span class="help-block"></span>    
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Berat</label>
-                                    <input required id="berat" name="berat" class="form-control" type="text">
+                                    <label for="agent_name" class="form-label">DK/LK</label>
+                                    <select id="dk_lk" name="dk_lk" class="form-control">
+                                        <option value="DK">Dalam Kota</option>
+                                        <option value="LK">Luar Kota</option>
+                                    </select>
                                     <span class="help-block"></span>    
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Tanggal BL</label>
-                                    <input required id="tgl_bl" name="tgl_bl" class="form-control tanggal" type="text">
+                                    <label for="agent_name" class="form-label">Tanggal Muat</label>
+                                    <input type="text" class="form-control tanggal" name="on_chassis" id="on_chassis"/>
                                     <span class="help-block"></span>    
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Tanggal Kapal Tiba</label>
-                                    <input required id="tgl_tiba" name="tgl_tiba" class="form-control tanggal" type="text">
+                                    <label for="agent_name" class="form-label">Tanggal Bongkar</label>
+                                    <input type="text" class="form-control tanggal" name="door" id="door"/>
                                     <span class="help-block"></span>    
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Tanggal Bongkar Muat</label>
-                                    <input required id="tgl_bm" name="tgl_bm" class="form-control tanggal" type="text">
+                                    <label for="agent_name" class="form-label">Truk</label>
+                                    <select id="truck" name="truck" class="form-control select2">
+                                    </select>
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Supir</label>
+                                    <select id="supir" name="supir" class="form-control select2" style="width: 100%;">
+                                    </select>
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer bg-warning" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <button onclick='save()' id='btnSave' type='button' class='btn btn-primary' >Save</button>
+                        <button onclick='batal()' type='button' class='btn btn-danger' >Cancel</button>
+                    </div>
+                </div>
+			</div>				
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<!-- End Bootstrap modal -->
+
+<!-- Bootstrap modal For Datatable-->
+<div class="modal fade" id="md-form-doc" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Dokumen Kapal</h3>
+            </div>
+            <div class="modal-body form">
+                <div class="form-group">
+                    <form id="frm-modal-doc" action="#" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="no_seal" class="form-label">No. Kontainer</label>
+                                    <input hidden id="idm" name="idm">
+                                    <input hidden id="no_seal_temp" name="no_seal_temp">
+                                    <select id="no_seal" name="no_seal" class="form-control select2"></select>    
+                                    <span class="help-block"></span>                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">No Surat Jalan</label>
+                                    <input type="text" class="form-control" id="no_surat_jalan" name="no_surat_jalan"/>
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Rute</label>
+                                    <select id="rute" name="rute" class="form-control select2" style="width: 100%;">
+                                    </select>
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">DK/LK</label>
+                                    <select id="dk_lk" name="dk_lk" class="form-control">
+                                        <option value="DK">Dalam Kota</option>
+                                        <option value="LK">Luar Kota</option>
+                                    </select>
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tanggal Muat</label>
+                                    <input type="text" class="form-control tanggal" name="on_chassis" id="on_chassis"/>
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tanggal Bongkar</label>
+                                    <input type="text" class="form-control tanggal" name="door" id="door"/>
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Truk</label>
+                                    <select id="truck" name="truck" class="form-control select2">
+                                    </select>
+                                    <span class="help-block"></span>    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Supir</label>
+                                    <select id="supir" name="supir" class="form-control select2" style="width: 100%;">
+                                    </select>
                                     <span class="help-block"></span>    
                                 </div>
                             </div>
@@ -189,23 +308,64 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     function init_select(){
         //Unit Select Box
-        let dropdown = $('#no_seal');
-        dropdown.empty();
-        dropdown.append('<option value="">Pilih Kontainer</option>');
-        dropdown.prop('selectedIndex', 0);
-        const url = '<?php echo base_url('shipment/getSeal/');?>';
+        let dropdown_seal = $('#no_seal');
+        dropdown_seal.empty();
+        dropdown_seal.append('<option value="">Pilih Kontainer</option>');
+        dropdown_seal.prop('selectedIndex', 0);
+        const url_seal = '<?php echo base_url('shipment/getSeal/');?>';
 
         // Populate dropdown with list
-        $.getJSON(url, function (data) {
+        $.getJSON(url_seal, function (data) {
             $.each(data, function (key, entry) {
-                dropdown.append($('<option></option>').attr('value', entry.id_doc).text(entry.seal_number + ' => ' + entry.size));
+                dropdown_seal.append($('<option></option>').attr('value', entry.id_doc).text(entry.seal_number + ' => ' + entry.size));
+            })
+        });
+
+        //Unit Select Box
+        let dropdown_route = $('#rute');
+        dropdown_route.empty();
+        dropdown_route.append('<option value="">Pilih Rute</option>');
+        dropdown_route.prop('selectedIndex', 0);
+        const url_route = '<?php echo base_url('route/getData/');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url_route, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown_route.append($('<option></option>').attr('value', entry.idm_route).text(entry.route_name + ' : ' + entry.origin + ' => ' + entry.destination));
+            })
+        });
+
+        //Unit Select Box
+        let dropdown_truck = $('#truck');
+        dropdown_truck.empty();
+        dropdown_truck.append('<option value="">Pilih Truk</option>');
+        dropdown_truck.prop('selectedIndex', 0);
+        const url_truck = '<?php echo base_url('truck/getData/');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url_truck, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown_truck.append($('<option></option>').attr('value', entry.idm_truck).text(entry.truck_code + ' => ' + entry.plate_number));
+            })
+        });
+
+        //Unit Select Box
+        let dropdown_driver = $('#supir');
+        dropdown_driver.empty();
+        dropdown_driver.append('<option value="">Pilih Supir</option>');
+        dropdown_driver.prop('selectedIndex', 0);
+        const url_driver = '<?php echo base_url('driver/getData/');?>';
+
+        // Populate dropdown with list
+        $.getJSON(url_driver, function (data) {
+            $.each(data, function (key, entry) {
+                dropdown_driver.append($('<option></option>').attr('value', entry.idm_driver).text(entry.driver_name));
             })
         });
     }
 
     function add(){
         save_method = 'add';
-        init_select();
         $('#no_seal').prop( "disabled", false );
         $('#frm-modal')[0].reset(); // reset form on modals
         $('.form-group').removeClass('has-error'); // clear error class
@@ -213,12 +373,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#btnSave').text('Save');
         $('.select2').select2();
         $('#md-form').modal('show'); // show bootstrap modal when complete loaded
-        $('.modal-title').text('Tambah Dokumen Kapal Tiba'); // Set title to Bootstrap modal title
+        $('.modal-title').text('Tambah Data Doring'); // Set title to Bootstrap modal title
     }
 
     function edit(id){
         save_method = 'update';
-        init_select();
         $('#frm-modal')[0].reset(); // reset form on modals
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
@@ -227,22 +386,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         //Ajax Load data from ajax
         $.ajax({
-            url : "<?php echo site_url('shipment/ajax_edit_arr/')?>" + id,
+            url : "<?php echo site_url('doring/ajax_edit/')?>" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
             {		
-                $('#idm').val(data.id_ship_arr);
+                $('#idm').val(data.id_doring);
                 $('#no_seal').prop( "disabled", true );
-                $('#no_bl').val(data.bl_number);
-                $('#tgl_bl').val(data.bl_date);
-                $('#td').val(data.td);
-                $('#berat').val(data.weight);
-                $('#tgl_tiba').val(data.arrival_date);
-                $('#tgl_bm').val(data.unload_load_date);
+                $('#no_seal_temp').val(data.id_doc);
+                $('#no_surat_jalan').val(data.safeconduct_num);
+                $('#rute').val(data.id_route).change();
+                $('#dk_lk').val(data.dk_lk).change();
+                $('#on_chassis').val(data.on_chassis);
+                $('#door').val(data.unload_date);
+                $('#truck').val(data.id_truck).change();
+                $('#supir').val(data.id_driver).change();
 
                 $('#md-form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Dokumen Kapal Tiba'); // Set title to Bootstrap modal title
+                $('.modal-title').text('Edit Data Doring'); // Set title to Bootstrap modal title
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -262,7 +423,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#btnSave').attr('disabled',true); //set button disable 
         }
         
-        url = "<?php echo site_url('shipment/ajax_save_arr');?>";
+        url = "<?php echo site_url('doring/ajax_save');?>";
         formData = new FormData($('#frm-modal')[0]);
         formData.append( 'save_method', save_method );
 
@@ -330,7 +491,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             },
         });
-
+        init_select();
         $('#kapal').keyup( function() {
             table.ajax.reload();
         } );

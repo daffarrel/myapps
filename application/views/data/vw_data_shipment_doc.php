@@ -2,16 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 ?>
-<style>
-table.dataTable thead {
-  border-bottom: 5px solid black !important;
-}
-
-.select2-container {
-    width: 100% !important;
-    padding: 0;
-}
-</style>
 <section class="content-wrapper">
     <div class="container-fluid">
         <!-- Content Header (Page header) -->
@@ -513,6 +503,46 @@ table.dataTable thead {
                 $('#berat').val(data.weight);
                 $('#tgl_tiba').val(data.arrival_date);
                 $('#tgl_bm').val(data.unload_load_date);
+
+                if(data.locked == '1'){
+                    $('#no_seal').prop( "disabled", true );
+                    $('#size').prop( "disabled", true );
+                    $('#tgl_proses_dok').prop( "disabled", true );
+                    $('#cmpy').prop( "disabled", true );
+                    $('#agen').prop( "disabled", true );
+                    $('#kota_asal').prop( "disabled", true );
+                    $('#pengirim').prop( "disabled", true );
+                    $('#penerima').prop( "disabled", true );
+                    $('#ship_name').prop( "disabled", true );
+                    $('#io').prop( "disabled", true );
+                    $('#kondisi').prop( "disabled", true );
+                    $('#produk').prop( "disabled", true );
+                    $('#stuffing').prop( "disabled", true );
+                    $('#td').prop( "disabled", true );
+                    $('#berat').prop( "disabled", true );
+                    $('#tgl_tiba').prop( "disabled", true );
+                    $('#tgl_bm').prop( "disabled", true );
+                    $('#btnSave').attr('disabled',true); //set button disable 
+                }else{
+                    $('#no_seal').prop( "disabled", false );
+                    $('#size').prop( "disabled", false );
+                    $('#tgl_proses_dok').prop( "disabled", false );
+                    $('#cmpy').prop( "disabled", false );
+                    $('#agen').prop( "disabled", false );
+                    $('#kota_asal').prop( "disabled", false );
+                    $('#pengirim').prop( "disabled", false );
+                    $('#penerima').prop( "disabled", false );
+                    $('#ship_name').prop( "disabled", false );
+                    $('#io').prop( "disabled", false );
+                    $('#kondisi').prop( "disabled", false );
+                    $('#produk').prop( "disabled", false );
+                    $('#stuffing').prop( "disabled", false );
+                    $('#td').prop( "disabled", false );
+                    $('#berat').prop( "disabled", false );
+                    $('#tgl_tiba').prop( "disabled", false );
+                    $('#tgl_bm').prop( "disabled", false );
+                    $('#btnSave').attr('disabled',false); //set button disable 
+                }
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -597,6 +627,8 @@ table.dataTable thead {
 
     function save_doc(){    
         var url;
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
 
         if(save_method_doc == 'add') {
             $('#btnSaveDoc').text('Saving...'); //change button text
@@ -821,7 +853,20 @@ table.dataTable thead {
     }
 
     function doc(id){
-        var locked = $('#locked' + id).val();
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
+
+        var locked = $('#locked'+id).val();
+        if(locked == '1'){
+            $('[name="jenis_doc"]').prop( "disabled", true );
+            $('[name="no_doc"]').prop( "readonly", true );
+            $('[name="doc_date"]').prop( "disabled", true );
+        }else{
+            $('[name="jenis_doc"]').prop( "disabled", false );
+            $('[name="no_doc"]').prop( "readonly", false );
+            $('[name="doc_date"]').prop( "disabled", false );
+        }
+
         $.ajax({
             url : "<?php echo site_url('shipment/ajax_edit_doc_table/')?>" + id,
             type: "GET",
@@ -846,7 +891,8 @@ table.dataTable thead {
                             data.locked = locked;
                         },
                     },
-                });		
+                });
+                
                 //Unit Select Box
                 let dropdown = $('#jenis_doc');
                 dropdown.empty();

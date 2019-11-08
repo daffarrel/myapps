@@ -109,6 +109,18 @@ class M_doring extends MY_Model {
         return $this->db->affected_rows();
     }
 
+    public function getIDDoc(){
+        $this->db->select('id_doc');
+        $this->db->from($this->table);
+        $this->db->distinct();
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+            return $query->result();
+        else
+            return array();
+    }
+
     //doring_doc
     function get_datatables_query_doc() {
         //add custom filter here
@@ -172,6 +184,10 @@ class M_doring extends MY_Model {
     public function countAll_doc() {
         $this->db->from($this->view_doc);
         return $this->db->count_all_results();
+    }
+
+    public function insertDoc($doc,$id){
+        
     }
 
     public function saveData_doc($post){

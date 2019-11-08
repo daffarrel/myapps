@@ -56,6 +56,28 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+  <style>
+    table.dataTable thead th {
+      border-top: 1px solid black !important;
+      border-left: 1px solid black !important;
+      border-right: 1px solid black !important;
+    }
+
+    table.dataTable tfoot th {
+      border-bottom: 1px solid black !important;
+      border-left: 1px solid black !important;
+      border-right: 1px solid black !important;
+    }
+
+    table.dataTable tbody td {
+      border: 1px solid black !important;
+    }
+
+    .select2-container {
+        width: 100% !important;
+        padding: 0;
+    }
+  </style>
   <!-- jQuery 3 -->
   <script src="<?php echo base_url()?>/assets/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
@@ -160,7 +182,6 @@
                 <ul class="dropdown-menu" role="menu">
                     <li class="nav-item"><a href="<?php echo site_url("main/document/shipment_doc");?>" class="nav-link">Dokumen Kapal</a></li>
                     <li class="nav-item"><a href="<?php echo site_url("main/document/doring");?>" class="nav-link">Doring</a></li>
-                    <li class="nav-item"><a href="<?php echo site_url("main/document/doring_doc");?>" class="nav-link">Dokumen Doring</a></li>
                 </ul>
               </li>
               <li <?php if($this->uri->segment(2)=="report"){echo ' class="active"';}?> class="dropdown">

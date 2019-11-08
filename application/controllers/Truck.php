@@ -70,7 +70,7 @@ class Truck extends MY_Controller{
         echo json_encode(array("status" => TRUE));
     }
 
-    public function getData($id){
+    public function getData($id = ''){
         $result = $this->truck->getData($id);
         echo json_encode($result);
     }

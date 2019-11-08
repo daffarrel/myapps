@@ -53,11 +53,18 @@ class Doring extends MY_Controller{
     }
 
     public function ajax_save(){
-        $this->_validate();
-        $save       = $this->input->post('save_method');
-        $post       = $_POST;
+        $save = $this->input->post('save_method');
+        $post = $_POST;
 
-        $id_ship_arr       = $this->db->escape_str($post['no_seal']);
+        if($save == 'add'){
+            $this->_validate();
+            $id_doc = $this->db->escape_str($post['no_seal']);
+        }else{
+            $id_doc = $this->db->escape_str($post['no_seal_temp']);
+        }
+            
+        $doc = $this->document->getDokumenKapal($id_doc);
+        
         $safeconduct_num   = $this->db->escape_str($post['no_surat_jalan']);
         $id_route          = $this->db->escape_str($post['rute']);
         $dk_lk             = $this->db->escape_str($post['dk_lk']);
@@ -67,7 +74,7 @@ class Doring extends MY_Controller{
         $id_driver         = $this->db->escape_str($post['supir']);
 
         $data = array(
-            'id_ship_arr'      => $id_ship_arr,
+            'id_doc'           => $id_doc,
             'safeconduct_num'  => $safeconduct_num,
             'id_route'         => $id_route,
             'dk_lk'            => $dk_lk,
@@ -78,9 +85,13 @@ class Doring extends MY_Controller{
         );
         
         if($save == 'add'){
-            $status_locked = $this->shipment->updateLocked_arr($id_ship_arr);
-            $this->shipment->updateLocked($status_locked);
-            if ($this->doring->save_where($this->table,$data) > 0){
+            //update status lock
+            $this->shipment->updateLocked($id_doc);
+
+            if (($result = $this->doring->save_where($this->table,$data)) > 0){
+                //input jumlah dokumen doring yang harus dikembalikan oleh driver
+                $this->doring->insertDoc($doc,$result['insert_id']);
+
                 echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
             }else{
                 echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
@@ -213,11 +224,28 @@ class Doring extends MY_Controller{
         $data['error_string'] = array();
         $data['inputerror'] = array();
         $data['status'] = TRUE;
+        
 
         if($this->input->post('no_seal') == NULL)
         {
             $data['inputerror'][] = 'no_seal';
             $data['error_string'][] = 'No Kontainer Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }else{
+            $id = $this->input->post('no_seal');
+            $check_dok = $this->document->cekDok($id);
+            
+            if($check_dok == FALSE){
+                $data['inputerror'][] = 'no_seal';
+                $data['error_string'][] = 'Dokumen Kapal Masih Kosong';
+                $data['status'] = FALSE;
+            }
+        }
+
+        if($this->input->post('no_surat_jalan') == NULL)
+        {
+            $data['inputerror'][] = 'no_seal';
+            $data['error_string'][] = 'No Surat Jalan Tidak Boleh Kosong';
             $data['status'] = FALSE;
         }
 

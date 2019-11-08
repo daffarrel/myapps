@@ -2,12 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 ?>
-<style>
-.select2-container {
-    width: 100% !important;
-    padding: 0;
-}
-</style>
 <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Content Header (Page header) -->

@@ -143,13 +143,9 @@ class M_shipment extends MY_Model {
             return $query->result();
     }
 
-    public function getSeal($id = ''){
+    public function getSeal(){
         $this->db->select('id_doc,seal_number,size');
         $this->db->where('done','0');
-
-        if($id != '' || !empty($id)){
-            $this->db->where_not_in('id_doc',$id);
-        }
 
         $this->db->from($this->view);
         $this->db->distinct();
@@ -167,16 +163,6 @@ class M_shipment extends MY_Model {
         if($query->num_rows() > 0)
             return $query->result();
 
-    }
-
-    public function getIDDoc(){
-        $this->db->select('id_doc');
-        $this->db->from($this->view_arr);
-        $this->db->distinct();
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0)
-            return $query->result();
     }
 
     public function updateLocked($id){
