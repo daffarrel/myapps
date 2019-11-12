@@ -3,14 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 ?>
 <style>
-table.dataTable thead {
-  border-bottom: 5px solid black !important;
-}
+    table.dataTable thead {
+    border-bottom: 5px solid black !important;
+    }
 
-.select2-container {
-    width: 100% !important;
-    padding: 0;
-}
+    .select2-container {
+        width: 100% !important;
+        padding: 0;
+    }
 </style>
 <section class="content-wrapper">
     <div class="container-fluid">
@@ -74,6 +74,7 @@ table.dataTable thead {
                             <th><center>Tanggal Bongkar</th>
                             <th><center>No Polisi</th>
                             <th><center>Driver</th>
+                            <th><center>Dokumen Kembali</th>
                             <th><center>Aksi</th>
                         </tr>
                         </thead>
@@ -90,6 +91,7 @@ table.dataTable thead {
                             <th><center>Tanggal Bongkar</th>
                             <th><center>No Polisi</th>
                             <th><center>Driver</th>
+                            <th><center>Dokumen Kembali</th>
                             <th><center>Aksi</th>
                         </tr>
                         </tfoot>
@@ -194,7 +196,7 @@ table.dataTable thead {
 <!-- End Bootstrap modal -->
 
 <!-- Bootstrap modal For Datatable-->
-<div class="modal fade" id="md-form-doc" role="dialog">
+<div class="modal fade" id="md-table" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-success">
@@ -202,88 +204,25 @@ table.dataTable thead {
                 <h3 class="modal-title">Dokumen Kapal</h3>
             </div>
             <div class="modal-body form">
-                <div class="form-group">
-                    <form id="frm-modal-doc" action="#" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="no_seal" class="form-label">No. Kontainer</label>
-                                    <input hidden id="idm" name="idm">
-                                    <input hidden id="no_seal_temp" name="no_seal_temp">
-                                    <select id="no_seal" name="no_seal" class="form-control select2"></select>    
-                                    <span class="help-block"></span>                                    
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">No Surat Jalan</label>
-                                    <input type="text" class="form-control" id="no_surat_jalan" name="no_surat_jalan"/>
-                                    <span class="help-block"></span>    
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">Rute</label>
-                                    <select id="rute" name="rute" class="form-control select2" style="width: 100%;">
-                                    </select>
-                                    <span class="help-block"></span>    
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">DK/LK</label>
-                                    <select id="dk_lk" name="dk_lk" class="form-control">
-                                        <option value="DK">Dalam Kota</option>
-                                        <option value="LK">Luar Kota</option>
-                                    </select>
-                                    <span class="help-block"></span>    
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">Tanggal Muat</label>
-                                    <input type="text" class="form-control tanggal" name="on_chassis" id="on_chassis"/>
-                                    <span class="help-block"></span>    
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">Tanggal Bongkar</label>
-                                    <input type="text" class="form-control tanggal" name="door" id="door"/>
-                                    <span class="help-block"></span>    
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">Truk</label>
-                                    <select id="truck" name="truck" class="form-control select2">
-                                    </select>
-                                    <span class="help-block"></span>    
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">Supir</label>
-                                    <select id="supir" name="supir" class="form-control select2" style="width: 100%;">
-                                    </select>
-                                    <span class="help-block"></span>    
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+				<table id="tb_doc" class="table table-bordered table-hover" width='100%'>
+                    <thead>
+                        <tr>
+                        <th style="width:5% !important;"><center>#</th>
+                        <th style="width:35% !important;"><center>No Dokumen</th>
+                        <th style="width:20% !important;"><center>Jenis Dokumen</th>
+                        <th style="width:20% !important;"><center>Tanggal Dokumen</th>
+                        <th style="width:20% !important;"><center>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>	
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer bg-warning" >
-                <div class="row">
-                    <div class="col-md-12">
-                        <button onclick='save()' id='btnSave' type='button' class='btn btn-primary' >Save</button>
-                        <button onclick='batal()' type='button' class='btn btn-danger' >Cancel</button>
-                    </div>
-                </div>
 			</div>				
         </div>
-    </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
+    </div>
+</div>
 <!-- End Bootstrap modal -->
 
 <script type="text/javascript">
@@ -292,11 +231,16 @@ table.dataTable thead {
     });
 
     var table;
+    var table_doc;
     //for save method string
     var save_method; 
 
     function reload_table() {
         table.ajax.reload(null,false);
+    }
+
+    function reload_table_doc() {
+        table_doc.ajax.reload(null,false);
     }
 
     function batal(){
@@ -414,6 +358,8 @@ table.dataTable thead {
 
     function save(){    
         var url;
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
 
         if(save_method == 'add') {
             $('#btnSave').text('Saving...'); //change button text
@@ -467,7 +413,7 @@ table.dataTable thead {
     function refresh(){
         init_select();
         $('#form-filter')[0].reset();
-        table.ajax.reload(null,false);
+        reload_table();
     }
 
     $(document).ready(function(){
@@ -478,7 +424,11 @@ table.dataTable thead {
             autowidth   : true,
             ordering    : false,
             "scrollX"   : true,
-
+            "createdRow": function( row, data, dataIndex){
+                if( data[9] ==  "<center>Done"){
+                    $( row ).css( "background-color", "lightgreen" );
+                }
+            },
             // Load data for the table's content from an Ajax source
             ajax: {
                 "url": "<?php echo site_url('doring/ajax_list')?>" ,
@@ -486,11 +436,12 @@ table.dataTable thead {
                 "data": function ( data ) {
                     data.tgl_bongkar_awal    = $('#tgl_bongkar_awal').val();
                     data.tgl_bongkar_akhir   = $('#tgl_bongkar_akhir').val();
-                    data.tgl_muat_awal  = $('#tgl_muat_awal').val();
-                    data.tgl_muat_akhir = $('#tgl_muat_akhir').val();
+                    data.tgl_muat_awal       = $('#tgl_muat_awal').val();
+                    data.tgl_muat_akhir      = $('#tgl_muat_akhir').val();
                 }
             },
         });
+
         init_select();
         $('#kapal').keyup( function() {
             table.ajax.reload();
@@ -505,6 +456,110 @@ table.dataTable thead {
             table.ajax.reload();  //just reload table
         });
     });
+
+    function doc(id){
+        $('.form-group').removeClass('has-error'); // clear error class
+        $('.help-block').empty(); // clear error string
+
+        $.ajax({
+            url : "<?php echo site_url('doring/ajax_edit_doc_table/')?>" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data){
+                //console.log(data);
+                //tabel untuk dokumen kapal
+                table_doc = $('#tb_doc').DataTable({
+                    processing  : true, //Feature control the processing indicator.
+                    serverSide  : true, //Feature control DataTables' server-side processing mode.
+                    order       : [], //Initial no order.
+                    autowidth   : true,
+                    ordering    : false,
+                    destroy     : true,
+                    pageLength  : 5,
+                    lengthMenu: [5, 10, 20, 50, 100],
+                    ajax : {
+                        url : "<?php echo base_url('doring/ajax_list_doc/');?>",
+                        type : 'POST',
+                        data : function ( data ) {
+                            data.id = id;
+                        },
+                    },
+                });
+                
+                // Set id doc
+                $('#id_doc').val(id);
+                // show bootstrap modal
+                $('#md-table').modal('show'); 
+                title = data.seal_number + ' - ' + data.process_date;
+                $('.modal-title').text('Dokumen Doring : ' + ' [ ' + title + " ]"); // Set Title to Bootstrap modal title
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                alert('Error get data from ajax');
+            }
+        });
+    }
+
+    function confirm_doc(id){
+        swal.fire({
+            title: 'Apakah Anda Yakin ?',
+            text: 'Konfirmasi Dokumen Yang Telah Kembali !',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+        }).then((willDelete) => {
+            if (willDelete.value) {
+                $.ajax({
+                    url : "<?php echo site_url('doring/confirm_doc')?>/"+id,
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function(data)
+                    {
+                        swal.fire('Berhasil','Dokumen Berhasil Diverifikasi','success');
+                        reload_table_doc();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        swal.fire("Gagal","Data Batal Verifikasi","error");
+                    }
+                });
+            } else {
+                swal.fire("Batal","Data Batal Verifikasi","warning");
+            }
+        });
+    }
+
+    function done(id){
+        swal.fire({
+            title: 'Apakah Anda Yakin ?',
+            text: 'Konfirmasi Doring Yang Telah Selesai !',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+        }).then((willDelete) => {
+            if (willDelete.value) {
+                $.ajax({
+                    url : "<?php echo site_url('doring/confirm_doring')?>/"+id,
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function(data)
+                    {
+                        swal.fire('Berhasil','Dokumen Berhasil Diverifikasi','success');
+                        reload_table();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        swal.fire("Gagal","Data Batal Verifikasi","error");
+                    }
+                });
+            } else {
+                swal.fire("Batal","Data Batal Verifikasi","warning");
+            }
+        });
+    }
 
     function del(id) {
         swal.fire({

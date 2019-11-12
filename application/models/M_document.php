@@ -154,7 +154,6 @@ class M_document extends MY_Model {
         if($id != '')
             $this->db->where($primary_key,$id);
         
-        $this->db->where('soft_delete','0');
         $query = $this->db->get($table);
 
         if($query->num_rows() > 0){
@@ -162,6 +161,16 @@ class M_document extends MY_Model {
                 return $query->row();
             else
                 return $query->result();
+        }
+            
+    }
+
+    public function getShipDoc($id){     
+        $this->db->where('id_doc',$id);
+        $query = $this->db->get($this->view_doc);
+
+        if($query->num_rows() > 0){
+           return $query->result();
         }
             
     }

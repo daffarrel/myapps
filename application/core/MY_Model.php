@@ -94,9 +94,21 @@ class MY_Model extends CI_Model {
             return FALSE;
     }
 
-    public function save_where($where, $data)
+    public function save_where($table, $data)
     {
-        $this->db->insert($where, $data);
+        $this->db->insert($table, $data);
+
+        $status = array(
+            'insert_id' => $this->db->insert_id(),
+            'status' => $this->db->affected_rows(),
+        );
+
+        return $status;
+    }
+
+    public function save_where_batch($table, $data)
+    {
+        $this->db->insert_batch($table, $data);
 
         $status = array(
             'insert_id' => $this->db->insert_id(),

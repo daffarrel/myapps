@@ -8,7 +8,7 @@ class M_doring extends MY_Model {
     
     //doring_doc
     var $table_doc         = 'doring_doc';
-    var $view_doc          = 'vw_doring_doc';
+    //var $view_doc          = 'vw_doring_doc';
 
     //doring
     var $column_order      = array('id_doring',null,null,null,null,null,null,null,null,null,null,null,null,null,null); //set column field database for datatable orderable
@@ -17,7 +17,7 @@ class M_doring extends MY_Model {
 
     //doring_doc
     var $column_order_doc      = array('id_doring_doc'); //set column field database for datatable orderable
-    var $column_search_doc     = array('seal_number'); //set column field database for datatable searchable
+    var $column_search_doc     = array(null); //set column field database for datatable searchable
     var $order_doc             = array('id_doring_doc' => 'asc'); // default order
 
     //doring
@@ -70,18 +70,22 @@ class M_doring extends MY_Model {
         $this->get_datatables_query();
         if($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
+        
+        $this->db->where('done','0');
         $query = $this->db->get();
         return $query->result();
     }
 
     function countFiltered() {
         $this->get_datatables_query();
+        $this->db->where('done','0');
         $query = $this->db->get();
         return $query->num_rows();
     }
 
     public function countAll() {
         $this->db->from($this->view);
+        $this->db->where('done','0');
         return $this->db->count_all_results();
     }
 
@@ -121,19 +125,18 @@ class M_doring extends MY_Model {
             return array();
     }
 
+    public function confirmDoring($id){
+        $this->db->set('done','1');
+        $this->db->where('id_doring', $id);
+        $this->db->update($this->table);
+
+        return $this->db->affected_rows();
+    }
+
     //doring_doc
-    function get_datatables_query_doc() {
-        //add custom filter here
-    
-        if($this->input->post('tgl_bongkar_awal') && $this->input->post('tgl_bongkar_akhir')) {
-            $this->db->where('unload_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_bongkar_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_bongkar_akhir'))) . '"');
-        }
-
-        if($this->input->post('tgl_muat_awal') && $this->input->post('tgl_muat_akhir')) {
-            $this->db->where('on_chassis BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_muat_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_muat_akhir'))) . '"');
-        }
-
-        $this->db->from($this->view_doc);
+    function get_datatables_query_doc($id) {
+        $this->db->from($this->table_doc);
+        $this->db->where('id_doring',$id);
         $i = 0;
 
         foreach ($this->column_search_doc as $item) // loop column
@@ -167,97 +170,52 @@ class M_doring extends MY_Model {
         }
     }
 
-    public function get_datatable_doc(){
-        $this->get_datatables_query_doc();
+    public function get_datatable_doc($id){
+        $this->get_datatables_query_doc($id);
         if($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
+
+        $this->db->where('soft_delete','0');
         $query = $this->db->get();
         return $query->result();
     }
 
-    function countFiltered_doc() {
-        $this->get_datatables_query_doc();
+    function countFiltered_doc($id) {
+        $this->get_datatables_query_doc($id);
+        $this->db->where('soft_delete','0');
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function countAll_doc() {
-        $this->db->from($this->view_doc);
+    public function countAll_doc($id) {
+        $this->db->from($this->table_doc);
+        $this->db->where('id_doring',$id);
+        $this->db->where('soft_delete','0');
         return $this->db->count_all_results();
     }
 
-    public function insertDoc($doc,$id){
-        
-    }
-
-    public function saveData_doc($post){
-        $id_ship_arr       = $this->db->escape_str($post['no_seal']);
-        $safeconduct_num   = $this->db->escape_str($post['no_surat_jalan']);
-        $id_route          = $this->db->escape_str($post['rute']);
-        $dk_lk             = $this->db->escape_str($post['dk_lk']);
-        $on_chassis        = $this->db->escape_str($post['on_chassis']);
-        $unload_date       = $this->db->escape_str($post['door']);
-        $id_truck          = $this->db->escape_str($post['truck']);
-        $id_driver         = $this->db->escape_str($post['supir']);
-
-        $data = array(
-            'id_ship_arr'      => $id_ship_arr,
-            'safeconduct_num'  => $safeconduct_num,
-            'id_route'         => $id_route,
-            'dk_lk'            => $dk_lk,
-            'on_chassis'       => $on_chassis,
-            'unload_date'      => $unload_date,
-            'id_truck'         => $id_truck,
-            'id_driver'        => $id_driver,
-        );
-
-        $result = $this->save_where($this->table,$data);
-
-        if($result['status'])
-            return $result;
-        else
-            return FALSE;
-    }
-
-    public function updateData_doc($post){
-        $id_ship_arr       = $this->db->escape_str($post['no_seal']);
-        $safeconduct_num   = $this->db->escape_str($post['no_surat_jalan']);
-        $id_route          = $this->db->escape_str($post['rute']);
-        $dk_lk             = $this->db->escape_str($post['dk_lk']);
-        $on_chassis        = $this->db->escape_str($post['on_chassis']);
-        $unload_date       = $this->db->escape_str($post['door']);
-        $id_truck          = $this->db->escape_str($post['truck']);
-        $id_driver         = $this->db->escape_str($post['supir']);
-
-        $where = array(
-            'id_doring' => $this->db->escape_str($post['idm'])
-        );
-
-        $data = array(
-            'id_ship_arr'      => $id_ship_arr,
-            'safeconduct_num'  => $safeconduct_num,
-            'id_route'         => $id_route,
-            'dk_lk'            => $dk_lk,
-            'on_chassis'       => $on_chassis,
-            'unload_date'      => $unload_date,
-            'id_truck'         => $id_truck,
-            'id_driver'        => $id_driver,
-        );
-
-        $result= $this->update_where($this->table,$where,$data);
-
-        if($result)
-            return TRUE;
-        else
-            return FALSE;
-    }
-
-    public function deleteData_doc($id){
+    public function deleteDoc($id){
         $this->db->set('soft_delete','1');
-        $this->db->where('id_doring', $id);
-        $this->db->update($this->table);
+        $this->db->where('id_doring_doc', $id);
+        $this->db->update($this->table_doc);
 
         return $this->db->affected_rows();
+    }
+
+    public function confirmDoc($id){
+        $this->db->set('checklist','yes');
+        $this->db->where('id_doring_doc', $id);
+        $this->db->update($this->table_doc);
+
+        return $this->db->affected_rows();
+    }
+
+    public function cekDoc($id){
+        $this->db->from($this->table_doc);
+        $this->db->where('id_doring',$id);
+        $this->db->where('soft_delete','0');
+        $this->db->where('checklist','no');
+        return $this->db->count_all_results();
     }
 }
 ?>
