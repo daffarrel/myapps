@@ -722,7 +722,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
     }
 
-    function verif(id){
+    function verify(id){
         swal.fire({
             title: 'Apakah Anda Yakin ?',
             text: 'Konfirmasi Dokumen Kapal Telah Selesai !',
@@ -740,7 +740,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     success: function(data)
                     {
                         swal.fire('Berhasil','Dokumen Berhasil Diverifikasi','success');
-                        reload_table_doc();
+                        reload_table();
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {
@@ -762,7 +762,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             ordering    : true,
             //scrollY     : 300,
             scrollX     : true,
-            scrollCollapse: true,
+            //scrollCollapse: true,
             fixedColumns:   {
                 leftColumns: 2,
                 heightMatch: 'auto'

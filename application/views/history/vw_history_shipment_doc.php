@@ -275,7 +275,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('.help-block').empty(); // clear error string
 
         $.ajax({
-            url : "<?php echo site_url('shipment/ajax_edit_doc_table_history/')?>" + id,
+            url : "<?php echo site_url('shipment/ajax_edit_doc_table/')?>" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data){

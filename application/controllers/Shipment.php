@@ -38,7 +38,7 @@ class Shipment extends MY_Controller{
                           <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
             }else{
                 if($verif == TRUE){
-                    $row[] = '<a class="btn btn-success" href="javascript:void(0)" title="Verif" onclick="verif('."'".$r->id_doc."'".')">V</a>
+                    $row[] = '<a class="btn btn-success" href="javascript:void(0)" title="Verify" onclick="verify('."'".$r->id_doc."'".')">V</a>
                           <a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
                           <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
                 }else{
@@ -215,16 +215,6 @@ class Shipment extends MY_Controller{
         );
         //output to json format
         echo json_encode($output);
-    }
-
-    public function ajax_edit_history($id){
-		$data = $this->shipment->getData($id,$this->id_table,$this->table);
-		echo json_encode($data);
-    }
-
-    public function ajax_edit_doc_table_history($id){
-		$data = $this->shipment->getData($id);
-		echo json_encode($data);
     }
 }
 ?>

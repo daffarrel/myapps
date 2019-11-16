@@ -422,7 +422,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             serverSide  : true, //Feature control DataTables' server-side processing mode.
             order       : [], //Initial no order.
             autowidth   : true,
-            ordering    : false,
+            ordering    : true,
             "scrollX"   : true,
             "createdRow": function( row, data, dataIndex){
                 if( data[9] ==  "<center>Done"){

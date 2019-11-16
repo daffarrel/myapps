@@ -11,7 +11,7 @@ class M_doring extends MY_Model {
     //var $view_doc          = 'vw_doring_doc';
 
     //doring
-    var $column_order      = array('id_doring',null,null,null,null,null,null,null,null,null,null,null,null,null,null); //set column field database for datatable orderable
+    var $column_order      = array('id_doring','seal_number','safeconduct_num','route_name','dk_lk','on_chassis','unload_date','plate_number','driver_name',null,null); //set column field database for datatable orderable
     var $column_search     = array('seal_number','on_chassis','unload_date','route_name','plate_number','driver_name','safeconduct_num'); //set column field database for datatable searchable
     var $order             = array('id_doring' => 'asc'); // default order
 
@@ -241,7 +241,7 @@ class M_doring extends MY_Model {
         return $this->db->count_all_results();
     }
 
-    //fungsi lain - lain
+    //fungsi laporan
     public function report_gaji($tgl_awal,$tgl_akhir){
         $sql = "SELECT 
         m_driver.driver_name as driver_name,
@@ -264,6 +264,76 @@ class M_doring extends MY_Model {
         
         $query = $this->db->query($sql, array($tgl_awal,$tgl_akhir));
         return $query;
+    }
+
+    //history data doring
+    function get_datatables_query_history($tgl_awal,$tgl_akhir) {
+        //add custom filter here
+    
+        if($this->input->post('tgl_bongkar_awal') && $this->input->post('tgl_bongkar_akhir')) {
+            $this->db->where('unload_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_bongkar_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_bongkar_akhir'))) . '"');
+        }
+
+        if($this->input->post('tgl_muat_awal') && $this->input->post('tgl_muat_akhir')) {
+            $this->db->where('on_chassis BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_muat_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_muat_akhir'))) . '"');
+        }
+
+        $this->db->from($this->view);
+        $this->db->where('on_chassis BETWEEN "'. $tgl_awal. '" and "'. $tgl_akhir.'"');
+        $this->db->where('done','1');
+        $i = 0;
+
+        foreach ($this->column_search as $item) // loop column
+        {
+            if($_POST['search']['value']) // if datatable send POST for search
+            {
+                if($i===0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                }
+                else
+                {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if(count($this->column_search) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if(isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        }
+        else if(isset($this->order))
+        {
+            $order = $this->order;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    public function get_datatable_history($tgl_awal,$tgl_akhir){
+        $this->get_datatables_query_history($tgl_awal,$tgl_akhir);
+        if($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function countFilteredHistory($tgl_awal,$tgl_akhir) {
+        $this->get_datatables_query_history($tgl_awal,$tgl_akhir);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function countAllHistory($tgl_awal,$tgl_akhir) {
+        $this->db->from($this->view);
+        $this->db->where('on_chassis BETWEEN "'. $tgl_awal. '" and "'. $tgl_akhir.'"');
+        $this->db->where('done','1');
+        return $this->db->count_all_results();
     }
 }
 ?>

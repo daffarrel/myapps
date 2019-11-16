@@ -317,6 +317,71 @@ class Doring extends MY_Controller{
         //output to json format
         echo json_encode($output);
     }
+
+    //history data doring
+    public function ajax_list_history(){
+        $tgl_awal  = $this->input->post('tgl_awal');
+        $tgl_akhir = $this->input->post('tgl_akhir');
+
+        $list = $this->doring->get_datatable_history($tgl_awal,$tgl_akhir);
+        $data = array();
+        $no = $_POST['start'];
+
+        foreach ($list as $r) {
+            $no++;
+            $row = array();
+            $row[] = '<center style="font-size: small">'.$no;
+            $row[] = '<center style="font-size: small">'.$r->seal_number;
+            $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
+            $row[] = '<center style="font-size: small">'.$r->route_name;
+            $row[] = '<center style="font-size: small">'.$r->dk_lk;
+            $row[] = '<center style="font-size: small">'.$r->on_chassis;
+            $row[] = '<center style="font-size: small">'.$r->unload_date;
+            $row[] = '<center style="font-size: small">'.$r->plate_number;
+            $row[] = '<center style="font-size: small">'.$r->driver_name;
+            $row[] = '<center><a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doring."'".')">D</a>';
+            
+            //add html for action
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->doring->countAllHistory($tgl_awal,$tgl_akhir),
+            "recordsFiltered" => $this->doring->countFilteredHistory($tgl_awal,$tgl_akhir),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+
+    public function ajax_list_doc_history(){
+        $id = $this->input->post('id');
+        $list = $this->doring->get_datatable_doc($id);
+        $data = array();
+        $no = $_POST['start'];
+
+        foreach ($list as $r) {
+            $no++;
+            $row = array();
+            $row[] = '<center style="font-size: small">'.$no;
+            $row[] = '<center style="font-size: small">'.$r->no_dokumen;
+            $row[] = '<center style="font-size: small">'.$r->jenis_dokumen;
+            $row[] = '<center style="font-size: small">'.$r->date;
+            
+            //add html for action
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->doring->countAll_doc($id),
+            "recordsFiltered" => $this->doring->countFiltered_doc($id),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
 }
 ?>
 
