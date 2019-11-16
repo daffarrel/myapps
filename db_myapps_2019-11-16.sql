@@ -7,7 +7,7 @@
 #
 # Host: 47.74.234.241 (MySQL 5.5.64-MariaDB)
 # Database: db_myapps
-# Generation Time: 2019-11-02 07:58:05 +0000
+# Generation Time: 2019-11-16 12:54:51 +0000
 # ************************************************************
 
 
@@ -74,21 +74,36 @@ CREATE TABLE `doring` (
   `id_doc` int(11) DEFAULT NULL,
   `safeconduct_num` varchar(45) NOT NULL,
   `id_route` int(11) DEFAULT NULL,
+  `fare` int(100) NOT NULL DEFAULT '0',
   `dk_lk` enum('DK','LK') DEFAULT NULL,
   `on_chassis` date DEFAULT NULL,
   `unload_date` date DEFAULT NULL,
   `id_truck` int(11) DEFAULT NULL,
   `id_driver` int(11) DEFAULT NULL,
+  `done` int(11) NOT NULL DEFAULT '0',
   `soft_delete` int(2) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user` varchar(225) DEFAULT NULL,
   `update_timestamp` datetime DEFAULT NULL,
   `update_user` varchar(225) DEFAULT NULL,
   PRIMARY KEY (`id_doring`),
-  UNIQUE KEY `safeconduct_num_UNIQUE` (`safeconduct_num`),
-  UNIQUE KEY `id_doc_UNIQUE` (`id_doc`)
+  UNIQUE KEY `safeconduct_num_UNIQUE` (`safeconduct_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `doring` WRITE;
+/*!40000 ALTER TABLE `doring` DISABLE KEYS */;
+
+INSERT INTO `doring` (`id_doring`, `id_doc`, `safeconduct_num`, `id_route`, `fare`, `dk_lk`, `on_chassis`, `unload_date`, `id_truck`, `id_driver`, `done`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
+VALUES
+	(1,1,'123',2,200000,'DK','2019-11-29','2019-11-25',2,4,1,0,'2019-11-11 12:38:10',NULL,NULL,NULL),
+	(2,1,'KOKOKO',3,120000,'DK','2019-09-30','2019-11-19',3,3,1,0,'2019-11-11 16:19:53',NULL,NULL,NULL),
+	(3,1,'KOKOKOKO',3,1100000,'DK','2019-11-28','2019-11-29',4,2,1,0,'2019-11-12 14:33:13',NULL,NULL,NULL),
+	(4,1,'KOKOKOKO12',3,1100000,'DK','2019-11-22','2019-11-29',4,2,1,0,'2019-11-12 14:33:13',NULL,NULL,NULL),
+	(5,5,'SJ123',1,208000,'DK','2019-11-20','2019-11-26',1,1,1,0,'2019-11-16 13:51:18',NULL,NULL,NULL),
+	(6,5,'SJ124',1,208000,'DK','2019-11-26','2019-10-31',2,1,0,0,'2019-11-16 14:01:29',NULL,NULL,NULL);
+
+/*!40000 ALTER TABLE `doring` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table doring_doc
@@ -101,9 +116,8 @@ CREATE TABLE `doring_doc` (
   `id_doring` int(11) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `jenis_dokumen` varchar(255) DEFAULT NULL,
-  `nama_dokumen` varchar(255) DEFAULT NULL,
+  `no_dokumen` varchar(255) DEFAULT NULL,
   `checklist` enum('yes','no') DEFAULT 'no',
-  `file` varchar(255) DEFAULT NULL,
   `soft_delete` int(2) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user` varchar(225) DEFAULT NULL,
@@ -115,10 +129,16 @@ CREATE TABLE `doring_doc` (
 LOCK TABLES `doring_doc` WRITE;
 /*!40000 ALTER TABLE `doring_doc` DISABLE KEYS */;
 
-INSERT INTO `doring_doc` (`id_doring_doc`, `id_doring`, `date`, `jenis_dokumen`, `nama_dokumen`, `checklist`, `file`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
+INSERT INTO `doring_doc` (`id_doring_doc`, `id_doring`, `date`, `jenis_dokumen`, `no_dokumen`, `checklist`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
 VALUES
-	(1,9,'2019-01-01','BA','Berita Acara','no',NULL,0,'0000-00-00 00:00:00',NULL,NULL,NULL),
-	(2,9,'2019-01-11','SRT_JLN','Surat Jalan','no',NULL,0,'0000-00-00 00:00:00',NULL,NULL,NULL);
+	(1,1,'2019-11-27','Bill of Loading','BASDASd','yes',0,'2019-11-11 12:38:10',NULL,NULL,NULL),
+	(2,1,'2019-09-11','DO','213123','yes',0,'2019-11-11 12:38:10',NULL,NULL,NULL),
+	(3,2,'2019-11-27','Bill of Loading','BASDASd','yes',0,'2019-11-11 16:19:53',NULL,NULL,NULL),
+	(4,2,'2019-09-11','DO','213123','yes',0,'2019-11-11 16:19:53',NULL,NULL,NULL),
+	(5,3,'2019-11-27','Bill of Loading','BASDASd','yes',0,'2019-11-12 14:33:13',NULL,NULL,NULL),
+	(6,3,'2019-09-11','DO','213123','yes',0,'2019-11-12 14:33:13',NULL,NULL,NULL),
+	(7,5,'2019-11-27','Berita Acara','123','yes',0,'2019-11-16 13:51:18',NULL,NULL,NULL),
+	(8,6,'2019-11-27','Berita Acara','123','no',0,'2019-11-16 14:01:29',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `doring_doc` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -256,11 +276,11 @@ DROP TABLE IF EXISTS `m_agent`;
 
 CREATE TABLE `m_agent` (
   `idm_agent` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `agent_name` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
-  `telp` varchar(45) DEFAULT NULL,
-  `hp` varchar(45) DEFAULT NULL,
-  `fax` varchar(45) DEFAULT NULL,
+  `agent_name` varchar(100) DEFAULT NULL,
+  `address` varchar(120) DEFAULT NULL,
+  `telp` varchar(100) DEFAULT NULL,
+  `hp` varchar(100) DEFAULT NULL,
+  `fax` varchar(100) DEFAULT NULL,
   `fee` int(11) unsigned DEFAULT NULL,
   `soft_delete` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idm_agent`),
@@ -273,7 +293,9 @@ LOCK TABLES `m_agent` WRITE;
 INSERT INTO `m_agent` (`idm_agent`, `agent_name`, `address`, `telp`, `hp`, `fax`, `fee`, `soft_delete`)
 VALUES
 	(1,'SPILL',NULL,NULL,NULL,NULL,NULL,0),
-	(2,'TANTO',' ',' ',' 088212131',' ',NULL,0);
+	(2,'TANTO',' ',' ',' 088212131',' ',NULL,0),
+	(3,'PT. TANTO INTIM LINE','JL. INDRAPURA','021 123','0822 023','123',NULL,0),
+	(4,'PT. TANTO INTIM LINE','JL. INDRAPURA','021 123','0813','031 3533396',NULL,0);
 
 /*!40000 ALTER TABLE `m_agent` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -342,7 +364,8 @@ VALUES
 	(9,'MND','Manado',0),
 	(10,'BJR','Banjarmasin',0),
 	(11,'MDN','Medan',0),
-	(12,'WAM','Wamena',0);
+	(12,'WAM','Wamena',0),
+	(13,'103','BATAKANn',0);
 
 /*!40000 ALTER TABLE `m_city` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -533,10 +556,27 @@ LOCK TABLES `m_driver` WRITE;
 
 INSERT INTO `m_driver` (`idm_driver`, `driver_name`, `license_number`, `dob`, `dob_city`, `address`, `soft_delete`)
 VALUES
-	(1,'Suprapto','1231231231231312','1980-06-14','Balikpapan','Jalan suprapto',0),
-	(2,'Fanta','092139998289asdsad','1981-09-18','Samarinda','Jalan 22',0),
-	(3,'Fanta','092139998289222','1981-09-18','Samarinda','Jalan 2',0),
-	(4,'Supir Kedua','12321312','2019-11-06','Balikpapan','2131231',0);
+	(1,'HENDRA','','0000-00-00','','',0),
+	(2,'JUMARDI','','0000-00-00','','',0),
+	(3,'NGADIONO','','0000-00-00','','',0),
+	(4,'RIDWAN','','0000-00-00','','',0),
+	(5,'ZAINAL','','0000-00-00','','',0),
+	(6,'ABDUL AZIS','','0000-00-00','','',0),
+	(7,'TAMPA','','0000-00-00','','',0),
+	(8,'HERU','','0000-00-00','','',0),
+	(9,'NOVAN','','0000-00-00','','',0),
+	(10,'SUARDI','','0000-00-00','','',0),
+	(11,'NISTAN','','0000-00-00','','',0),
+	(12,'RASYID','','0000-00-00','','',0),
+	(13,'ABD. WAHAB','','0000-00-00','','',0),
+	(14,'WAHYUDI','','0000-00-00','','',0),
+	(15,'AMIRUDDIN','','0000-00-00','','',0),
+	(16,'KAMARUDIN','','0000-00-00','','',0),
+	(17,'SABRI','','0000-00-00','','',0),
+	(18,'JAHERI','','0000-00-00','','',0),
+	(19,'ASRI','','0000-00-00','','',0),
+	(20,'DAHLAN','12345','2019-11-26','Balikpapan','JAKARTA',0),
+	(21,'DAHLAN','123','2019-11-26','Balikpapan','Balikpapan',0);
 
 /*!40000 ALTER TABLE `m_driver` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -692,8 +732,8 @@ LOCK TABLES `m_route` WRITE;
 
 INSERT INTO `m_route` (`idm_route`, `route_name`, `origin`, `destination`, `type`, `size`, `fare`, `soft_delete`)
 VALUES
-	(1,' SAMARINDA -  BALIKPAPAN ',' SAMARINDA ','  BALIKPAPAN ','TRONTON','20',208000,0),
-	(2,' SAMARINDA -  SANGATTA',' SAMARINDA ','  SANGATTA','TRONTON','20',275000,0),
+	(1,'SAMARINDA -  BALIKPAPAN ','SAMARINDA ',' BALIKPAPAN ','TRONTON','20',208000,0),
+	(2,'SAMARINDA -  SANGATTA','SAMARINDA ',' SANGATTA','TRONTON','20',275000,0),
 	(3,'BALIKPAPAN - BERAU','BALIKPAPAN ',' BERAU','TRONTON','20',1100000,0),
 	(4,'BALIKPAPAN - BERAU','BALIKPAPAN ',' BERAU','LB','20',800000,0),
 	(5,'BALIKPAPAN - BONTANG','BALIKPAPAN ',' BONTANG','TRAILER','20',300000,0),
@@ -1356,42 +1396,10 @@ VALUES
 	(662,'KKT - KM 01','KKT ',' KM 01','TRONTON','20',160000,0),
 	(663,'KKT - REGENCY','KKT ',' REGENCY','TRONTON','20',160000,0),
 	(664,'KKT - MARKONI','KKT ',' MARKONI','TRONTON','20',160000,0),
-	(665,'BALIKPAPAN','BALIKPAPAN','BALIKPAPAN','TRONTON','40',1000000,0);
+	(665,'BALIKPAPAN','BALIKPAPAN','BALIKPAPAN','TRONTON','40',1000000,0),
+	(666,'KKT-KM7','KKT','KM7','TRONTON','40',160000,0);
 
 /*!40000 ALTER TABLE `m_route` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table m_ship
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `m_ship`;
-
-CREATE TABLE `m_ship` (
-  `idm_ship` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `ship_name` varchar(45) DEFAULT NULL,
-  `agent_code` int(10) unsigned NOT NULL,
-  `soft_delete` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`idm_ship`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-LOCK TABLES `m_ship` WRITE;
-/*!40000 ALTER TABLE `m_ship` DISABLE KEYS */;
-
-INSERT INTO `m_ship` (`idm_ship`, `ship_name`, `agent_code`, `soft_delete`)
-VALUES
-	(1,'dolores',1,0),
-	(2,'est',2,0),
-	(3,'nulla',3,0),
-	(4,'porro',4,0),
-	(5,'quia',5,0),
-	(6,'perferendis',1,0),
-	(7,'non',2,0),
-	(8,'fugit',3,0),
-	(9,'sed',4,0),
-	(10,'et',5,0);
-
-/*!40000 ALTER TABLE `m_ship` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -1648,17 +1656,38 @@ LOCK TABLES `m_truck` WRITE;
 
 INSERT INTO `m_truck` (`idm_truck`, `truck_code`, `plate_number`, `soft_delete`)
 VALUES
-	(1,'zqxpjjnsad','429',0),
-	(2,'asdasdkqji','43023',0),
-	(3,'twke','55974',0),
-	(4,'vdzv','84698798',0),
-	(5,'crce','479769',0),
-	(6,'rwqa','55',0),
-	(7,'dqbr','525517400',0),
-	(8,'hawc','69437877',0),
-	(9,'brsj','7340472',0),
-	(10,'ogph','4814',1),
-	(11,'OKOK111123','KT 2090 LL',0);
+	(1,'CDD-1','KT 8741 LT',0),
+	(2,'LONGBED-1','KT 8503 KU',0),
+	(3,'LONGBED-2','KT 8595 LT',0),
+	(4,'LONGBED-3','KT 8623 AN',0),
+	(5,'LONGBED-4','KT 8870 AN',0),
+	(6,'LONGBED-5','KT 9458 AK',0),
+	(7,'LONGBED-6','L 9877 UA',0),
+	(8,'TRAILER-1','B 9315 SEH',0),
+	(9,'TRAILER-2','B 9417 UEJ',0),
+	(10,'TRAILER-3','DA 1568 TP',0),
+	(11,'TRAILER-4','KT 8314 LK',0),
+	(12,'TRAILER-5','KT 8430 KU',0),
+	(13,'TRAILER-6','KT 8459 KU',0),
+	(14,'TRAILER-7','KT 8500 KU',0),
+	(15,'TRAILER-8','KT 8647 KU',0),
+	(16,'TRAILER-9','KT 8804 KU',0),
+	(17,'TRAILER-10','KT 8951 LK',0),
+	(18,'TRAILER-11','KT 9072 LD',0),
+	(19,'TRAILER-12','L 8804 KU',0),
+	(20,'TRONTON-1','KT 8230 LB',0),
+	(21,'TRONTON-2','KT 8396 KU',0),
+	(22,'TRONTON-3','KT 8399 KU',0),
+	(23,'TRONTON-4','KT 8741 LK',0),
+	(24,'TRONTON-5','KT 8745 LD',0),
+	(25,'TRONTON-6','KT 8763 LK',0),
+	(26,'TRONTON-7','KT 8782 LD',0),
+	(27,'TRONTON-8','KT 8939 AM',0),
+	(28,'TRONTON-9','KT 8941 KU',0),
+	(29,'TRONTON-10','KT 8942 KU',0),
+	(30,'TRONTON-11','KT 9145 LD',0),
+	(31,'TRONTON-12','KT 9815 AK',0),
+	(32,'TRONTON-13','L 9653 UC',0);
 
 /*!40000 ALTER TABLE `m_truck` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1772,6 +1801,18 @@ CREATE TABLE `ship_doc` (
   PRIMARY KEY (`id_ship_doc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `ship_doc` WRITE;
+/*!40000 ALTER TABLE `ship_doc` DISABLE KEYS */;
+
+INSERT INTO `ship_doc` (`id_ship_doc`, `id_doc`, `jenis_doc`, `no_doc`, `date_doc`, `file`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
+VALUES
+	(1,1,15,'BASDASd','2019-11-27','dokumen/1/1/Ticket-5370651.pdf',0,'2019-11-06 22:01:24',NULL,NULL,NULL),
+	(2,1,5,'213123','2019-09-11',NULL,0,'2019-11-11 12:26:40',NULL,NULL,NULL),
+	(3,5,2,'123','2019-11-27',NULL,0,'2019-11-16 13:50:36',NULL,NULL,NULL),
+	(4,6,2,'555','2019-11-20','dokumen/6/4/KIS_BPJS_Kesehatan_(2).pdf',0,'2019-11-16 19:16:54',NULL,NULL,NULL);
+
+/*!40000 ALTER TABLE `ship_doc` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table shipment_doc
@@ -1813,9 +1854,12 @@ LOCK TABLES `shipment_doc` WRITE;
 
 INSERT INTO `shipment_doc` (`id_doc`, `seal_number`, `size`, `process_date`, `company`, `id_agent`, `origin_city`, `id_shipper`, `id_receiver`, `ship_name`, `io`, `condition`, `product`, `stuffing`, `departure_date`, `arrival_date`, `unload_load_date`, `weight`, `locked`, `done`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
 VALUES
-	(1,'TEST-0909090','20','2019-11-08','CMPY-1',2,4,3,3,'TANTO EMAS','I','CURAH','Makanan','yes','2019-11-30','2019-11-27','2019-11-29','123000',0,0,0,'2019-11-02 15:33:55',NULL,NULL,NULL),
-	(2,'asdasdas','40',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2019-09-11',NULL,NULL,0,0,0,'2019-11-02 15:34:12',NULL,NULL,NULL),
-	(3,'KONTAINER-1','40','2019-11-07','CMPY-1',1,2,3,3,'','I','FULL','MINUMAN','yes','2019-11-28','2019-11-26','2019-11-28','12000',0,0,0,'2019-11-02 15:49:49',NULL,NULL,NULL);
+	(1,'TEST-0909090','20','2019-11-08','CMPY-1',2,4,3,3,'TANTO EMAS','I','CURAH','Makanan','yes','2019-11-30','2019-11-27','2019-11-29','123000',1,0,0,'2019-11-02 15:33:55',NULL,NULL,NULL),
+	(2,'Kontainer 2','40','2019-11-13','CMPY-2',1,3,2,3,'MIKIK','I','FULL','Gabah','yes','2019-11-21','2019-09-11','2019-11-22','12000',0,0,0,'2019-11-02 15:34:12',NULL,NULL,NULL),
+	(3,'KONTAINER-1','40','2019-11-07','CMPY-1',1,2,3,3,'','I','FULL','MINUMAN','yes','2019-11-28','2019-11-26','2019-11-28','12000',0,0,0,'2019-11-02 15:49:49',NULL,NULL,NULL),
+	(4,'SIKU123','20','2019-11-01','CMPY-1',1,4,25,2,'TANTO','I','FULL','CCDI','no','2019-11-26','2019-11-05','0000-00-00','20',0,0,0,'2019-11-04 14:57:56',NULL,NULL,NULL),
+	(5,'SIKU 221','20','2019-11-26','CMPY-2',1,1,1,2,'SPIL CAYA','I','FULL','COLA','no','2019-11-27','2019-11-26','2019-11-19','20',1,0,0,'2019-11-16 13:47:40',NULL,NULL,NULL),
+	(6,'TRLU 1234','20','2019-11-13','CMPY-1',1,1,1,1,'TEMAS','I','FULL','COLA','yes','2019-11-19','2019-11-13','2019-11-13','20',1,0,0,'2019-11-16 19:16:01',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `shipment_doc` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1855,13 +1899,15 @@ CREATE TABLE `vw_doring` (
    `safeconduct_num` VARCHAR(45) NOT NULL,
    `id_route` INT(11) UNSIGNED NULL DEFAULT '0',
    `route_name` VARCHAR(45) NULL DEFAULT '',
+   `fare` INT(100) NOT NULL DEFAULT '0',
    `dk_lk` ENUM('DK','LK') NULL DEFAULT NULL,
    `on_chassis` DATE NULL DEFAULT NULL,
    `unload_date` DATE NULL DEFAULT NULL,
    `id_truck` INT(11) UNSIGNED NULL DEFAULT '0',
    `plate_number` VARCHAR(45) NULL DEFAULT NULL,
    `id_driver` INT(11) UNSIGNED NULL DEFAULT '0',
-   `driver_name` VARCHAR(45) NULL DEFAULT NULL
+   `driver_name` VARCHAR(45) NULL DEFAULT NULL,
+   `done` INT(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM;
 
 
@@ -1932,7 +1978,7 @@ CREATE TABLE `vw_shipment_doc` (
    `idm_company` VARCHAR(20) NULL DEFAULT NULL,
    `company` VARCHAR(255) NULL DEFAULT NULL,
    `idm_agent` INT(11) UNSIGNED NULL DEFAULT '0',
-   `agent` VARCHAR(45) NULL DEFAULT NULL,
+   `agent` VARCHAR(100) NULL DEFAULT NULL,
    `idm_city` INT(11) UNSIGNED NULL DEFAULT '0',
    `origin_city` VARCHAR(45) NULL DEFAULT NULL,
    `idm_shipper` INT(11) UNSIGNED NULL DEFAULT '0',
@@ -2018,7 +2064,7 @@ FROM (((((`shipment_doc` left join `m_option` on((`m_option`.`subID` = `shipment
 
 DROP TABLE `vw_doring`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_doring`
+CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_doring`
 AS SELECT
    `doring`.`id_doring` AS `id_doring`,
    `shipment_doc`.`id_doc` AS `id_doc`,
@@ -2027,13 +2073,15 @@ AS SELECT
    `doring`.`safeconduct_num` AS `safeconduct_num`,
    `m_route`.`idm_route` AS `id_route`,
    `m_route`.`route_name` AS `route_name`,
+   `doring`.`fare` AS `fare`,
    `doring`.`dk_lk` AS `dk_lk`,
    `doring`.`on_chassis` AS `on_chassis`,
    `doring`.`unload_date` AS `unload_date`,
    `m_truck`.`idm_truck` AS `id_truck`,
    `m_truck`.`plate_number` AS `plate_number`,
    `m_driver`.`idm_driver` AS `id_driver`,
-   `m_driver`.`driver_name` AS `driver_name`
+   `m_driver`.`driver_name` AS `driver_name`,
+   `doring`.`done` AS `done`
 FROM ((((`doring` left join `shipment_doc` on((`shipment_doc`.`id_doc` = `doring`.`id_doc`))) left join `m_route` on((`m_route`.`idm_route` = `doring`.`id_route`))) left join `m_truck` on((`m_truck`.`idm_truck` = `doring`.`id_truck`))) left join `m_driver` on((`m_driver`.`idm_driver` = `doring`.`id_driver`))) where (`doring`.`soft_delete` = '0');
 
 
@@ -2124,6 +2172,29 @@ DELIMITER ;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `GetOption`(IN id varchar(20))
 BEGIN
 	select subID,value from m_option where nama_grup = id && soft_delete = '0';
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE tabel_gaji_driver
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `tabel_gaji_driver` */;;
+/*!50003 SET SESSION SQL_MODE=""*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`fendy`@`%`*/ /*!50003 PROCEDURE `tabel_gaji_driver`()
+BEGIN
+SET @sql = NULL;
+##2
+SELECT GROUP_CONCAT(
+DISTINCT
+CONCAT(
+###1
+'SUM(IF( MONTH(`doring`.`on_chassis`) = ''',MONTH(`doring`.`on_chassis`) ,''' ,`doring`.`fare`,0)) AS ''',MONTH(`doring`.`on_chassis`) ,'''') ORDER BY `on_chassis`) INTO @sql
+FROM doring;
+#3
+SET @sql = CONCAT('SELECT `m_driver`.`driver_name` AS driver_name, ', @sql, ' FROM doring LEFT JOIN m_driver ON m_driver.`idm_driver` = doring.`id_driver` GROUP BY m_driver.driver_name');
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;

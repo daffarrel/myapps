@@ -195,6 +195,13 @@
                     <li class="nav-item"><a href="<?php echo site_url("main/document/doring");?>" class="nav-link">Doring</a></li>
                 </ul>
               </li>
+              <li <?php if($this->uri->segment(2)=="history"){echo ' class="active"';}?> class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">History Data <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="nav-item"><a href="<?php echo site_url("main/history/shipment_doc");?>" class="nav-link">History Dokumen Kapal</a></li>
+                    <li class="nav-item"><a href="<?php echo site_url("main/history/doring");?>" class="nav-link">History Doring</a></li>
+                </ul>
+              </li>
               <li <?php if($this->uri->segment(2)=="report"){echo ' class="active"';}?> class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Report <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">

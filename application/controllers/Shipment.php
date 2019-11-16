@@ -31,12 +31,21 @@ class Shipment extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->receiver;
             $row[] = '<center style="font-size: small">'.$r->product;
 
+            $verif = $this->doring->verifDoc($r->id_doc);
+
             if($r->locked == '0'){
                 $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
-            <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
+                          <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
             }else{
-                $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
-                <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
+                if($verif == TRUE){
+                    $row[] = '<a class="btn btn-success" href="javascript:void(0)" title="Verif" onclick="verif('."'".$r->id_doc."'".')">V</a>
+                          <a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
+                          <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
+                }else{
+                    $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
+                          <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
+                }
+                
             }
             
             //add html for action
@@ -123,6 +132,11 @@ class Shipment extends MY_Controller{
         echo json_encode(array("status" => TRUE));
     }
 
+    public function confirm_doc($id){
+        $this->shipment->confirmDoc($id);
+        echo json_encode(array("status" => TRUE));
+    }
+
     //dokumen tiap2 file
     public function ajax_edit_doc_table($id){
 		$data = $this->shipment->getData($id);
@@ -157,6 +171,60 @@ class Shipment extends MY_Controller{
             echo json_encode($data);
             exit();
         }
+    }
+
+    //history data
+    public function ajax_list_history(){
+        $tgl_awal  = $this->input->post('tgl_awal');
+        $tgl_akhir = $this->input->post('tgl_akhir');
+
+        $list = $this->shipment->get_datatable_history($tgl_awal,$tgl_akhir);
+        $data = array();
+        $no = $_POST['start'];
+
+        foreach ($list as $r) {
+            $no++;
+            $row = array();
+            $row[] = '<center style="font-size: small">'.$no;
+            $row[] = '<center style="font-size: small">'.$r->seal_number;
+            $row[] = '<center style="font-size: small">'.$r->ship_name;
+            $row[] = '<center style="font-size: small">'.$r->process_date;
+            $row[] = '<center style="font-size: small">'.$r->arrival_date;
+            $row[] = '<center style="font-size: small">'.$r->departure_date;
+            $row[] = '<center style="font-size: small">'.$r->unload_load_date;
+            $row[] = '<center style="font-size: small">'.$r->weight;
+            $row[] = '<center style="font-size: small">'.$r->company;
+            $row[] = '<center style="font-size: small">'.$r->agent;
+            $row[] = '<center style="font-size: small">'.$r->origin_city;
+            $row[] = '<center style="font-size: small">'.$r->shipper;
+            $row[] = '<center style="font-size: small">'.$r->receiver;
+            $row[] = '<center style="font-size: small">'.$r->product;
+
+            $row[] = '<center><a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>';
+           
+            //add html for action
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->shipment->countAll($tgl_awal,$tgl_akhir),
+            "recordsFiltered" => $this->shipment->countFiltered($tgl_awal,$tgl_akhir),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+
+    public function ajax_edit_history($id){
+		$data = $this->shipment->getData($id,$this->id_table,$this->table);
+		echo json_encode($data);
+    }
+
+    public function ajax_edit_doc_table_history($id){
+		$data = $this->shipment->getData($id);
+		echo json_encode($data);
     }
 }
 ?>

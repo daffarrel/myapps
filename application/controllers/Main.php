@@ -34,6 +34,11 @@ class Main extends MY_Controller{
         $this->navmenu('Laporan '.ucwords($title),'report/vw_report_'.$page,'','','');
     }
 
+    public function history($page){
+        $title = str_replace('_',' ',$page);
+        $this->navmenu('History Data '.ucwords($title),'history/vw_history_'.$page,'','','');
+    }
+
     public function login(){
         $data['title'] = 'Login';
         $this->load->view('vw_login',$data,'');

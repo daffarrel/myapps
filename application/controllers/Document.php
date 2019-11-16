@@ -87,6 +87,36 @@ class Document extends MY_Controller{
         echo json_encode($output);
     }
 
+    public function ajax_list_doc_table_history(){
+        $id = $this->input->post('id');
+        $list = $this->document->get_datatable_doc($id);
+        $data = array();
+        $no = $_POST['start'];
+
+        foreach ($list as $r) {
+            $no++;
+            $row = array();
+            $row[] = '<center style="font-size: small">'.$no;
+            $row[] = '<center style="font-size: small">'.$r->jenis_doc;
+            $row[] = '<center style="font-size: small">'.$r->no_doc;
+            $row[] = '<center style="font-size: small">'.$r->date_doc;
+            
+            $row[] = '<center><button class="btn btn-success" href="javascript:void(0)" title="Doc" onclick="open_doc('."'".$r->file."'".')">F</button>';
+            //add html for action
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->document->countAll_doc($id),
+            "recordsFiltered" => $this->document->countFiltered_doc($id),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+
     public function delete($id){
         $this->document->deleteData($id,'idm_document','m_document');
         echo json_encode(array("status" => TRUE));

@@ -133,6 +133,29 @@ class M_doring extends MY_Model {
         return $this->db->affected_rows();
     }
 
+    public function countDoc($id){
+        $this->db->where('id_doc', $id);
+        $this->db->where('soft_delete','0');
+        $query = $this->db->get($this->table);
+
+        if($query->num_rows() > 0)
+            return $query->num_rows();
+        else
+            return 0;
+    }
+
+    public function verifDoc($id){
+        $this->db->where('id_doc', $id);
+        $this->db->where('soft_delete','0');
+        $this->db->where('done', '1');
+        $query = $this->db->get($this->table);
+
+        if($query->num_rows() === $this->countDoc($id))
+            return TRUE;
+        else
+            return FALSE;
+    }
+
     //doring_doc
     function get_datatables_query_doc($id) {
         $this->db->from($this->table_doc);

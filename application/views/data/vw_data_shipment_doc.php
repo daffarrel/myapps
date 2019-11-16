@@ -722,6 +722,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
     }
 
+    function verif(id){
+        swal.fire({
+            title: 'Apakah Anda Yakin ?',
+            text: 'Konfirmasi Dokumen Kapal Telah Selesai !',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+        }).then((willDelete) => {
+            if (willDelete.value) {
+                $.ajax({
+                    url : "<?php echo site_url('shipment/confirm_doc')?>/"+id,
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function(data)
+                    {
+                        swal.fire('Berhasil','Dokumen Berhasil Diverifikasi','success');
+                        reload_table_doc();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        swal.fire("Gagal","Data Batal Verifikasi","error");
+                    }
+                });
+            } else {
+                swal.fire("Batal","Data Batal Verifikasi","warning");
+            }
+        });
+    }
+
     $(document).ready(function(){
         table = $('#tabel').DataTable({
             processing  : true, //Feature control the processing indicator.
@@ -729,7 +760,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             order       : [], //Initial no order.
             autowidth   : true,
             ordering    : true,
-            scrollY     : 300,
+            //scrollY     : 300,
             scrollX     : true,
             scrollCollapse: true,
             fixedColumns:   {
