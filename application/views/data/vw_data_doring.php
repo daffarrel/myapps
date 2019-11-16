@@ -275,7 +275,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         // Populate dropdown with list
         $.getJSON(url_route, function (data) {
             $.each(data, function (key, entry) {
-                dropdown_route.append($('<option></option>').attr('value', entry.idm_route).text(entry.route_name + ' : ' + entry.origin + ' => ' + entry.destination));
+                dropdown_route.append($('<option></option>').attr('value', entry.idm_route).text(entry.origin + ' => ' + entry.destination + ' ( '+ entry.type + ' : '+ entry.size +' )' ));
             })
         });
 

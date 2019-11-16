@@ -217,5 +217,30 @@ class M_doring extends MY_Model {
         $this->db->where('checklist','no');
         return $this->db->count_all_results();
     }
+
+    //fungsi lain - lain
+    public function report_gaji($tgl_awal,$tgl_akhir){
+        $sql = "SELECT 
+        m_driver.driver_name as driver_name,
+        sum(if((month(`vw_doring`.`on_chassis`) = '1'),`vw_doring`.`fare`,0)) AS `bulan_1`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '2'),`vw_doring`.`fare`,0)) AS `bulan_2`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '3'),`vw_doring`.`fare`,0)) AS `bulan_3`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '4'),`vw_doring`.`fare`,0)) AS `bulan_4`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '5'),`vw_doring`.`fare`,0)) AS `bulan_5`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '6'),`vw_doring`.`fare`,0)) AS `bulan_6`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '7'),`vw_doring`.`fare`,0)) AS `bulan_7`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '8'),`vw_doring`.`fare`,0)) AS `bulan_8`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '9'),`vw_doring`.`fare`,0)) AS `bulan_9`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '10'),`vw_doring`.`fare`,0)) AS `bulan_10`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '11'),`vw_doring`.`fare`,0)) AS `bulan_11`,
+        sum(if((month(`vw_doring`.`on_chassis`) = '12'),`vw_doring`.`fare`,0)) AS `bulan_12`
+        FROM m_driver 
+        LEFT JOIN `vw_doring` on `m_driver`.`idm_driver` = `vw_doring`.`id_driver`
+        WHERE on_chassis BETWEEN ? AND ?
+        GROUP BY m_driver.driver_name";
+        
+        $query = $this->db->query($sql, array($tgl_awal,$tgl_akhir));
+        return $query;
+    }
 }
 ?>

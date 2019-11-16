@@ -94,7 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th><center>Pengirim</th>
                             <th><center>Penerima</th>
                             <th><center>Produk</th>
-                            <th style="width:7%;"><center>Aksi</th>
+                            <th><center>Dokumen</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -115,7 +115,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th><center>Pengirim</th>
                             <th><center>Penerima</th>
                             <th><center>Produk</th>
-                            <th><center>Aksi</th>
+                            <th><center>Dokumen</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -728,7 +728,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             serverSide  : true, //Feature control DataTables' server-side processing mode.
             order       : [], //Initial no order.
             autowidth   : true,
-            ordering    : false,
+            ordering    : true,
             scrollY     : 300,
             scrollX     : true,
             scrollCollapse: true,

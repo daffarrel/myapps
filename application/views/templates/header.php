@@ -44,6 +44,8 @@
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
   <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/plugins/timepicker/bootstrap-timepicker.min.css">
+  <!-- Bootstrap Button -->
+  <link rel="stylesheet" href="<?php echo base_url()?>/assets/plugins/datatable-buttons/buttons.dataTables.min.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/select2/dist/css/select2.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -145,6 +147,15 @@
   <script src="<?php echo base_url()?>/assets/plugins/sweetalert2/dist/sweetalert2.all.js"></script>
   <!-- Include a polyfill for ES6 Promises (optional) for IE11 -->
   <script src="<?php echo base_url()?>/assets/plugins/sweetalert2/dist/polyfill.js"></script>
+  <!-- Plugin Button For Datatables-->
+  <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/dataTables.buttons.min.js"></script>
+  <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/buttons.flash.min.js"></script>
+  <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/jszip.min.js"></script>
+  <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/pdfmake.min.js"></script>
+  <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/vfs_fonts.js"></script>
+  <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/buttons.html5.min.js"></script>
+  <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/buttons.print.min.js"></script>
+  
   
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
@@ -187,7 +198,7 @@
               <li <?php if($this->uri->segment(2)=="report"){echo ' class="active"';}?> class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Report <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li class="nav-item"><a href="<?php echo site_url("main/report/gaji");?>" class="nav-link">Laporan Gaji</a></li>
+                    <li class="nav-item"><a href="<?php echo site_url("main/report/gaji_driver");?>" class="nav-link">Laporan Gaji Driver</a></li>
                     
                 </ul>
               </li>

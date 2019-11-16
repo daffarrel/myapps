@@ -6,7 +6,7 @@ class M_shipment extends MY_Model {
     var $view              = 'vw_shipment_doc';
     var $option            = 'm_option';
 
-    var $column_order      = array('id_doc',null,null,null,null,null,null,null,null,null,null,null,null,null,null); //set column field database for datatable orderable
+    var $column_order      = array('id_doc','seal_number','ship_name','process_date','arrival_date','departure_date','unload_load_date','weight','company','agent','shipper','receiver','product'); //set column field database for datatable orderable
     var $column_search     = array('seal_number','container_number','ba_recv_date','process_date','company','agent','origin_city','shipper','receiver','report_num','safeconduct_num','product'); //set column field database for datatable searchable
     var $order             = array('id_doc' => 'asc'); // default order
 

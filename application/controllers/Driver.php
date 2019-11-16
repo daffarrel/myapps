@@ -84,6 +84,7 @@ class Driver extends MY_Controller{
         $result = $this->driver->getData($id);
         echo json_encode($result);
     }
+    
 }
 ?>
 

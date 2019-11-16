@@ -80,11 +80,13 @@ class Doring extends MY_Controller{
         $unload_date       = $this->db->escape_str($post['door']);
         $id_truck          = $this->db->escape_str($post['truck']);
         $id_driver         = $this->db->escape_str($post['supir']);
+        $fare              = $this->route->getData($id_route)->fare;
 
         $data = array(
             'id_doc'           => $id_doc,
             'safeconduct_num'  => $safeconduct_num,
             'id_route'         => $id_route,
+            'fare'             => $fare,
             'dk_lk'            => $dk_lk,
             'on_chassis'       => $on_chassis,
             'unload_date'      => $unload_date,
@@ -223,6 +225,97 @@ class Doring extends MY_Controller{
     public function ajax_edit_doc_table($id){
 		$data = $this->shipment->getData($id);
 		echo json_encode($data);
+    }
+
+    //fungsi lain
+    public function report_gaji(){
+        $tgl_awal  = $this->input->post('tgl_awal');
+        $tgl_akhir = $this->input->post('tgl_akhir');
+
+        $report = $this->doring->report_gaji($tgl_awal,$tgl_akhir)->result();
+        $recordTotal = $this->doring->report_gaji($tgl_awal,$tgl_akhir)->num_rows();
+        $recordFiltered = $this->doring->report_gaji($tgl_awal,$tgl_akhir)->num_rows();
+        
+        $data = array();
+        $no = $_POST['start'];
+        $temp_bln_1 = 0;
+        $temp_bln_2 = 0;
+        $temp_bln_3 = 0;
+        $temp_bln_4 = 0;
+        $temp_bln_5 = 0;
+        $temp_bln_6 = 0;
+        $temp_bln_7 = 0;
+        $temp_bln_8 = 0;
+        $temp_bln_9 = 0;
+        $temp_bln_10 = 0;
+        $temp_bln_11 = 0;
+        $temp_bln_12 = 0;
+        $temp_bln_total = 0;
+
+        foreach ($report as $r) {
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $r->driver_name;
+            $row[] = $r->bulan_1;
+            $row[] = $r->bulan_2;
+            $row[] = $r->bulan_3;
+            $row[] = $r->bulan_4;
+            $row[] = $r->bulan_5;
+            $row[] = $r->bulan_6;
+            $row[] = $r->bulan_7;
+            $row[] = $r->bulan_8;
+            $row[] = $r->bulan_9;
+            $row[] = $r->bulan_10;
+            $row[] = $r->bulan_11;
+            $row[] = $r->bulan_12;
+
+            $total_bulan = $r->bulan_1 + ($r->bulan_2) + ($r->bulan_3) + ($r->bulan_4) + ($r->bulan_5) + ($r->bulan_6) + ($r->bulan_7) + ($r->bulan_8) + ($r->bulan_9) + ($r->bulan_10) + ($r->bulan_11) + ($r->bulan_12);
+            
+            $row[] = $total_bulan;
+            
+            $temp_bln_1      += $r->bulan_1;
+            $temp_bln_2      += $r->bulan_2;
+            $temp_bln_3      += $r->bulan_3;
+            $temp_bln_4      += $r->bulan_4;
+            $temp_bln_5      += $r->bulan_5;
+            $temp_bln_6      += $r->bulan_6;
+            $temp_bln_7      += $r->bulan_7;
+            $temp_bln_8      += $r->bulan_8;
+            $temp_bln_9      += $r->bulan_9;
+            $temp_bln_10     += $r->bulan_10;
+            $temp_bln_11     += $r->bulan_11;
+            $temp_bln_12     += $r->bulan_12;
+            $temp_bln_total  += $total_bulan;
+            //add html for action
+            $data[] = $row;
+        }
+        $data[] = array(
+            '',
+            'Total Per Bulan',
+            $temp_bln_1,
+            $temp_bln_2,
+            $temp_bln_3,
+            $temp_bln_4,
+            $temp_bln_5,
+            $temp_bln_6,
+            $temp_bln_7,
+            $temp_bln_8,
+            $temp_bln_9,
+            $temp_bln_10,
+            $temp_bln_11,
+            $temp_bln_12,
+            $temp_bln_total,
+        );
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $recordTotal,
+            "recordsFiltered" => $recordFiltered,
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
     }
 }
 ?>
