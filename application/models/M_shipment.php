@@ -53,7 +53,7 @@ class M_shipment extends MY_Model {
             $this->db->like('ship_name', $this->input->post('nama_kapal'));
         }
         if($this->input->post('tgl_kapal_awal') && $this->input->post('tgl_kapal_akhir')) {
-            $this->db->where('ship_arrival_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_kapal_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_kapal_akhir'))) . '"');
+            $this->db->where('arrival_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_kapal_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_kapal_akhir'))) . '"');
         }
 
         $this->db->from($this->view);
