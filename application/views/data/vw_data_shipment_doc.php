@@ -46,23 +46,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <input id="nama_kapal" placeholder="Nama Kapal" class="form-control" type="text">          
                                 </div>
                                 <div class="col-md-4">
-                                    <input id="tgl_kapal_awal" placeholder="Tgl Kapal Tiba (Awal)" class="form-control tanggal" type="text">
+                                    <input id="tgl_kapal_awal" placeholder="Tgl Kapal Berangkat (Awal)" class="form-control tanggal" type="text">
                                 </div>
                                 <div class="col-md-4">
-                                    <input id="tgl_kapal_akhir" placeholder="Tgl Kapal Tiba (Akhir)" class="form-control tanggal" type="text">    
+                                    <input id="tgl_kapal_akhir" placeholder="Tgl Kapal Berangkat (Akhir)" class="form-control tanggal" type="text">    
                                 </div>
                                 <br><br><br>
                                 <div class="col-md-3">
-                                    <input id="tgl_tiba_awal" placeholder="Tgl Tiba (Awal)" class="form-control" type="text">    
+                                    <input id="tgl_tiba_awal" placeholder="Tgl Kapal Tiba (Awal)" class="form-control tanggal" type="text">    
                                 </div>
                                 <div class="col-md-3">
-                                    <input id="tgl_tiba_akhir" placeholder="Tgl Tiba (Akhir)" class="form-control" type="text">
+                                    <input id="tgl_tiba_akhir" placeholder="Tgl Kapal Tiba (Akhir)" class="form-control tanggal" type="text">
                                 </div>
                                 <div class="col-md-3">
-                                    <input id="tgl_bm_awal" placeholder="Tgl BM (Awal)" class="form-control" type="text">  
+                                    <input id="tgl_bm_awal" placeholder="Tgl Kapal Bongkar Muat (Awal)" class="form-control tanggal" type="text">  
                                 </div>
                                 <div class="col-md-3">
-                                    <input id="tgl_bm_akhir" placeholder="Tgl BM (Akhir)" class="form-control" type="text">          
+                                    <input id="tgl_bm_akhir" placeholder="Tgl Kapal Bongkar Muat (Akhir)" class="form-control tanggal" type="text">          
                                 </div>
                             </div>
                             <br>

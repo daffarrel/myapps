@@ -19,9 +19,6 @@ class M_shipment extends MY_Model {
         if($this->input->post('container_number')) {
             $this->db->like('container_number', $this->input->post('container_number'));
         }
-        if($this->input->post('ba_recv_date')) {
-            $this->db->like('ba_recv_date', $this->input->post('ba_recv_date'));
-        }
         if($this->input->post('process_date')) {
             $this->db->like('process_date', $this->input->post('process_date'));
         }
@@ -40,12 +37,6 @@ class M_shipment extends MY_Model {
         if($this->input->post('receiver')) {
             $this->db->like('receiver', $this->input->post('receiver'));
         }
-        if($this->input->post('report_num')) {
-            $this->db->like('report_num', $this->input->post('report_num'));
-        }
-        if($this->input->post('safeconduct_num')) {
-            $this->db->like('safeconduct_num', $this->input->post('safeconduct_num'));
-        }
         if($this->input->post('product')) {
             $this->db->like('product', $this->input->post('product'));
         }
@@ -53,7 +44,13 @@ class M_shipment extends MY_Model {
             $this->db->like('ship_name', $this->input->post('nama_kapal'));
         }
         if($this->input->post('tgl_kapal_awal') && $this->input->post('tgl_kapal_akhir')) {
-            $this->db->where('arrival_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_kapal_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_kapal_akhir'))) . '"');
+            $this->db->where('departure_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_kapal_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_kapal_akhir'))) . '"');
+        }
+        if($this->input->post('tgl_tiba_awal') && $this->input->post('tgl_tiba_akhir')) {
+            $this->db->where('arrival_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_tiba_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_tiba_akhir'))) . '"');
+        }
+        if($this->input->post('tgl_bm_awal') && $this->input->post('tgl_bm_akhir')) {
+            $this->db->where('unload_load_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_bm_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_bm_akhir'))) . '"');
         }
 
         $this->db->from($this->view);
@@ -192,9 +189,6 @@ class M_shipment extends MY_Model {
         if($this->input->post('container_number')) {
             $this->db->like('container_number', $this->input->post('container_number'));
         }
-        if($this->input->post('ba_recv_date')) {
-            $this->db->like('ba_recv_date', $this->input->post('ba_recv_date'));
-        }
         if($this->input->post('process_date')) {
             $this->db->like('process_date', $this->input->post('process_date'));
         }
@@ -213,12 +207,6 @@ class M_shipment extends MY_Model {
         if($this->input->post('receiver')) {
             $this->db->like('receiver', $this->input->post('receiver'));
         }
-        if($this->input->post('report_num')) {
-            $this->db->like('report_num', $this->input->post('report_num'));
-        }
-        if($this->input->post('safeconduct_num')) {
-            $this->db->like('safeconduct_num', $this->input->post('safeconduct_num'));
-        }
         if($this->input->post('product')) {
             $this->db->like('product', $this->input->post('product'));
         }
@@ -226,7 +214,13 @@ class M_shipment extends MY_Model {
             $this->db->like('ship_name', $this->input->post('nama_kapal'));
         }
         if($this->input->post('tgl_kapal_awal') && $this->input->post('tgl_kapal_akhir')) {
-            $this->db->where('ship_arrival_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_kapal_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_kapal_akhir'))) . '"');
+            $this->db->where('departure_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_kapal_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_kapal_akhir'))) . '"');
+        }
+        if($this->input->post('tgl_tiba_awal') && $this->input->post('tgl_tiba_akhir')) {
+            $this->db->where('arrival_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_tiba_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_tiba_akhir'))) . '"');
+        }
+        if($this->input->post('tgl_bm_awal') && $this->input->post('tgl_bm_akhir')) {
+            $this->db->where('unload_load_date BETWEEN "'. date('Y-m-d', strtotime($this->input->post('tgl_bm_awal'))) . '" AND "' . date('Y-m-d', strtotime($this->input->post('tgl_bm_akhir'))) . '"');
         }
 
         $this->db->from($this->view);
