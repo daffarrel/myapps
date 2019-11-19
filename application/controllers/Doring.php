@@ -137,6 +137,54 @@ class Doring extends MY_Controller{
         echo json_encode(array("status" => TRUE));
     }
 
+    public function confirm_doring_doc(){
+        $this->_validate_doc();
+        $id_doring_doc = $this->input->post('id_doring_doc');
+        $id_doring     = $this->input->post('id_doring');
+
+        if(isset($_FILES['file_doring']['name']) && $_FILES['file_doring']['name'] != ''){
+            $url = 'doring/'.$id_doring.'/'.$id_doring_doc;
+            //$file_name = explode(".",$_FILES['doc_file']['name']);
+            $fileData = $this->singleUpload('file_doring',$url,$_FILES['file_doring']['name']);
+            
+            if($fileData['upload']=='True') {
+                $name      = $fileData['data']['file_name'];
+                $file_path = 'dokumen/doring/'.$url.'/'.$name;
+            }
+
+            $data  = array(
+                'checklist' => 'yes',
+                'file'      => $file_path
+            );
+            $file = $this->doring->confirmDoc($id_doring_doc,$data);
+
+            if($file > 0)
+                echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
+            else
+                echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
+        }
+    }
+
+    private function _validate_doc() {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+
+        if(!isset($_FILES['file_doring']['name']) && $_FILES['file_doring']['name'] == '')
+        {
+            $data['inputerror'][] = 'file_doring';
+            $data['error_string'][] = 'File Dokumen Tidak Boleh Kosong';
+            $data['status'] = FALSE;
+        }
+
+        if($data['status'] === FALSE)
+        {
+            echo json_encode($data);
+            exit();
+        }
+    }
+
     //doring_doc
     public function ajax_list_doc(){
         $id = $this->input->post('id');
@@ -152,9 +200,9 @@ class Doring extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->jenis_dokumen;
             $row[] = '<center style="font-size: small">'.$r->date;
             if($r->checklist == 'no')
-                $row[] = '<center><button class="btn btn-info" href="javascript:void(0)" title="Kembali" onclick="confirm_doc('."'".$r->id_doring_doc."'".')">K</button>';
+                $row[] = '<center><button class="btn btn-info" href="javascript:void(0)" title="Confirm" onclick="upload('."'".$r->id_doring_doc."'".')">K</button>';
             else
-                $row[] = '';
+                $row[] = '<center><button class="btn btn-success" href="javascript:void(0)" title="File Dokumen" onclick="file_doc('."'".$r->file."'".')">F</button>';
             
             //add html for action
             $data[] = $row;
@@ -223,7 +271,7 @@ class Doring extends MY_Controller{
     }
 
     public function ajax_edit_doc_table($id){
-		$data = $this->shipment->getData($id);
+		$data = $this->doring->getData($id,'doring_doc');
 		echo json_encode($data);
     }
 

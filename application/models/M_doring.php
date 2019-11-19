@@ -89,8 +89,11 @@ class M_doring extends MY_Model {
         return $this->db->count_all_results();
     }
 
-    public function getData($id = ''){
-        $this->db->from($this->table);
+    public function getData($id = '',$table = ''){
+        if($table != '')
+            $this->db->from($this->table);
+        else
+        $this->db->from($table);
 
         if($id != '')
             $this->db->where('id_doring',$id);
@@ -225,8 +228,9 @@ class M_doring extends MY_Model {
         return $this->db->affected_rows();
     }
 
-    public function confirmDoc($id){
-        $this->db->set('checklist','yes');
+    public function confirmDoc($id,$data){
+        //$this->db->set('checklist','yes');
+        $this->db->set($data);
         $this->db->where('id_doring_doc', $id);
         $this->db->update($this->table_doc);
 

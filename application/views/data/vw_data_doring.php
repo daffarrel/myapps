@@ -196,6 +196,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- End Bootstrap modal -->
 
 <!-- Bootstrap modal For Datatable-->
+<div class="modal fade md-confirm" id="md-form-confirm" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Dokumen Doring Kembali</h3>
+            </div>
+            <div class="modal-body form">
+                <div class="form-group">
+                    <form id="frm-modal-confirm" action="#" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="no_seal" class="form-label">File Dokumen</label>
+                                    <input type="hidden" id="id_doring" name="id_doring" />
+                                    <input type="hidden" id="id_doring_doc" name="id_doring_doc" />
+                                    <input type="file" class="form-control" id="file_doring" name="file_doring" />
+                                    <span class="help-block"></span>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer bg-warning" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <button onclick='confirm_doc()' id='btnSave' type='button' class='btn btn-primary' >Confirm</button>
+                        <a href="#" data-dismiss="modal" class="btn">Close</a>
+                    </div>
+                </div>
+			</div>				
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<!-- End Bootstrap modal -->
+
+<!-- Bootstrap modal For Datatable-->
 <div class="modal fade" id="md-table" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -455,6 +493,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#form-filter')[0].reset();
             table.ajax.reload();  //just reload table
         });
+
+        $(document).on('show.bs.modal', '.modal', function (event) {
+            var zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function() {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
+        });
+        
     });
 
     function doc(id){
@@ -487,11 +534,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 });
                 
                 // Set id doc
-                $('#id_doc').val(id);
+                $('#id_doring').val(id);
                 // show bootstrap modal
                 $('#md-table').modal('show'); 
-                title = data.seal_number + ' - ' + data.process_date;
-                $('.modal-title').text('Dokumen Doring : ' + ' [ ' + title + " ]"); // Set Title to Bootstrap modal title
+                $('.modal-title').text('Dokumen Doring'); // Set Title to Bootstrap modal title
             },
             error: function (jqXHR, textStatus, errorThrown){
                 alert('Error get data from ajax');
@@ -499,35 +545,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     }
 
-    function confirm_doc(id){
-        swal.fire({
-            title: 'Apakah Anda Yakin ?',
-            text: 'Konfirmasi Dokumen Yang Telah Kembali !',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Batal',
-            reverseButtons: true
-        }).then((willDelete) => {
-            if (willDelete.value) {
-                $.ajax({
-                    url : "<?php echo site_url('doring/confirm_doc')?>/"+id,
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function(data)
-                    {
-                        swal.fire('Berhasil','Dokumen Berhasil Diverifikasi','success');
-                        reload_table_doc();
-                    },
-                    error: function (jqXHR, textStatus, errorThrown)
-                    {
-                        swal.fire("Gagal","Data Batal Verifikasi","error");
+    function upload(id){
+        $('#id_doring_doc').val(id);
+        $('.md-confirm').modal({
+            show: true
+        });
+    }
+
+    function confirm_doc(){
+        var id_doring_doc = $('#id_doring_doc').val();
+        var url;
+
+        url = "<?php echo site_url('doring/confirm_doring_doc');?>";
+        formData = new FormData($('#frm-modal-confirm')[0]);
+
+        // ajax adding data to database
+        $.ajax({
+            url : url,
+            type: "POST",
+            data: formData,
+            async: false,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success: function(data){
+                //if success close modal and reload ajax table
+                if(data.status){
+                    reload_table_doc();
+                    $('#frm-modal-confirm')[0].reset();
+                    $('#md-form-confirm').modal('hide');
+                }
+                else{
+                    for (var i = 0; i < data.inputerror.length; i++) {
+                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                        $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
                     }
-                });
-            } else {
-                swal.fire("Batal","Data Batal Verifikasi","warning");
+                }
+
+                $('#btnSave').text('Save'); //change button text
+                $('#btnSave').attr('disabled',false); //set button enable 
+
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                alert('Error adding data');
+                $('#btnSave').text('Save'); //change button text
+                $('#btnSave').attr('disabled',false); //set button enable 
             }
         });
+        reload_table_doc();
     }
 
     function done(id){
@@ -559,6 +624,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 swal.fire("Batal","Data Batal Verifikasi","warning");
             }
         });
+    }
+
+    function file_doc(id){
+        window.open('<?php echo site_url()?>'+id,'_blank');
+        window.focus();
     }
 
     function del(id) {

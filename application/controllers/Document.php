@@ -206,7 +206,7 @@ class Document extends MY_Controller{
         
         if(isset($_FILES['doc_file']['name']) && $_FILES['doc_file']['name'] != ''){
             $id_doc = $this->input->post('id_doc');
-            $url = $id_doc.'/'.$id;
+            $url = 'ship_doc/'.$id_doc.'/'.$id;
             $name = explode('/',$this->document->getFileName($id));
             $filename = str_replace('dokumen'.$id_doc.$id,"",$name);
 
@@ -214,7 +214,7 @@ class Document extends MY_Controller{
                 $fileData = $this->singleUpload('doc_file',$url,$_FILES['doc_file']['name']);
                 if($fileData['upload']=='True') {
                     $name      = $fileData['data']['file_name'];
-                    $file_path = 'dokumen/'.$url.'/'.$name;
+                    $file_path = 'dokumen/ship_doc/'.$url.'/'.$name;
                 }
     
                 $where = array('id_ship_doc' => $id);
