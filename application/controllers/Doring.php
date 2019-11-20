@@ -280,80 +280,61 @@ class Doring extends MY_Controller{
         $tgl_awal  = $this->input->post('tgl_awal');
         $tgl_akhir = $this->input->post('tgl_akhir');
 
-        $report = $this->doring->report_gaji($tgl_awal,$tgl_akhir)->result();
+        $report = $this->doring->report_gaji($tgl_awal,$tgl_akhir)->result_array();
         $recordTotal = $this->doring->report_gaji($tgl_awal,$tgl_akhir)->num_rows();
         $recordFiltered = $this->doring->report_gaji($tgl_awal,$tgl_akhir)->num_rows();
         
         $data = array();
         $no = $_POST['start'];
-        $temp_bln_1 = 0;
-        $temp_bln_2 = 0;
-        $temp_bln_3 = 0;
-        $temp_bln_4 = 0;
-        $temp_bln_5 = 0;
-        $temp_bln_6 = 0;
-        $temp_bln_7 = 0;
-        $temp_bln_8 = 0;
-        $temp_bln_9 = 0;
-        $temp_bln_10 = 0;
-        $temp_bln_11 = 0;
-        $temp_bln_12 = 0;
+        
         $temp_bln_total = 0;
+        $temp_retensi_total = 0;
+        $total_per_bulan = array(0,0,0,0,0,0,0,0,0,0,0,0);
+        $total_retensi_per_bulan = array(0,0,0,0,0,0,0,0,0,0,0,0);
 
         foreach ($report as $r) {
+            $total_bulan = 0;
+            $total_retensi = 0;
+            $temp_bln = array(0,0,0,0,0,0,0,0,0,0,0,0);
+            $temp_retensi = array(0,0,0,0,0,0,0,0,0,0,0,0);
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = $r->driver_name;
-            $row[] = $r->bulan_1;
-            $row[] = $r->bulan_2;
-            $row[] = $r->bulan_3;
-            $row[] = $r->bulan_4;
-            $row[] = $r->bulan_5;
-            $row[] = $r->bulan_6;
-            $row[] = $r->bulan_7;
-            $row[] = $r->bulan_8;
-            $row[] = $r->bulan_9;
-            $row[] = $r->bulan_10;
-            $row[] = $r->bulan_11;
-            $row[] = $r->bulan_12;
+            $row[] = $r['driver_name'];
 
-            $total_bulan = $r->bulan_1 + ($r->bulan_2) + ($r->bulan_3) + ($r->bulan_4) + ($r->bulan_5) + ($r->bulan_6) + ($r->bulan_7) + ($r->bulan_8) + ($r->bulan_9) + ($r->bulan_10) + ($r->bulan_11) + ($r->bulan_12);
+            for($i=0;$i<12;$i++){
+                $row[] = $r['r'.($i+1)].' | Rp. '.$this->rupiah($r['bln'.($i+1)]);
+                $temp_bln[$i] += $r['bln'.($i+1)];
+                $temp_retensi[$i] += $r['r'.($i+1)];
+                $total_bulan += $temp_bln[$i];
+                $total_retensi += $temp_retensi[$i];
+                $total_per_bulan[$i] += $temp_bln[$i];
+                $total_retensi_per_bulan[$i] += $temp_retensi[$i];
+            }
             
-            $row[] = $total_bulan;
+            $row[] = $total_retensi.' | Rp. '.$this->rupiah($total_bulan);
             
-            $temp_bln_1      += $r->bulan_1;
-            $temp_bln_2      += $r->bulan_2;
-            $temp_bln_3      += $r->bulan_3;
-            $temp_bln_4      += $r->bulan_4;
-            $temp_bln_5      += $r->bulan_5;
-            $temp_bln_6      += $r->bulan_6;
-            $temp_bln_7      += $r->bulan_7;
-            $temp_bln_8      += $r->bulan_8;
-            $temp_bln_9      += $r->bulan_9;
-            $temp_bln_10     += $r->bulan_10;
-            $temp_bln_11     += $r->bulan_11;
-            $temp_bln_12     += $r->bulan_12;
-            $temp_bln_total  += $total_bulan;
+            $temp_bln_total += $total_bulan;
+            $temp_retensi_total += $total_retensi;
             //add html for action
             $data[] = $row;
         }
         $data[] = array(
             '',
             'Total Per Bulan',
-            $temp_bln_1,
-            $temp_bln_2,
-            $temp_bln_3,
-            $temp_bln_4,
-            $temp_bln_5,
-            $temp_bln_6,
-            $temp_bln_7,
-            $temp_bln_8,
-            $temp_bln_9,
-            $temp_bln_10,
-            $temp_bln_11,
-            $temp_bln_12,
-            $temp_bln_total,
+            $total_retensi_per_bulan[0].' | Rp. '.$this->rupiah($total_per_bulan[0]),
+            $total_retensi_per_bulan[1].' | Rp. '.$this->rupiah($total_per_bulan[1]),
+            $total_retensi_per_bulan[2].' | Rp. '.$this->rupiah($total_per_bulan[2]),
+            $total_retensi_per_bulan[3].' | Rp. '.$this->rupiah($total_per_bulan[3]),
+            $total_retensi_per_bulan[4].' | Rp. '.$this->rupiah($total_per_bulan[4]),
+            $total_retensi_per_bulan[5].' | Rp. '.$this->rupiah($total_per_bulan[5]),
+            $total_retensi_per_bulan[6].' | Rp. '.$this->rupiah($total_per_bulan[6]),
+            $total_retensi_per_bulan[7].' | Rp. '.$this->rupiah($total_per_bulan[7]),
+            $total_retensi_per_bulan[8].' | Rp. '.$this->rupiah($total_per_bulan[8]),
+            $total_retensi_per_bulan[9].' | Rp. '.$this->rupiah($total_per_bulan[9]),
+            $total_retensi_per_bulan[10].' | Rp. '.$this->rupiah($total_per_bulan[10]),
+            $total_retensi_per_bulan[11].' | Rp. '.$this->rupiah($total_per_bulan[11]),
+            $temp_retensi_total.' | Rp. '.$this->rupiah($temp_bln_total),
         );
 
         $output = array(
@@ -382,11 +363,11 @@ class Doring extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->seal_number;
             $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
             $row[] = '<center style="font-size: small">'.$r->route_name;
-            $row[] = '<center style="font-size: small">'.$r->dk_lk;
             $row[] = '<center style="font-size: small">'.$r->on_chassis;
             $row[] = '<center style="font-size: small">'.$r->unload_date;
             $row[] = '<center style="font-size: small">'.$r->plate_number;
             $row[] = '<center style="font-size: small">'.$r->driver_name;
+            $row[] = '<center style="font-size: small"> Rp. '.$this->rupiah($r->fare);
             $row[] = '<center><a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doring."'".')">D</a>';
             
             //add html for action

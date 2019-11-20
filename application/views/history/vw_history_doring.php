@@ -77,11 +77,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th><center>No Petikemas</th>
                                 <th><center>No Surat Jalan</th>
                                 <th><center>Rute</th>
-                                <th><center>DK/LK</th>
                                 <th><center>Tanggal Muat</th>
                                 <th><center>Tanggal Bongkar</th>
                                 <th><center>No Polisi</th>
                                 <th><center>Driver</th>
+                                <th><center>Fare</th>
                                 <th><center>Aksi</th>
                             </tr>
                             </thead>
@@ -93,11 +93,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th><center>No Petikemas</th>
                                 <th><center>No Surat Jalan</th>
                                 <th><center>Rute</th>
-                                <th><center>DK/LK</th>
                                 <th><center>Tanggal Muat</th>
                                 <th><center>Tanggal Bongkar</th>
                                 <th><center>No Polisi</th>
                                 <th><center>Driver</th>
+                                <th><center>Fare</th>
                                 <th><center>Aksi</th>
                             </tr>
                             </tfoot>

@@ -249,18 +249,30 @@ class M_doring extends MY_Model {
     public function report_gaji($tgl_awal,$tgl_akhir){
         $sql = "SELECT 
         m_driver.driver_name as driver_name,
-        sum(if((month(`vw_doring`.`on_chassis`) = '1'),`vw_doring`.`fare`,0)) AS `bulan_1`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '2'),`vw_doring`.`fare`,0)) AS `bulan_2`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '3'),`vw_doring`.`fare`,0)) AS `bulan_3`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '4'),`vw_doring`.`fare`,0)) AS `bulan_4`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '5'),`vw_doring`.`fare`,0)) AS `bulan_5`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '6'),`vw_doring`.`fare`,0)) AS `bulan_6`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '7'),`vw_doring`.`fare`,0)) AS `bulan_7`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '8'),`vw_doring`.`fare`,0)) AS `bulan_8`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '9'),`vw_doring`.`fare`,0)) AS `bulan_9`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '10'),`vw_doring`.`fare`,0)) AS `bulan_10`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '11'),`vw_doring`.`fare`,0)) AS `bulan_11`,
-        sum(if((month(`vw_doring`.`on_chassis`) = '12'),`vw_doring`.`fare`,0)) AS `bulan_12`
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '1'),(`vw_doring`.`fare`),NULL)) AS `r1`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '1'),`vw_doring`.`fare`,0)) AS `bln1`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '2'),(`vw_doring`.`fare`),NULL)) AS `r2`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '2'),`vw_doring`.`fare`,0)) AS `bln2`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '3'),(`vw_doring`.`fare`),NULL)) AS `r3`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '3'),`vw_doring`.`fare`,0)) AS `bln3`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '4'),(`vw_doring`.`fare`),NULL)) AS `r4`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '4'),`vw_doring`.`fare`,0)) AS `bln4`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '5'),(`vw_doring`.`fare`),NULL)) AS `r5`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '5'),`vw_doring`.`fare`,0)) AS `bln5`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '6'),(`vw_doring`.`fare`),NULL)) AS `r6`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '6'),`vw_doring`.`fare`,0)) AS `bln6`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '7'),(`vw_doring`.`fare`),NULL)) AS `r7`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '7'),`vw_doring`.`fare`,0)) AS `bln7`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '8'),(`vw_doring`.`fare`),NULL)) AS `r8`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '8'),`vw_doring`.`fare`,0)) AS `bln8`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '9'),(`vw_doring`.`fare`),NULL)) AS `r9`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '9'),`vw_doring`.`fare`,0)) AS `bln9`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '10'),(`vw_doring`.`fare`),NULL)) AS `r10`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '10'),`vw_doring`.`fare`,0)) AS `bln10`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '11'),(`vw_doring`.`fare`),NULL)) AS `r11`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '11'),`vw_doring`.`fare`,0)) AS `bln11`,
+        count(IF((MONTH(`vw_doring`.`on_chassis`) = '12'),(`vw_doring`.`fare`),NULL)) AS `r12`,
+        sum(IF((MONTH(`vw_doring`.`on_chassis`) = '12'),`vw_doring`.`fare`,0)) AS `bln12`
         FROM m_driver 
         LEFT JOIN `vw_doring` on `m_driver`.`idm_driver` = `vw_doring`.`id_driver`
         WHERE on_chassis BETWEEN ? AND ?
