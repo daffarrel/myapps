@@ -107,7 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Biaya</label>
-                                    <input required id="biaya" name="biaya" class="form-control" data-inputmask="'alias': 'currency'" data-mask type="text">
+                                    <input required id="biaya" name="biaya" class="form-control uang" type="text">
                                 </div>
                             </div>
                         </div>
@@ -174,7 +174,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('#tujuan').val(data.destination);
                 $('#tipe').val(data.type).change();
                 $('#size').val(data.size).change();
-                $('#biaya').val(data.fare);
+                $('#biaya').val(formatNumber(data.fare));
 
                 $('#md-form').modal('show'); // show bootstrap modal when complete loaded
                 $('.modal-title').text('Edit Data Daftar Gaji'); // Set title to Bootstrap modal title
@@ -184,6 +184,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 alert('Error get data from ajax');
             }
         });
+    }
+
+    function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
     }
 
     function save(){    
@@ -287,7 +291,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "type": "POST",
             },
         });
-        $('[data-mask]').inputmask();
+        //$('[data-mask]').inputmask();
+        // Format mata uang.
+        $( '.uang' ).mask('000.000.000', {reverse: true});
         init_select();
     });
 

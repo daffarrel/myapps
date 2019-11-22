@@ -82,6 +82,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <th><center>No</th>
                             <th><center>No Petikemas</th>
+                            <th><center>No. BL</th>
+                            <th><center>Tanggal Expire DO</th>
                             <th><center>Nama Kapal</th>
                             <th><center>Tanggal Dokumen</th>
                             <th><center>Tanggal Kapal Tiba</th>
@@ -103,6 +105,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <th><center>No</th>
                             <th><center>No Petikemas</th>
+                            <th><center>No. BL</th>
+                            <th><center>Tanggal Expire DO</th>
                             <th><center>Nama Kapal</th>
                             <th><center>Tanggal Dokumen</th>
                             <th><center>Tanggal Kapal Tiba</th>
@@ -211,6 +215,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label for="agent_name" class="form-label">No. BL</label>
+                                    <input hidden id="idm" name="idm">
+                                    <input required id="no_bl" name="no_bl" class="form-control" type="text">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">DO Expire Date</label>
+                                    <input hidden id="idm" name="idm">
+                                    <input required id="do_expire_date" name="do_expire_date" class="form-control tanggal" type="text">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label for="size" class="form-label">Size</label>
                                     <select required id="size" name="size" class="form-control">
                                         <option value="20">20</option>
@@ -222,17 +242,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Tanggal Proses Dokumen</label>
-                                    <input required id="tgl_proses_dok" name="tgl_proses_dok" class="form-control tanggal" type="text">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
                                     <label for="agent_name" class="form-label">Agent</label>
                                     <select required id="agen" name="agen" class="form-control select2">
                                         <option value="">----</option>
                                     </select>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Tanggal Proses Dokumen</label>
+                                    <input required id="tgl_proses_dok" name="tgl_proses_dok" class="form-control tanggal" type="text">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -263,7 +283,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <span class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Tanggal Berangkat</label>
                                     <input required id="td" name="td" class="form-control tanggal" type="text">
@@ -307,7 +327,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <span class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">I/O</label>
                                     <select id="io" name="io" class="form-control select">
@@ -316,7 +336,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </select>                                        
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Kondisi</label>
                                     <select required id="kondisi" name="kondisi" class="form-control">
@@ -326,7 +346,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <span class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Stuffing</label>
                                     <select id="stuffing" name="stuffing" class="form-control select">
@@ -336,7 +356,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <span class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Produk</label>
                                     <input required id="produk" name="produk" class="form-control" type="text">
@@ -455,6 +475,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     function add(){
+        enable_input();
         save_method = 'add';
         $('#frm-modal')[0].reset(); // reset form on modals
         $('.form-group').removeClass('has-error'); // clear error class
@@ -464,6 +485,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
         $('#md-form').modal('show'); // show bootstrap modal when complete loaded
         $('.modal-title').text('Tambah Dokumen Kapal'); // Set title to Bootstrap modal title
+    }
+
+    function enable_input(){
+        $('#no_seal').prop( "disabled", false );
+        $('#no_bl').prop( "disabled", false );
+        $('#do_expire_date').prop( "disabled", false );
+        $('#size').prop( "disabled", false );
+        $('#tgl_proses_dok').prop( "disabled", false );
+        $('#cmpy').prop( "disabled", false );
+        $('#agen').prop( "disabled", false );
+        $('#kota_asal').prop( "disabled", false );
+        $('#pengirim').prop( "disabled", false );
+        $('#penerima').prop( "disabled", false );
+        $('#ship_name').prop( "disabled", false );
+        $('#io').prop( "disabled", false );
+        $('#kondisi').prop( "disabled", false );
+        $('#produk').prop( "disabled", false );
+        $('#stuffing').prop( "disabled", false );
+        $('#td').prop( "disabled", false );
+        $('#berat').prop( "disabled", false );
+        $('#tgl_tiba').prop( "disabled", false );
+        $('#tgl_bm').prop( "disabled", false );
+    }
+
+    function disable_input(){
+        $('#no_seal').prop( "disabled", true );
+        $('#no_bl').prop( "disabled", true );
+        $('#do_expire_date').prop( "disabled", true );
+        $('#size').prop( "disabled", true );
+        $('#tgl_proses_dok').prop( "disabled", true );
+        $('#cmpy').prop( "disabled", true );
+        $('#agen').prop( "disabled", true );
+        $('#kota_asal').prop( "disabled", true );
+        $('#pengirim').prop( "disabled", true );
+        $('#penerima').prop( "disabled", true );
+        $('#ship_name').prop( "disabled", true );
+        $('#io').prop( "disabled", true );
+        $('#kondisi').prop( "disabled", true );
+        $('#produk').prop( "disabled", true );
+        $('#stuffing').prop( "disabled", true );
+        $('#td').prop( "disabled", true );
+        $('#berat').prop( "disabled", true );
+        $('#tgl_tiba').prop( "disabled", true );
+        $('#tgl_bm').prop( "disabled", true );
     }
 
     function edit(id){
@@ -487,6 +552,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 $('#idm').val(data.id_doc);
                 $('#no_seal').val(data.seal_number);
+                $('#no_bl').val(data.bl_number);
+                $('#do_expire_date').val(data.do_expire_date);
                 $('#size').val(data.size).change();
                 $('#tgl_proses_dok').val(data.process_date);
                 $('#cmpy').val(data.company).change();
@@ -505,42 +572,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('#tgl_bm').val(data.unload_load_date);
 
                 if(data.locked == '1'){
-                    $('#no_seal').prop( "disabled", true );
-                    $('#size').prop( "disabled", true );
-                    $('#tgl_proses_dok').prop( "disabled", true );
-                    $('#cmpy').prop( "disabled", true );
-                    $('#agen').prop( "disabled", true );
-                    $('#kota_asal').prop( "disabled", true );
-                    $('#pengirim').prop( "disabled", true );
-                    $('#penerima').prop( "disabled", true );
-                    $('#ship_name').prop( "disabled", true );
-                    $('#io').prop( "disabled", true );
-                    $('#kondisi').prop( "disabled", true );
-                    $('#produk').prop( "disabled", true );
-                    $('#stuffing').prop( "disabled", true );
-                    $('#td').prop( "disabled", true );
-                    $('#berat').prop( "disabled", true );
-                    $('#tgl_tiba').prop( "disabled", true );
-                    $('#tgl_bm').prop( "disabled", true );
+                    disable_input();
                     $('#btnSave').attr('disabled',true); //set button disable 
                 }else{
-                    $('#no_seal').prop( "disabled", false );
-                    $('#size').prop( "disabled", false );
-                    $('#tgl_proses_dok').prop( "disabled", false );
-                    $('#cmpy').prop( "disabled", false );
-                    $('#agen').prop( "disabled", false );
-                    $('#kota_asal').prop( "disabled", false );
-                    $('#pengirim').prop( "disabled", false );
-                    $('#penerima').prop( "disabled", false );
-                    $('#ship_name').prop( "disabled", false );
-                    $('#io').prop( "disabled", false );
-                    $('#kondisi').prop( "disabled", false );
-                    $('#produk').prop( "disabled", false );
-                    $('#stuffing').prop( "disabled", false );
-                    $('#td').prop( "disabled", false );
-                    $('#berat').prop( "disabled", false );
-                    $('#tgl_tiba').prop( "disabled", false );
-                    $('#tgl_bm').prop( "disabled", false );
+                    enable_input();
                     $('#btnSave').attr('disabled',false); //set button disable 
                 }
             },

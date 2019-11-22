@@ -54,14 +54,15 @@ class Route extends MY_Controller{
         $type           = $this->db->escape_str($post['tipe']);
         $size           = $this->db->escape_str($post['size']);
         $fare           = $this->db->escape_str($post['biaya']);
-        
+        $fare_new       = str_replace(".", "", $fare);
+
         $data = array(
             'route_name'     => $route_name,
             'origin'         => $origin,
             'destination'    => $destination,
             'type'           => $type,
             'size'           => $size,
-            'fare'           => $fare,
+            'fare'           => $fare_new,
         );
 
         if($save == 'add'){

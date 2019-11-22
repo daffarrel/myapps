@@ -18,6 +18,8 @@ class Shipment extends MY_Controller{
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
             $row[] = '<center style="font-size: small"><a class="btn" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doc."'".')">'.$r->seal_number.'</a>';
+            $row[] = '<center style="font-size: small">'.$r->bl_number;
+            $row[] = '<center style="font-size: small">'.$r->do_expire_date;
             $row[] = '<center style="font-size: small">'.$r->ship_name;
             $row[] = '<center style="font-size: small">'.$r->process_date;
             $row[] = '<center style="font-size: small">'.$r->arrival_date;
@@ -74,6 +76,8 @@ class Shipment extends MY_Controller{
         $post       = $_POST;
 
         $seal_number        = $this->db->escape_str($post['no_seal']);
+        $bl_number          = $this->db->escape_str($post['no_bl']);
+        $do_expire_date     = $this->db->escape_str($post['do_expire_date']);
         $size               = $this->db->escape_str($post['size']);
         $process_date       = $this->db->escape_str($post['tgl_proses_dok']);
         $company            = $this->db->escape_str($post['cmpy']);
@@ -93,6 +97,8 @@ class Shipment extends MY_Controller{
 
         $data = array(
             'seal_number'           => $seal_number,
+            'bl_number'             => $bl_number,
+            'do_expire_date'        => $do_expire_date,
             'size'                  => $size,
             'process_date'          => $process_date,
             'company'               => $company,
@@ -187,6 +193,8 @@ class Shipment extends MY_Controller{
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
             $row[] = '<center style="font-size: small">'.$r->seal_number;
+            $row[] = '<center style="font-size: small">'.$r->bl_number;
+            $row[] = '<center style="font-size: small">'.$r->do_expire_date;
             $row[] = '<center style="font-size: small">'.$r->ship_name;
             $row[] = '<center style="font-size: small">'.$r->process_date;
             $row[] = '<center style="font-size: small">'.$r->arrival_date;
