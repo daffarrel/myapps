@@ -38,19 +38,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <form id="form-filter">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <input id="tgl_bongkar_awal" placeholder="Tgl Bongkar Tiba (Awal)" class="form-control tanggal" type="text">
+                                    <div class="form-group">
+                                        <label>Tanggal Bongkar</label>
+                                        <input id="tgl_bongkar" placeholder="Tgl Bongkar Tiba" class="form-control tanggal-picker" type="text">
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <input id="tgl_bongkar_akhir" placeholder="Tgl Bongkar (Akhir)" class="form-control tanggal" type="text">    
-                                </div>
-                                <div class="col-md-3">
-                                    <input id="tgl_muat_awal" placeholder="Tgl Muat (Awal)" class="form-control tanggal" type="text">
-                                </div>
-                                <div class="col-md-3">
-                                    <input id="tgl_muat_akhir" placeholder="Tgl Muat (Akhir)" class="form-control tanggal" type="text">    
+                                    <div class="form-group">
+                                        <label>Tanggal Muat</label>
+                                        <input id="tgl_muat" placeholder="Tgl Muat" class="form-control tanggal-picker" type="text">
+                                    </div>
                                 </div>
                             </div>
-                            <br>
                             <div class="form-group">
                                 <label for="LastName" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-4">
@@ -472,10 +471,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "url": "<?php echo site_url('doring/ajax_list')?>" ,
                 "type": "POST",
                 "data": function ( data ) {
-                    data.tgl_bongkar_awal    = $('#tgl_bongkar_awal').val();
-                    data.tgl_bongkar_akhir   = $('#tgl_bongkar_akhir').val();
-                    data.tgl_muat_awal       = $('#tgl_muat_awal').val();
-                    data.tgl_muat_akhir      = $('#tgl_muat_akhir').val();
+                    data.tgl_bongkar_awal    = $('#tgl_bongkar').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                    data.tgl_bongkar_akhir   = $('#tgl_bongkar').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    data.tgl_muat_awal       = $('#tgl_muat').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                    data.tgl_muat_akhir      = $('#tgl_muat').data('daterangepicker').endDate.format('YYYY-MM-DD');
                 }
             },
         });
@@ -665,5 +664,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     $('.tanggal').datepicker({
             autoclose: true,
             format:"yyyy-mm-dd",
+    });
+
+    $('.tanggal-picker').daterangepicker({
+        dateLimit: { days: 360 },
+        format: 'yyyy-mm-dd'
     });
 </script>

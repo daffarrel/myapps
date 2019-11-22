@@ -18,10 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="box-header">
                     <div class="row">
                         <div class="col-md-3">
-                            <input id="tgl_awal" class="form-control tanggal" placeholder="Tanggal Awal" type="text">
-                        </div>
-                        <div class="col-md-3">
-                            <input id="tgl_akhir" placeholder="Tanggal Akhir" class="form-control tanggal" type="text">    
+                            <input id="tgl_history" class="form-control tanggal-picker" placeholder="Tanggal Awal" type="text">
                         </div>
                     </div>
                     <br>
@@ -50,31 +47,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="col-md-2">
                                         <input id="company" placeholder="Perusahaan" class="form-control" type="text">          
                                     </div>
-                                    <br><br><br>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <input id="nama_kapal" placeholder="Nama Kapal" class="form-control" type="text">          
                                     </div>
+                                    <br><br>
                                     <div class="col-md-4">
-                                        <input id="tgl_kapal_awal" placeholder="Tgl Kapal Berangkat (Awal)" class="form-control tanggal" type="text">
+                                        <div class="form-group">
+                                            <label>Tanggal Kapal Berangkat</label>
+                                            <input id="tgl_kapal" placeholder="Tgl Kapal Berangkat" class="form-control tanggal-picker" type="text">
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <input id="tgl_kapal_akhir" placeholder="Tgl Kapal Berangkat (Akhir)" class="form-control tanggal" type="text">    
+                                        <div class="form-group">
+                                            <label>Tanggal Kapal Tiba</label>
+                                            <input id="tgl_tiba" placeholder="Tgl Kapal Tiba" class="form-control tanggal-picker" type="text">    
+                                        </div>
                                     </div>
-                                    <br><br><br>
-                                    <div class="col-md-3">
-                                        <input id="tgl_tiba_awal" placeholder="Tgl Kapal Tiba (Awal)" class="form-control tanggal" type="text">    
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input id="tgl_tiba_akhir" placeholder="Tgl Kapal Tiba (Akhir)" class="form-control tanggal" type="text">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input id="tgl_bm_awal" placeholder="Tgl Kapal Bongkar Muat (Awal)" class="form-control tanggal" type="text">  
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input id="tgl_bm_akhir" placeholder="Tgl Kapal Bongkar Muat (Akhir)" class="form-control tanggal" type="text">          
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Tanggal Bongkar Muat</label>
+                                            <input id="tgl_bm" placeholder="Tgl Kapal Bongkar Muat" class="form-control tanggal-picker" type="text">  
+                                        </div>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="form-group">
                                     <label for="LastName" class="col-sm-2 control-label"></label>
                                     <div class="col-sm-4">
@@ -184,8 +179,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     function tampil(){
-        var tgl_awal    = $('#tgl_awal').val();
-        var tgl_akhir   = $('#tgl_akhir').val();
+        var tgl_awal    = $('#tgl_history').data('daterangepicker').startDate.format('YYYY-MM-DD');
+        var tgl_akhir   = $('#tgl_history').data('daterangepicker').endDate.format('YYYY-MM-DD');
         var months      = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         
         var date_awal   = new Date(tgl_awal);
@@ -227,12 +222,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     data.product            = $('#product').val();
                     data.agent              = $('#agent').val();
                     data.nama_kapal         = $('#nama_kapal').val();
-                    data.tgl_kapal_awal     = $('#tgl_kapal_awal').val();
-                    data.tgl_kapal_akhir    = $('#tgl_kapal_akhir').val();
-                    data.tgl_bm_awal        = $('#tgl_bm_awal').val();
-                    data.tgl_bm_akhir       = $('#tgl_bm_akhir').val();
-                    data.tgl_tiba_awal      = $('#tgl_tiba_awal').val();
-                    data.tgl_tiba_akhir     = $('#tgl_tiba_akhir').val();
+                    data.tgl_kapal_awal     = $('#tgl_kapal').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                    data.tgl_kapal_akhir    = $('#tgl_kapal').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    data.tgl_bm_awal        = $('#tgl_bm').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                    data.tgl_bm_akhir       = $('#tgl_bm').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    data.tgl_tiba_awal      = $('#tgl_tiba').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                    data.tgl_tiba_akhir     = $('#tgl_tiba').data('daterangepicker').endDate.format('YYYY-MM-DD');
                     data.tgl_awal           = tgl_awal;
                     data.tgl_akhir          = tgl_akhir;
                 }
@@ -316,6 +311,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     $('.modal').on('hidden.bs.modal', function () {
         reload_table();
+    });
+
+    $('.tanggal-picker').daterangepicker({
+        dateLimit: { days: 360 },
+        format: 'yyyy-mm-dd'
     });
 
 </script>

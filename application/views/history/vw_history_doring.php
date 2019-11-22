@@ -27,11 +27,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="box box-default">
                 <div class="box-header">
                     <div class="row">
-                        <div class="col-md-3">
-                            <input id="tgl_awal" class="form-control tanggal" placeholder="Tanggal Awal" type="text">
-                        </div>
-                        <div class="col-md-3">
-                            <input id="tgl_akhir" placeholder="Tanggal Akhir" class="form-control tanggal" type="text">    
+                        <div class="col-md-4">
+                            <input id="tgl_history" class="form-control tanggal-picker" placeholder="Pilih Tanggal" type="text">
                         </div>
                     </div>
                     <br>
@@ -46,19 +43,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <form id="form-filter">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <input id="tgl_bongkar_awal" placeholder="Tgl Bongkar Tiba (Awal)" class="form-control tanggal" type="text">
+                                        <div class="form-group">
+                                            <label>Tanggal Bongkar</label>
+                                            <input id="tgl_bongkar" placeholder="Tgl Bongkar Tiba" class="form-control tanggal-picker" type="text">
+                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <input id="tgl_bongkar_akhir" placeholder="Tgl Bongkar (Akhir)" class="form-control tanggal" type="text">    
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input id="tgl_muat_awal" placeholder="Tgl Muat (Awal)" class="form-control tanggal" type="text">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input id="tgl_muat_akhir" placeholder="Tgl Muat (Akhir)" class="form-control tanggal" type="text">    
+                                        <div class="form-group">
+                                            <label>Tanggal Muat</label>
+                                            <input id="tgl_muat" placeholder="Tgl Muat" class="form-control tanggal-picker" type="text">
+                                        </div>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="form-group">
                                     <label for="LastName" class="col-sm-2 control-label"></label>
                                     <div class="col-sm-4">
@@ -143,6 +139,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         reload_table();
     });
 
+    var startDate;
+    var endDate;
     var table;
     var table_doc;
     //for save method string
@@ -157,17 +155,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     function tampil(){
-        var tgl_awal    = $('#tgl_awal').val();
-        var tgl_akhir   = $('#tgl_akhir').val();
+        startDate = $('#tgl_history').data('daterangepicker').startDate.format('YYYY-MM-DD');
+        endDate   = $('#tgl_history').data('daterangepicker').endDate.format('YYYY-MM-DD');
+        //var tgl_awal    = $('#tgl_awal').val();
+        //var tgl_akhir   = $('#tgl_akhir').val();
         var months      = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         
-        var date_awal   = new Date(tgl_awal);
+        var date_awal   = new Date(startDate);
         var day_awal    = date_awal.getDate();
         var month_awal  = months[date_awal.getMonth()];
         var year_awal   = date_awal.getFullYear();
         var new_tgl_awal = day_awal + ' ' + month_awal + ' ' + year_awal;
 
-        var date_akhir  = new Date(tgl_akhir);
+        var date_akhir  = new Date(endDate);
         var day_akhir   = date_akhir.getDate();
         var month_akhir = months[date_akhir.getMonth()];
         var year_akhir  = date_akhir.getFullYear();
@@ -189,12 +189,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "url": "<?php echo site_url('doring/ajax_list_history')?>" ,
                 "type": "POST",
                 "data": function ( data ) {
-                    data.tgl_bongkar_awal    = $('#tgl_bongkar_awal').val();
-                    data.tgl_bongkar_akhir   = $('#tgl_bongkar_akhir').val();
-                    data.tgl_muat_awal       = $('#tgl_muat_awal').val();
-                    data.tgl_muat_akhir      = $('#tgl_muat_akhir').val();
-                    data.tgl_awal            = tgl_awal;
-                    data.tgl_akhir           = tgl_akhir;
+                    data.tgl_bongkar_awal    = $('#tgl_bongkar').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                    data.tgl_bongkar_akhir   = $('#tgl_bongkar').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    data.tgl_muat_awal       = $('#tgl_muat').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                    data.tgl_muat_akhir      = $('#tgl_muat').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    data.tgl_awal            = startDate;
+                    data.tgl_akhir           = endDate;
                 }
             },
         });
@@ -257,8 +257,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     }
 
-    $('.tanggal').datepicker({
-            autoclose: true,
-            format:"yyyy-mm-dd",
+    $('.tanggal-picker').daterangepicker({
+        dateLimit: { days: 360 },
+        format: 'yyyy-mm-dd'
     });
 </script>

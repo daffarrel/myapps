@@ -21,10 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <form id="form-filter">
                         <div class="row">
                             <div class="col-md-3">
-                                <input id="tgl_awal" class="form-control tanggal" placeholder="Tanggal Awal" type="text">
-                            </div>
-                            <div class="col-md-3">
-                                <input id="tgl_akhir" placeholder="Tanggal Akhir" class="form-control tanggal" type="text">    
+                                <input id="tgl_laporan" class="form-control tanggal-picker" placeholder="Tanggal Awal" type="text">
                             </div>
                         </div>
                         <br>
@@ -70,9 +67,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
 
 <script type="text/javascript">
+    $('.tanggal-picker').daterangepicker({
+        dateLimit: { days: 360 },
+        format: 'yyyy-mm-dd'
+    });
+
     function report(){
-        var tgl_awal = $('#tgl_awal').val();
-        var tgl_akhir = $('#tgl_akhir').val();
+        var tgl_awal    = $('#tgl_laporan').data('daterangepicker').startDate.format('YYYY-MM-DD');
+        var tgl_akhir   = $('#tgl_laporan').data('daterangepicker').endDate.format('YYYY-MM-DD');
         var months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         
         var date_awal   = new Date(tgl_awal);
@@ -130,9 +132,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         $('#tabel-div').prop('hidden',false);
     }
-
-    $('.tanggal').datepicker({
-        autoclose: true,
-        format:"yyyy-mm-dd",
-    });
 </script>
