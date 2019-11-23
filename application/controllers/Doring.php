@@ -149,7 +149,7 @@ class Doring extends MY_Controller{
             
             if($fileData['upload']=='True') {
                 $name      = $fileData['data']['file_name'];
-                $file_path = 'dokumen/doring/'.$url.'/'.$name;
+                $file_path = 'dokumen/'.$url.'/'.$name;
             }
 
             $data  = array(
@@ -303,7 +303,8 @@ class Doring extends MY_Controller{
             $row[] = $r['driver_name'];
 
             for($i=0;$i<12;$i++){
-                $row[] = $r['r'.($i+1)].' | Rp. '.$this->rupiah($r['bln'.($i+1)]);
+                $row[] = $r['r'.($i+1)];
+                $row[] = $this->rupiah($r['bln'.($i+1)]);
                 $temp_bln[$i] += $r['bln'.($i+1)];
                 $temp_retensi[$i] += $r['r'.($i+1)];
                 $total_bulan += $temp_bln[$i];
@@ -311,8 +312,8 @@ class Doring extends MY_Controller{
                 $total_per_bulan[$i] += $temp_bln[$i];
                 $total_retensi_per_bulan[$i] += $temp_retensi[$i];
             }
-            
-            $row[] = $total_retensi.' | Rp. '.$this->rupiah($total_bulan);
+            $row[] = $total_retensi;
+            $row[] = $this->rupiah($total_bulan);
             
             $temp_bln_total += $total_bulan;
             $temp_retensi_total += $total_retensi;
@@ -322,19 +323,32 @@ class Doring extends MY_Controller{
         $data[] = array(
             '',
             'Total Per Bulan',
-            $total_retensi_per_bulan[0].' | Rp. '.$this->rupiah($total_per_bulan[0]),
-            $total_retensi_per_bulan[1].' | Rp. '.$this->rupiah($total_per_bulan[1]),
-            $total_retensi_per_bulan[2].' | Rp. '.$this->rupiah($total_per_bulan[2]),
-            $total_retensi_per_bulan[3].' | Rp. '.$this->rupiah($total_per_bulan[3]),
-            $total_retensi_per_bulan[4].' | Rp. '.$this->rupiah($total_per_bulan[4]),
-            $total_retensi_per_bulan[5].' | Rp. '.$this->rupiah($total_per_bulan[5]),
-            $total_retensi_per_bulan[6].' | Rp. '.$this->rupiah($total_per_bulan[6]),
-            $total_retensi_per_bulan[7].' | Rp. '.$this->rupiah($total_per_bulan[7]),
-            $total_retensi_per_bulan[8].' | Rp. '.$this->rupiah($total_per_bulan[8]),
-            $total_retensi_per_bulan[9].' | Rp. '.$this->rupiah($total_per_bulan[9]),
-            $total_retensi_per_bulan[10].' | Rp. '.$this->rupiah($total_per_bulan[10]),
-            $total_retensi_per_bulan[11].' | Rp. '.$this->rupiah($total_per_bulan[11]),
-            $temp_retensi_total.' | Rp. '.$this->rupiah($temp_bln_total),
+            $total_retensi_per_bulan[0],
+            $this->rupiah($total_per_bulan[0]),
+            $total_retensi_per_bulan[1],
+            $this->rupiah($total_per_bulan[1]),
+            $total_retensi_per_bulan[2],
+            $this->rupiah($total_per_bulan[2]),
+            $total_retensi_per_bulan[3],
+            $this->rupiah($total_per_bulan[3]),
+            $total_retensi_per_bulan[4],
+            $this->rupiah($total_per_bulan[4]),
+            $total_retensi_per_bulan[5],
+            $this->rupiah($total_per_bulan[5]),
+            $total_retensi_per_bulan[6],
+            $this->rupiah($total_per_bulan[6]),
+            $total_retensi_per_bulan[7],
+            $this->rupiah($total_per_bulan[7]),
+            $total_retensi_per_bulan[8],
+            $this->rupiah($total_per_bulan[8]),
+            $total_retensi_per_bulan[9],
+            $this->rupiah($total_per_bulan[9]),
+            $total_retensi_per_bulan[10],
+            $this->rupiah($total_per_bulan[10]),
+            $total_retensi_per_bulan[11],
+            $this->rupiah($total_per_bulan[11]),
+            $temp_retensi_total,
+            $this->rupiah($temp_bln_total),
         );
 
         $output = array(

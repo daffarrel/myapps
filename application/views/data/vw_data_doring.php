@@ -40,13 +40,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Tanggal Bongkar</label>
-                                        <input id="tgl_bongkar" placeholder="Tgl Bongkar Tiba" class="form-control tanggal-picker" type="text">
+                                        <input id="tgl_bongkar" placeholder="Tgl Bongkar Tiba" class="form-control tanggal-picker" value="" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Tanggal Muat</label>
-                                        <input id="tgl_muat" placeholder="Tgl Muat" class="form-control tanggal-picker" type="text">
+                                        <input id="tgl_muat" placeholder="Tgl Muat" class="form-control tanggal-picker" value="" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -471,10 +471,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "url": "<?php echo site_url('doring/ajax_list')?>" ,
                 "type": "POST",
                 "data": function ( data ) {
-                    data.tgl_bongkar_awal    = $('#tgl_bongkar').data('daterangepicker').startDate.format('YYYY-MM-DD');
-                    data.tgl_bongkar_akhir   = $('#tgl_bongkar').data('daterangepicker').endDate.format('YYYY-MM-DD');
-                    data.tgl_muat_awal       = $('#tgl_muat').data('daterangepicker').startDate.format('YYYY-MM-DD');
-                    data.tgl_muat_akhir      = $('#tgl_muat').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    if($('#tgl_bongkar').val() != ''){
+                        data.tgl_bongkar_awal    = $('#tgl_bongkar').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                        data.tgl_bongkar_akhir   = $('#tgl_bongkar').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    }
+                    if($('#tgl_muat').val() != ''){
+                        data.tgl_muat_awal       = $('#tgl_muat').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                        data.tgl_muat_akhir      = $('#tgl_muat').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    }
                 }
             },
         });
@@ -668,6 +672,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     $('.tanggal-picker').daterangepicker({
         dateLimit: { days: 360 },
-        format: 'yyyy-mm-dd'
+        format: 'yyyy-mm-dd',
+        autoUpdateInput: false,
+        locale: {
+          cancelLabel: 'Clear'
+        }
+    });
+
+    $('.tanggal-picker').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+    });
+
+    $('.tanggal-picker').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
     });
 </script>

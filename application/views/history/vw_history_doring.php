@@ -189,12 +189,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "url": "<?php echo site_url('doring/ajax_list_history')?>" ,
                 "type": "POST",
                 "data": function ( data ) {
-                    data.tgl_bongkar_awal    = $('#tgl_bongkar').data('daterangepicker').startDate.format('YYYY-MM-DD');
-                    data.tgl_bongkar_akhir   = $('#tgl_bongkar').data('daterangepicker').endDate.format('YYYY-MM-DD');
-                    data.tgl_muat_awal       = $('#tgl_muat').data('daterangepicker').startDate.format('YYYY-MM-DD');
-                    data.tgl_muat_akhir      = $('#tgl_muat').data('daterangepicker').endDate.format('YYYY-MM-DD');
-                    data.tgl_awal            = startDate;
-                    data.tgl_akhir           = endDate;
+                    if($('#tgl_bongkar').val() != ''){
+                        data.tgl_bongkar_awal    = $('#tgl_bongkar').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                        data.tgl_bongkar_akhir   = $('#tgl_bongkar').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    }
+                    if($('#tgl_muat').val() != ''){
+                        data.tgl_muat_awal       = $('#tgl_muat').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                        data.tgl_muat_akhir      = $('#tgl_muat').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                    }
+                    data.tgl_awal = startDate;
+                    data.tgl_akhir = endDate;
                 }
             },
         });

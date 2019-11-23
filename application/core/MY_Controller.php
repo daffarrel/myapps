@@ -80,7 +80,7 @@ class MY_Controller extends CI_Controller
 
     function rupiah($angka){
         //$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
-        $hasil_rupiah = number_format($angka,2,',','.');
+        $hasil_rupiah = number_format($angka,0,',','.');
         return $hasil_rupiah;
     }
 

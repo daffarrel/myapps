@@ -40,21 +40,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table id="tabel" class="table table-bordered table-striped table-hover js-basic-example dataTable nowrap cell-border" cellspacing="0" width="100%" role="grid" >
                         <thead>
                         <tr>
-                            <th><center>No</th>
-                            <th><center>Nama Driver</th>
-                            <th><center>Januari</th>
-                            <th><center>Februari</th>
-                            <th><center>Maret</th>
-                            <th><center>April</th>
-                            <th><center>Mei</th>
-                            <th><center>Juni</th>
-                            <th><center>Juli</th>
-                            <th><center>Agustus</th>
-                            <th><center>September</th>
-                            <th><center>Oktober</th>
-                            <th><center>November</th>
-                            <th><center>Desember</th>
-                            <th><center>Total</th>
+                            <th rowspan="2"><center>No</th>
+                            <th rowspan="2"><center>Nama Driver</th>
+                            <th colspan="2"><center>Januari</th>
+                            <th colspan="2"><center>Februari</th>
+                            <th colspan="2"><center>Maret</th>
+                            <th colspan="2"><center>April</th>
+                            <th colspan="2"><center>Mei</th>
+                            <th colspan="2"><center>Juni</th>
+                            <th colspan="2"><center>Juli</th>
+                            <th colspan="2"><center>Agustus</th>
+                            <th colspan="2"><center>September</th>
+                            <th colspan="2"><center>Oktober</th>
+                            <th colspan="2"><center>November</th>
+                            <th colspan="2"><center>Desember</th>
+                            <th colspan="2"><center>Total</th>
+                            <tr>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                                <th>Jumlah</th>
+                                <th>Retensi</th>
+                            </tr>
                         </tr>
                         </thead>
                     </table>
