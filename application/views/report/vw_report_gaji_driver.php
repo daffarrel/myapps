@@ -56,31 +56,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th colspan="2"><center>Desember</th>
                             <th colspan="2"><center>Total</th>
                             <tr>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
-                                <th>Retensi</th>
+                                <th>Retase</th>
                                 <th>Jumlah</th>
                             </tr>
                         </tr>
