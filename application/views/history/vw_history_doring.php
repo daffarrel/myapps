@@ -263,6 +263,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     $('.tanggal-picker').daterangepicker({
         dateLimit: { days: 360 },
-        format: 'yyyy-mm-dd'
+        format: 'yyyy-mm-dd',
+        autoUpdateInput: false,
+        locale: {
+          cancelLabel: 'Clear'
+        }
+    });
+
+    $('.tanggal-picker').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+    });
+
+    $('.tanggal-picker').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
     });
 </script>
