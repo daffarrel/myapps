@@ -56,7 +56,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th colspan="2"><center>Desember</th>
                             <th colspan="2"><center>Total</th>
                             <tr>
-                                <th>Jumlah</th>
                                 <th>Retensi</th>
                                 <th>Jumlah</th>
                                 <th>Retensi</th>
@@ -82,6 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th>Retensi</th>
                                 <th>Jumlah</th>
                                 <th>Retensi</th>
+                                <th>Jumlah</th>
                             </tr>
                         </tr>
                         </thead>
