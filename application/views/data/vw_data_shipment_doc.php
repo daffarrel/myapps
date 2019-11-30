@@ -348,8 +348,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Stuffing</label>
                                     <select id="stuffing" name="stuffing" class="form-control select">
-                                        <option value="yes">YA</option>
                                         <option value="no">TIDAK</option>
+                                        <option value="yes">YA</option>
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
