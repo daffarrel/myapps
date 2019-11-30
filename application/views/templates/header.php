@@ -17,10 +17,6 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/dist/css/skins/_all-skins.min.css">
-  <!-- Morris chart -->
-  <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/morris.js/morris.css">
-  <!-- jvectormap -->
-  <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/jvectormap/jquery-jvectormap.css">
   <!-- Date Picker -->
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- Daterange picker -->
@@ -36,10 +32,6 @@
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/datatables.net-bs/css/fixedColumns.bootstrap.min.css">
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/plugins/iCheck/all.css">
-  <!-- Bootstrap Color Picker -->
-  <link rel="stylesheet" href="<?php echo base_url()?>/assets/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
-  <!-- Bootstrap time Picker -->
-  <link rel="stylesheet" href="<?php echo base_url()?>/assets/plugins/timepicker/bootstrap-timepicker.min.css">
   <!-- Bootstrap Button -->
   <link rel="stylesheet" href="<?php echo base_url()?>/assets/plugins/datatable-buttons/buttons.dataTables.min.css">
   <!-- Select2 -->
@@ -86,24 +78,12 @@
   <script src="<?php echo base_url()?>/assets/bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
   <script src="<?php echo base_url()?>/assets/dist/js/adminlte.min.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="<?php echo base_url()?>/assets/dist/js/demo.js"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="<?php echo base_url()?>/assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button);
   </script>
-  <!-- Morris.js charts -->
-  <script src="<?php echo base_url()?>/assets/bower_components/raphael/raphael.min.js"></script>
-  <script src="<?php echo base_url()?>/assets/bower_components/morris.js/morris.min.js"></script>
-  <!-- Sparkline -->
-  <script src="<?php echo base_url()?>/assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-  <!-- jvectormap -->
-  <script src="<?php echo base_url()?>/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-  <script src="<?php echo base_url()?>/assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-  <!-- jQuery Knob Chart -->
-  <script src="<?php echo base_url()?>/assets/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
   <!-- daterangepicker -->
   <script src="<?php echo base_url()?>/assets/bower_components/moment/min/moment.min.js"></script>
   <script src="<?php echo base_url()?>/assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -125,19 +105,15 @@
   <script src="<?php echo base_url()?>/assets/plugins/input-mask/jquery.inputmask.js"></script>
   <script src="<?php echo base_url()?>/assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
   <script src="<?php echo base_url()?>/assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-  <script src="<?php echo base_url()?>/assets/plugins/jquery-mask/jquery.mask.js"></script>
+  <script src="<?php echo base_url()?>/assets/plugins/jquery-mask/jquery.mask.min.js"></script>
   <!-- bootstrap color picker -->
   <script src="<?php echo base_url()?>/assets/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-  <!-- bootstrap time picker -->
-  <script src="<?php echo base_url()?>/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
   <!-- SlimScroll -->
   <script src="<?php echo base_url()?>/assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
   <!-- iCheck 1.0.1 -->
   <script src="<?php echo base_url()?>/assets/plugins/iCheck/icheck.min.js"></script>
   <!-- Sweetalert 2 -->
-  <script src="<?php echo base_url()?>/assets/plugins/sweetalert2/dist/sweetalert2.all.js"></script>
-  <!-- Include a polyfill for ES6 Promises (optional) for IE11 -->
-  <script src="<?php echo base_url()?>/assets/plugins/sweetalert2/dist/polyfill.js"></script>
+  <script src="<?php echo base_url()?>/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
   <!-- Plugin Button For Datatables-->
   <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/dataTables.buttons.min.js"></script>
   <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/buttons.flash.min.js"></script>
