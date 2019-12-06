@@ -2,12 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_menu extends MY_Model {
-    var $table             = 'user';
-    var $view              = 'vw_user';
+    var $table             = 'table_menu';
+    var $view              = 'vw_menu';
 
-    var $column_order      = array('id','user_id','name','email'); //set column field database for datatable orderable
-    var $column_search     = array('id','user_id','name','email'); //set column field database for datatable searchable
-    var $order             = array('id' => 'asc'); // default order
+    var $column_order      = array('id','title','url','second_uri'); //set column field database for datatable orderable
+    var $column_search     = array('id','title','url','second_uri'); //set column field database for datatable searchable
+    var $order             = array('parent_id' => 'asc'); // default order
 
     function get_datatables_query() {
         $this->db->from($this->view);
@@ -87,8 +87,9 @@ class M_menu extends MY_Model {
         return $this->db->affected_rows();
     }
 
-    public function getRole(){
-        $this->db->from('user_role');
+    public function getParentMenu(){
+        $this->db->from($this->table);
+        $this->db->where('parent_id','0');
         $query = $this->db->get();
 
         if($query->num_rows() > 0){

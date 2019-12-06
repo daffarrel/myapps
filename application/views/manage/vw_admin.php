@@ -29,6 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th><center>Email</th>
                             <th><center>Image</th>
                             <th><center>Role</th>
+                            <th><center>Tanggal Dibuat</th>
                             <th><center>Aksi</th>
                         </tr>
                         </thead>
@@ -42,6 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th><center>Email</th>
                             <th><center>Image</th>
                             <th><center>Role</th>
+                            <th><center>Tanggal Dibuat</th>
                             <th><center>Aksi</th>
                         </tr>
                         </tfoot>
@@ -74,15 +76,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Nama</label>
-                                    <input id="name" name="name" class="form-control" type="text">
+                                    <label for="agent_name" class="form-label">Email</label>
+                                    <input id="email" name="email" class="form-control" type="email">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Email</label>
-                                    <input id="email" name="email" class="form-control" type="email">
+                                    <label for="agent_name" class="form-label">Nama</label>
+                                    <input id="name" name="name" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -314,7 +316,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }).then((willDelete) => {
             if (willDelete.value) {
                 $.ajax({
-                    url : "<?php echo site_url('shipment/delete')?>/"+id,
+                    url : "<?php echo site_url('admin/delete')?>/"+id,
                     type: "POST",
                     dataType: "JSON",
                     success: function(data)

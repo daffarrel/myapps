@@ -5,7 +5,6 @@ class Admin extends MY_Controller{
     var $id_table       = 'id';
     var $table          = 'user' ;
 
-    //dokumen kapal
     public function ajax_list(){
         $list = $this->admin->get_datatable();
         $data = array();
@@ -20,7 +19,8 @@ class Admin extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->email;
             $row[] = '<center style="font-size: small">'.$r->image;
             $row[] = '<center style="font-size: small">'.$r->role_name;
-            
+            $row[] = '<center style="font-size: small">'.date('d F Y H:i:s',$r->date_created);
+
             $row[] = '<center><a class="btn btn-info" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id."'".')">E</a>
                     <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id."'".')">X</a>';
             //add html for action
@@ -53,16 +53,17 @@ class Admin extends MY_Controller{
         $pass   = $this->db->escape_str($post['pass']);
         //$image  = $this->db->escape_str($post['image']);
         $role   = $this->db->escape_str($post['role']);
-        
-        $data = array(
-            'user_id'   => $user,
-            'email'     => $email,
-            'name'      => $name,
-            'password'  => password_hash($pass, PASSWORD_DEFAULT),
-            'role_id'   => $role,
-        );
 
         if($save == 'add'){
+            $data = array(
+                'user_id'       => $user,
+                'email'         => $email,
+                'name'          => $name,
+                'password'      => password_hash($pass, PASSWORD_DEFAULT),
+                'role_id'       => $role,
+                'date_created'  => time()
+            );
+
             if ($id = $this->admin->save_where($this->table,$data) > 0){
                 if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != ''){
                     $url = 'profile_pic/'.$id['insert_id'];
@@ -72,7 +73,7 @@ class Admin extends MY_Controller{
                         $name      = $fileData['data']['file_name'];
                         $file_path = 'dokumen/profile_pic/'.$url.'/'.$name;
                     }
-    
+
                     $where = array('id' => $id['insert_id']);
                     $data  = array('image' => $file_path);
                     $this->document->update_where($this->table,$where,$data);
@@ -82,6 +83,12 @@ class Admin extends MY_Controller{
                 echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
             }
         }else{
+            $data = array(
+                'user_id'       => $user,
+                'email'         => $email,
+                'name'          => $name,
+                'role_id'       => $role,
+            );
             $id = $this->input->post('idm');
             if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != ''){
                 $url = 'profile_pic/'.$id;
@@ -110,13 +117,17 @@ class Admin extends MY_Controller{
         echo json_encode(array("status" => TRUE));
     }
 
-    public function getData(){
-        $data = $this->admin->getSeal();
-        echo json_encode($data);
+    public function updatePass(){
+
     }
 
     public function getRole(){
         $data = $this->admin->getRole();
+        echo json_encode($data);
+    }
+
+    public function getData(){
+        $data = $this->admin->getData();
         echo json_encode($data);
     }
 
@@ -203,6 +214,48 @@ class Admin extends MY_Controller{
         }
     }
 
+    public function auth(){
+        $this->form_validation->set_rules('email','Email or Username','trim|required');
+        $this->form_validation->set_rules('password','Password','trim|required');
+        if($this->form_validation->run() == FALSE){
+            $data['title']  = 'MyAPPS';
+            $data['title2'] = 'My<b>APPS</b>';
+            $this->load->view('manage/vw_login',$data,'');
+        }else{
+            $this->_login();
+        }
+    }
+
+    public function logout(){
+        $data = array(
+            'status',
+            'name',
+            'role',
+            'image',
+            'created_date',
+        );
+        $this->session->unset_userdata($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You Have Been Logout!</div>');
+        redirect('main/login');
+    }
+
+    private function _login(){
+        $post  = $_POST; 
+        $email = $this->db->escape_str($post['email']);
+        $pass  = $this->db->escape_str($post['password']);
+
+        $verify = $this->admin->login($email,$pass);
+
+        if($verify['status'] == TRUE){
+            $this->session->set_userdata($verify);
+            redirect(site_url());
+        }else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>One From Your Input is Wrong.<br>Please Try Again !</div>');
+            $data['title']  = 'MyAPPS';
+            $data['title2'] = 'My<b>APPS</b>';
+            $this->load->view('manage/vw_login',$data,'');
+        }
+    }
 }
 ?>
 

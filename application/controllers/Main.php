@@ -45,8 +45,9 @@ class Main extends MY_Controller{
     }
 
     public function login(){
-        $data['title'] = 'Login';
-        $this->load->view('vw_login',$data,'');
+        $data['title']  = 'MyAPPS';
+        $data['title2'] = 'My<b>APPS</b>';
+        $this->load->view('manage/vw_login',$data,'');
     }
 
 }

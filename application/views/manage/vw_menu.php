@@ -24,11 +24,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                         <tr>
                             <th><center>No</th>
-                            <th><center>Username</th>
-                            <th><center>Nama</th>
-                            <th><center>Email</th>
-                            <th><center>Image</th>
-                            <th><center>Role</th>
+                            <th><center>Judul Menu</th>
+                            <th><center>URL</th>
+                            <th><center>Second URI</th>
+                            <th><center>Status Aktif</th>
+                            <th><center>Parent Menu</th>
                             <th><center>Aksi</th>
                         </tr>
                         </thead>
@@ -37,11 +37,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tfoot>
                         <tr>
                             <th><center>No</th>
-                            <th><center>Username</th>
-                            <th><center>Nama</th>
-                            <th><center>Email</th>
-                            <th><center>Image</th>
-                            <th><center>Role</th>
+                            <th><center>Judul Menu</th>
+                            <th><center>URL</th>
+                            <th><center>Second URI</th>
+                            <th><center>Status Aktif</th>
+                            <th><center>Parent Menu</th>
                             <th><center>Aksi</th>
                         </tr>
                         </tfoot>
@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="modal-content">
             <div class="modal-header bg-success">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Dokumen Kapal</h3>
+                <h3 class="modal-title">Manajemen Menu</h3>
             </div>
             <div class="modal-body form">
                 <div class="form-group">
@@ -66,55 +66,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Username</label>
+                                    <label for="agent_name" class="form-label">Judul Menu</label>
                                     <input hidden id="idm" name="idm">
-                                    <input id="username" name="username" class="form-control" type="text">
+                                    <input id="title" name="title" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Nama</label>
-                                    <input id="name" name="name" class="form-control" type="text">
+                                    <label for="agent_name" class="form-label">URL</label>
+                                    <input id="url" name="url" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="agent_name" class="form-label">Email</label>
-                                    <input id="email" name="email" class="form-control" type="email">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">Password</label>
-                                    <input id="pass" name="pass" class="form-control" type="password">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">Confirm Password</label>
-                                    <input id="confirm_pass" name="confirm_pass" class="form-control" type="password">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">Role</label>
-                                    <select id="role" name="role" class="form-control">
+                                    <label for="agent_name" class="form-label">Parent Menu</label>
+                                    <select id="parent_menu" name="parent_menu" class="form-control">
                                         <option value="">----</option>
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                    <label for="size" class="form-label">Profile Pic</label>
-                                    <input id="image" name="image" class="form-control" type="file" onchange="previewImage();">
-                                    <br><img id="image-preview" alt=" "/>
-                                    <span class="help-block"></span>
+                                    <div class="checkbox">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" value="1" id="status_aktif" name="status_aktif" checked/>
+                                            Status Aktif                                        
+                                        </label>
+                                    </div>                                   
                                 </div>
                             </div>
                         </div>
@@ -134,26 +115,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div><!-- /.modal-dialog -->
 <!-- End Bootstrap modal -->
 
-<style>
-    #image-preview{
-        display : none;
-        width   : 150px;
-        height  : 150px;
-    }
-</style>
-
 <script type="text/javascript">
     var table;
     var save_method; //for save method string
-
-    function previewImage() {
-        document.getElementById("image-preview").style.display = "block";
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("image").files[0]);
-        oFReader.onload = function(oFREvent) {
-            document.getElementById("image-preview").src = oFREvent.target.result;
-        };
-    };
 
     function batal(){
         $('#frm-modal')[0].reset();
@@ -164,16 +128,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     function init_select(){
         //Unit Select Box
-        let dropdown = $('#role');
+        let dropdown = $('#parent_menu');
         dropdown.empty();
-        //dropdown.append('<option value="">Pilih Role</option>');
+        dropdown.append('<option value="0">---Menu Utama---</option>');
         dropdown.prop('selectedIndex', 0);
-        const url = '<?php echo base_url('admin/getRole/');?>';
+        const url = '<?php echo base_url('menu/getParentMenu/');?>';
 
         // Populate dropdown with list
         $.getJSON(url, function (data) {
             $.each(data, function (key, entry) {
-                dropdown.append($('<option></option>').attr('value', entry.id_role).text(entry.name));
+                dropdown.append($('<option></option>').attr('value', entry.id).text(entry.title));
             })
         });
     }
@@ -187,7 +151,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('.select2').select2({
         });
         $('#md-form').modal('show'); // show bootstrap modal when complete loaded
-        $('.modal-title').text('Tambah Data User'); // Set title to Bootstrap modal title
+        $('.modal-title').text('Tambah Data Menu'); // Set title to Bootstrap modal title
     }
 
     function edit(id){
@@ -201,20 +165,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         //Ajax Load data from ajax
         $.ajax({
-            url : "<?php echo site_url('admin/ajax_edit/')?>" + id,
+            url : "<?php echo site_url('menu/ajax_edit/')?>" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
             {		
                 $('#md-form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Data User'); // Set title to Bootstrap modal title
+                $('.modal-title').text('Edit Data Menu'); // Set title to Bootstrap modal title
 
                 $('#idm').val(data.id);
-                $('#username').val(data.user_id);
-                $('#name').val(data.name);
-                $('#image').val(data.image);
-                $('#role').val(data.role_id).change();
-                $('#email').val(data.email);
+                $('#title').val(data.title);
+                $('#url').val(data.url);
+                $('#parent_menu').val(data.parent_id).change();
+
+                if(data.is_active == 1)
+                    $('#status_aktif').prop('checked',true);
+                else
+                    $('#status_aktif').prop('checked',false);
+                
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -234,7 +202,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#btnSave').attr('disabled',true); //set button disable 
         }
         
-        url = "<?php echo site_url('admin/ajax_save');?>";
+        url = "<?php echo site_url('menu/ajax_save');?>";
         formData = new FormData($('#frm-modal')[0]);
         formData.append( 'save_method', save_method );
 
@@ -293,7 +261,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             ordering    : true,
             // Load data for the table's content from an Ajax source
             ajax: {
-                "url": "<?php echo site_url('admin/ajax_list')?>" ,
+                "url": "<?php echo site_url('menu/ajax_list')?>" ,
                 "type": "POST",
             },
         });
@@ -314,7 +282,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }).then((willDelete) => {
             if (willDelete.value) {
                 $.ajax({
-                    url : "<?php echo site_url('shipment/delete')?>/"+id,
+                    url : "<?php echo site_url('menu/delete')?>/"+id,
                     type: "POST",
                     dataType: "JSON",
                     success: function(data)
@@ -333,13 +301,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     }
 
-    function clearImg(){
-        var $image = $('#image-preview');
-        $image.removeAttr('src').replaceWith($image.clone());
-    }
-
     $('.modal').on('hidden.bs.modal', function () {
-        clearImg();
         reload_table();
     });
 </script>

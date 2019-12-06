@@ -95,5 +95,33 @@ class M_admin extends MY_Model {
         }
     }
 
+    public function login($username,$pass){
+        $this->db->where('email',$username);
+        $this->db->or_where('user_id',$username);
+        $query = $this->db->get($this->view);
+
+        if($query->num_rows() === 1){
+            $result   = $query->row(); 
+            $password = $result->password;
+            if (password_verify($pass,$password)) {
+                $data = array(
+                    'status'       => TRUE,
+                    'name'         => $result->name,
+                    'role'         => $result->role_id,
+                    'image'        => $result->image,
+                    'created_date' => $result->date_created,
+                );
+            } else {
+                $data = array(
+                    'status' => FALSE,
+                );
+            }
+
+            return $data;
+        }else{
+            return $data['status'] = FALSE;
+        }
+    }
+
 }
 ?>
