@@ -141,47 +141,31 @@
           <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
             <ul class="nav navbar-nav">
               <li ><a href="<?php echo site_url()?>">Home <span class="sr-only">(current)</span></a></li>
-              <li <?php if($this->uri->segment(2)=="master"){echo ' class="active"';}?> class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Master Data <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="<?php echo site_url("main/master/agent");?>">Data Agen</a></li>
-                    <li><a href="<?php echo site_url("main/master/bank");?>">Data Bank</a></li>
-                    <li><a href="<?php echo site_url("main/master/city");?>">Data Kota</a></li>
-                    <li><a href="<?php echo site_url("main/master/driver");?>">Data Supir</a></li>
-                    <li><a href="<?php echo site_url("main/master/receiver");?>">Data Penerima</a></li>
-                    <li><a href="<?php echo site_url("main/master/route");?>">Data Daftar Gaji</a></li>
-                    <li><a href="<?php echo site_url("main/master/shipper");?>">Data Pengirim</a></li>
-                    <li><a href="<?php echo site_url("main/master/truck");?>">Data Truk</a></li>
-                    <li><a href="<?php echo site_url("main/master/document");?>">Data Jenis Document</a></li>
-                </ul>
-              </li>
-              <li <?php if($this->uri->segment(2)=="document"){echo ' class="active"';}?> class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dokumen Kapal <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="nav-item"><a href="<?php echo site_url("main/document/shipment_doc");?>" class="nav-link">Dokumen Kapal</a></li>
-                    <li class="nav-item"><a href="<?php echo site_url("main/document/doring");?>" class="nav-link">Doring</a></li>
-                </ul>
-              </li>
-              <li <?php if($this->uri->segment(2)=="history"){echo ' class="active"';}?> class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">History Data <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="nav-item"><a href="<?php echo site_url("main/history/shipment_doc");?>" class="nav-link">History Dokumen Kapal</a></li>
-                    <li class="nav-item"><a href="<?php echo site_url("main/history/doring");?>" class="nav-link">History Doring</a></li>
-                </ul>
-              </li>
-              <li <?php if($this->uri->segment(2)=="cost"){echo ' class="active"';}?> class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Biaya <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="nav-item"><a href="<?php echo site_url("main/cost/main_cost");?>" class="nav-link">Biaya Dokumen</a></li>
-                </ul>
-              </li>
-              <li <?php if($this->uri->segment(2)=="report"){echo ' class="active"';}?> class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Report <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="nav-item"><a href="<?php echo site_url("main/report/gaji_driver");?>" class="nav-link">Laporan Gaji Driver</a></li>
-                    
-                </ul>
-              </li>
+              <?php
+                $queryMenu = "SELECT * 
+                              FROM `table_menu`
+                              WHERE `parent_id` = 0 && `is_active` = 1";
+                $menu = $this->db->query($queryMenu)->result_array();
+              ?>
+
+              <?php foreach($menu as $m) : ?>
+                <li <?php if($this->uri->segment(2)==$m['second_uri']){echo ' class="active"';}?> class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $m['title']?><span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                  <?php
+                    $menuID = $m['id'];
+                    $querySubMenu = "SELECT `url`,`second_uri`,`title`,`parent_id` 
+                                      FROM `table_menu`
+                                      WHERE `parent_id` = $menuID && `is_active` = 1";
+                    $subMenu = $this->db->query($querySubMenu)->result_array();                    
+                  ?>
+                      <?php foreach($subMenu as $sm) :?>
+                        <li><a href="<?php echo site_url($sm['url']);?>"><?php echo $sm['title']?></a></li>
+                      <?php endforeach;?>
+                  </ul>
+                </li>
+              <?php endforeach; ?>
+
             </ul>
           </div>
           <!-- /.navbar-collapse -->
