@@ -862,6 +862,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     });
 
+    $(document).ready(function() {
+
+    })
+    
     function del(id) {
         swal.fire({
             title: 'Apakah Anda Yakin ?',

@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Bank extends MY_Controller {
+    public function __construct() {
+        parent::__construct();
+        $this->ceksesi();
+    }
+    
     var $id_table   = 'idm_bank';
     var $table      = 'm_bank';
 

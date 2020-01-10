@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Shipment extends MY_Controller{
+    public function __construct() {
+        parent::__construct();
+        $this->ceksesi();
+    }
+    
     var $id_table       = 'id_doc';
     var $table          = 'shipment_doc' ;
     var $id_table_arr   = 'id_ship_arr';
@@ -37,15 +42,15 @@ class Shipment extends MY_Controller{
 
             if($r->locked == '0'){
                 $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
-                          <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
+                        <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
             }else{
                 if($verif == TRUE){
                     $row[] = '<a class="btn btn-success" href="javascript:void(0)" title="Verify" onclick="verify('."'".$r->id_doc."'".')">V</a>
-                          <a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
-                          <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
+                            <a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
+                            <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
                 }else{
                     $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
-                          <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
+                            <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
                 }
                 
             }

@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Document extends MY_Controller{
+    public function __construct() {
+        parent::__construct();
+        $this->ceksesi();
+    }
+    
     public function ajax_list(){
         $list = $this->document->get_datatable();
         $data = array();

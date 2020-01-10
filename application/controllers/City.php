@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class City extends MY_Controller{
+    public function __construct() {
+        parent::__construct();
+        $this->ceksesi();
+    }
+
     var $id_table   = 'idm_city';
     var $table      = 'm_city';
 
@@ -17,7 +22,7 @@ class City extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$city->city_code;
             $row[] = '<center style="font-size: small">'.$city->city_name;
             $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$city->idm_city."'".')">E</a>
-                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$city->idm_city."'".')">X</a>';
+                        <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$city->idm_city."'".')">X</a>';
             
             $data[] = $row;
         }

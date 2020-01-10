@@ -2,10 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends MY_Controller{
+    public function __construct() {
+        parent::__construct();
+        //$this->ceksesi();
+    }
+
     var $id_table       = 'id';
     var $table          = 'user' ;
 
     public function ajax_list(){
+        $this->ceksesi();
         $list = $this->admin->get_datatable();
         $data = array();
         $no = $_POST['start'];
@@ -38,11 +44,13 @@ class Admin extends MY_Controller{
     }
 
     public function ajax_edit($id){
+        $this->ceksesi();
 		$data = $this->admin->getData($id,$this->id_table,$this->table);
 		echo json_encode($data);
     }
 
     public function ajax_save(){
+        $this->ceksesi();
         $this->_validate();
         $save = $this->input->post('save_method');
         $post = $_POST;
@@ -113,20 +121,23 @@ class Admin extends MY_Controller{
     }
 
     public function delete($id){
+        $this->ceksesi();
         $this->admin->deleteData($id);
         echo json_encode(array("status" => TRUE));
     }
 
     public function updatePass(){
-
+        $this->ceksesi();
     }
 
     public function getRole(){
+        $this->ceksesi();
         $data = $this->admin->getRole();
         echo json_encode($data);
     }
 
     public function getData(){
+        $this->ceksesi();
         $data = $this->admin->getData();
         echo json_encode($data);
     }
@@ -229,6 +240,8 @@ class Admin extends MY_Controller{
     public function logout(){
         $data = array(
             'status',
+            'email',
+            'password',
             'name',
             'role',
             'image',
@@ -243,19 +256,18 @@ class Admin extends MY_Controller{
         $post  = $_POST; 
         $email = $this->db->escape_str($post['email']);
         $pass  = $this->db->escape_str($post['password']);
-
         $verify = $this->admin->login($email,$pass);
 
         if($verify['status'] == TRUE){
             $this->session->set_userdata($verify);
+            $this->admin->updateUserLog($verify);
             redirect(site_url());
         }else{
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>One From Your Input is Wrong.<br>Please Try Again !</div>');
-            $data['title']  = 'MyAPPS';
-            $data['title2'] = 'My<b>APPS</b>';
-            $this->load->view('manage/vw_login',$data,'');
+            redirect('main/login');
         }
     }
+
 }
 ?>
 

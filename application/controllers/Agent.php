@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Agent extends MY_Controller{
+    public function __construct() {
+        parent::__construct();
+        $this->ceksesi();
+    }
+
     var $id_table   = 'idm_agent';
     var $table      = 'm_agent';
 

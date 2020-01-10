@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cost extends MY_Controller{
+    public function __construct() {
+        parent::__construct();
+        $this->ceksesi();
+    }
+    
     var $id_table       = 'id_doc';
     var $table          = 'shipment_doc' ;
 

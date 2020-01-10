@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Doring extends MY_Controller{
+    public function __construct() {
+        parent::__construct();
+        $this->ceksesi();
+    }
+    
     var $id_table       = 'id_doring';
     var $table          = 'doring' ;
     var $id_table_doc   = 'id_doring_doc';

@@ -1,16 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_menu extends MY_Model {
-    var $table             = 'table_menu';
+class M_role extends MY_Model {
+    var $table             = 'user_role';
     var $view              = 'vw_menu';
 
-    var $column_order      = array('id','title','url','second_uri'); //set column field database for datatable orderable
-    var $column_search     = array('id','title','url','second_uri'); //set column field database for datatable searchable
-    var $order             = array('parent_id' => 'asc'); // default order
+    var $column_order      = array('id_role','role','name'); //set column field database for datatable orderable
+    var $column_search     = array('id_role','role','name'); //set column field database for datatable searchable
+    var $order             = array('id_role' => 'asc'); // default order
 
     function get_datatables_query() {
-        $this->db->from($this->view);
+        $this->db->from($this->table);
+        $this->db->where('soft_delete','0');
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column
@@ -59,7 +60,8 @@ class M_menu extends MY_Model {
     }
 
     public function countAll() {
-        $this->db->from($this->view);
+        $this->db->from($this->table);
+        $this->db->where('soft_delete','0');
         return $this->db->count_all_results();
     }
 
@@ -67,7 +69,7 @@ class M_menu extends MY_Model {
         $this->db->from($this->table);
 
         if($id != '')
-            $this->db->where('id',$id);
+            $this->db->where('id_role',$id);
         
         $query = $this->db->get();
 
@@ -81,44 +83,38 @@ class M_menu extends MY_Model {
 
     public function deleteData($id){
         $this->db->set('soft_delete','1');
-        $this->db->where('id', $id);
+        $this->db->where('id_role', $id);
         $this->db->update($this->table);
 
         return $this->db->affected_rows();
     }
 
-    public function getParentMenu(){
-        $this->db->from($this->table);
-        $this->db->where('parent_id','0');
-        $this->db->where('soft_delete','0');
-        $query = $this->db->get();
+    public function changeAccess($id,$data=array() ){
+        $result = $this->db->get_where('user_access_menu', $id);
 
-        if($query->num_rows() > 0){
-            return $query->result();
+        if ($result->num_rows() < 1) {
+            $this->db->insert_batch('user_access_menu', $data);
         }
+
+        return TRUE;
     }
 
-    public function parentMenuName($id){
-        $this->db->from($this->table);
-        $this->db->where('id',$id);
-        $this->db->where('soft_delete','0');
-        $query = $this->db->get();
+    public function checkAccess($id){
+        $this->db->where('role_id',$id);
+        $result = $this->db->delete('user_access_menu');
 
-        if($query->num_rows() > 0){
-            return $query->row()->title;
-        }
+        return $result;
     }
 
-    public function getMenuID($menu){
-        $this->db->from($this->table);
-        $this->db->where('url',$menu);
-        $this->db->where('is_active','1');
-        $this->db->where('soft_delete','0');
+    public function getAccessData($role_id,$menu_id){
+        $this->db->from('user_access_menu');
+        $this->db->where('role_id',$role_id);
+        $this->db->where('menu_id',$menu_id);
         $query = $this->db->get();
 
         if($query->num_rows() > 0){
-            return $query->row()->id;
-        }
+            return TRUE;
+        }    
     }
 
 }

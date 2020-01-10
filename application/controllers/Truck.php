@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Truck extends MY_Controller{
+    public function __construct() {
+        parent::__construct();
+        $this->ceksesi();
+    }
+
     var $id_table   = 'idm_truck';
     var $table      = 'm_truck';
 
@@ -17,7 +22,7 @@ class Truck extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->truck_code;
             $row[] = '<center style="font-size: small">'.$r->plate_number;
             $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_truck."'".')">E</a>
-                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_truck."'".')">X</a>';
+                            <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_truck."'".')">X</a>';
 
             $data[] = $row;
         }

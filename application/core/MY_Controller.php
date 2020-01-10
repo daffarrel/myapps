@@ -45,6 +45,7 @@ class MY_Controller extends CI_Controller
         $this->load->model('M_cost', 'cost');
         $this->load->model('M_admin', 'admin');
         $this->load->model('M_menu', 'menu');
+        $this->load->model('M_role', 'role');
     }
 
     function indonesian_date ($date_format = 'D, j-M-Y',$timestamp = '', $suffix = '') {
@@ -92,26 +93,55 @@ class MY_Controller extends CI_Controller
         $data['err']=$err;
         $data['info']=$info;
         $data['attr']=$attr;
-
         $this->load->template($page,$data);
     }
 
     public function ceksesi(){
-        if($this->session->has_userdata('uid','sesi')){
-            $uid = $this->session->userdata('uid');
-            $sesi = $this->session->userdata('sesi');
-            $role = $this->session->userdata('unit');
-            $level = $this->session->userdata('level');
-            $result = $this->cekUser($uid,$sesi,$role,$level);
-
-            if ($result == FALSE) {
-                $this->logout();
+        if($this->session->has_userdata('status','email','password')){
+            $uid    = $_SESSION['email'];
+            $sesi   = $_SESSION['password'];
+            $role   = $_SESSION['role'];
+            $menu   = $this->uri->segment(2).'/'.$this->uri->segment(3);
+            $menuID = $this->menu->getMenuID($menu);
+            $access = $this->_cekUserAccess($role,$menuID);
+            $result = $this->_cekUser($uid,$sesi);
+            
+            if($menu == '/'){
+                //do nothing
+            }else if($access['status'] == FALSE){
+                redirect('main/error');
+            }else{
+                //do nothing
             }
+            
+            if ($result['status'] == FALSE) {
+                $data = array(
+                    'status',
+                    'email',
+                    'password',
+                    'name',
+                    'role',
+                    'image',
+                    'created_date',
+                );
+                $this->session->unset_userdata($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your Session Has Ended</div>');
+                redirect('main/login');
+            }
+        }else{
+            $this->session->unset_userdata($data);
+            //$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your Session Has Ended</div>');
+            redirect('main/login');
         }
     }
 
-    public function cekUser($uid,$sesi,$role,$level){
-        $result = $this->admin->cekUID($uid,$sesi,$role,$level);
+    private function _cekUser($uid,$sesi){
+        $result = $this->admin->cekSesi($uid,$sesi);
+        return $result;
+    }
+
+    private function _cekUserAccess($role,$menu){
+        $result = $this->admin->cekUserAccess($role,$menu);
         return $result;
     }
 

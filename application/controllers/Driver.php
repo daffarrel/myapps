@@ -2,6 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Driver extends MY_Controller{
+    public function __construct() {
+        parent::__construct();
+        $this->ceksesi();
+    }
+
     var $id_table   = 'idm_driver';
     var $table      = 'm_driver';
 
@@ -20,7 +25,7 @@ class Driver extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->address;
 
             $row[] = '<center><a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->idm_driver."'".')">E</a>
-                              <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_driver."'".')">X</a>';
+                        <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->idm_driver."'".')">X</a>';
             //add html for action
 
             $data[] = $row;

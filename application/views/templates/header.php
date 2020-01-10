@@ -122,7 +122,8 @@
   <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/vfs_fonts.js"></script>
   <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/buttons.html5.min.js"></script>
   <script src="<?php echo base_url()?>/assets/plugins/datatable-buttons/buttons.print.min.js"></script>
-  
+  <!----Loading Overlay ---->
+  <script src="<?php echo base_url()?>/assets/plugins/loadingoverlay/loadingoverlay.min.js"></script>
   
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
@@ -142,9 +143,11 @@
             <ul class="nav navbar-nav">
               <li ><a href="<?php echo site_url()?>">Home <span class="sr-only">(current)</span></a></li>
               <?php
+                $role = $this->session->role;
                 $queryMenu = "SELECT * 
-                              FROM `table_menu`
-                              WHERE `parent_id` = 0 && `is_active` = 1 && `soft_delete` = 0";
+                              FROM `vw_user_access_menu`
+                              WHERE `parent_id` = 0 && `is_active` = 1 AND `role_id` = $role
+                              ORDER BY menu_id ASC";
                 $menu = $this->db->query($queryMenu)->result_array();
               ?>
 
@@ -153,10 +156,12 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $m['title']?><span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                   <?php
-                    $menuID = $m['id'];
+                    $role = $this->session->role;
+                    $menuID = $m['menu_id'];
                     $querySubMenu = "SELECT `url`,`second_uri`,`title`,`parent_id` 
-                                      FROM `table_menu`
-                                      WHERE `parent_id` = $menuID && `is_active` = 1 && `soft_delete` = 0";
+                                      FROM `vw_user_access_menu`
+                                      WHERE `parent_id` = $menuID && `is_active` = 1 AND `role_id` = $role
+                                      ORDER BY parent_id DESC";
                     $subMenu = $this->db->query($querySubMenu)->result_array();                    
                   ?>
                       <?php foreach($subMenu as $sm) :?>

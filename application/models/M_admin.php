@@ -107,20 +107,64 @@ class M_admin extends MY_Model {
                 $data = array(
                     'status'       => TRUE,
                     'name'         => $result->name,
+                    'email'        => $result->email,
+                    'user'         => $result->user_id,
+                    'password'     => $result->password,
                     'role'         => $result->role_id,
                     'image'        => $result->image,
                     'created_date' => $result->date_created,
                 );
             } else {
-                $data = array(
-                    'status' => FALSE,
-                );
+                $data['status'] = FALSE;
             }
-
-            return $data;
         }else{
-            return $data['status'] = FALSE;
+            $data['status'] = FALSE;
         }
+
+        return $data;
+    }
+
+    public function cekSesi($username,$pass){
+        $this->db->where('email',$username);
+        $this->db->or_where('user_id',$username);
+        $query = $this->db->get($this->view);
+
+        if($query->num_rows() === 1){
+            $result   = $query->row(); 
+            $password = $result->password;
+            if ($password == $pass) {
+                $data = array(
+                    'status'       => TRUE,
+                    'name'         => $result->name,
+                    'email'        => $result->email,
+                    'user'         => $result->user_id,
+                    'password'     => $result->password,
+                    'role'         => $result->role_id,
+                    'image'        => $result->image,
+                    'created_date' => $result->date_created,
+                );
+            } else {
+                $data['status'] = FALSE;
+            }
+        }else{
+            $data['status'] = FALSE;
+        }
+
+        return $data;
+    }
+
+    public function cekUserAccess($role,$menu){
+        $this->db->where('role_id',$role);
+        $this->db->where('menu_id',$menu);
+        $query = $this->db->get('user_access_menu');
+
+        if($query->num_rows() === 1){
+            $data['status'] = TRUE;
+        }else{
+            $data['status'] = FALSE;
+        }
+
+        return $data;
     }
 
 }
