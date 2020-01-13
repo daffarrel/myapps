@@ -7,12 +7,11 @@ class Cost extends MY_Controller{
         $this->ceksesi();
     }
     
-    var $id_table       = 'id_doc';
-    var $table          = 'shipment_doc' ;
+    var $id_table_main = 'id_cost';
+    var $table_main    = 'main_cost' ;
 
-    //dokumen kapal
     public function ajax_list(){
-        $list = $this->shipment->get_datatable();
+        $list = $this->cost->get_datatable_main();
         $data = array();
         $no = $_POST['start'];
 
@@ -20,48 +19,20 @@ class Cost extends MY_Controller{
             $no++;
             $row = array();
             $row[] = '<center style="font-size: small">'.$no;
-            $row[] = '<center style="font-size: small"><a class="btn" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_doc."'".')">'.$r->seal_number.'</a>';
-            $row[] = '<center style="font-size: small">'.$r->bl_number;
-            $row[] = '<center style="font-size: small">'.$r->do_expire_date;
-            $row[] = '<center style="font-size: small">'.$r->ship_name;
-            $row[] = '<center style="font-size: small">'.$r->process_date;
-            $row[] = '<center style="font-size: small">'.$r->arrival_date;
-            $row[] = '<center style="font-size: small">'.$r->departure_date;
-            $row[] = '<center style="font-size: small">'.$r->unload_load_date;
-            $row[] = '<center style="font-size: small">'.$r->weight;
-            $row[] = '<center style="font-size: small">'.$r->company;
-            $row[] = '<center style="font-size: small">'.$r->agent;
-            $row[] = '<center style="font-size: small">'.$r->origin_city;
-            $row[] = '<center style="font-size: small">'.$r->shipper;
-            $row[] = '<center style="font-size: small">'.$r->receiver;
-            $row[] = '<center style="font-size: small">'.$r->product;
-
-            $verif = $this->doring->verifDoc($r->id_doc);
-
-            if($r->locked == '0'){
-                $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
-                          <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="del('."'".$r->id_doc."'".')">X</a>';
-            }else{
-                if($verif == TRUE){
-                    $row[] = '<a class="btn btn-success" href="javascript:void(0)" title="Verify" onclick="verify('."'".$r->id_doc."'".')">V</a>
-                          <a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
-                          <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
-                }else{
-                    $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
-                          <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
-                }
-                
-            }
+            $row[] = '<center style="font-size: small"><a class="btn" href="javascript:void(0)" title="Edit" onclick="edit('."'".$r->id_cost."'".')">'.$r->seal_number.'</a>';
+            $row[] = '<center style="font-size: small">'.$r->date;
+            $row[] = '<center style="font-size: small">'.$r->do_cost;
+            $row[] = '<a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doc."'".')">D</a>
+                        <input hidden id="locked'.$r->id_doc.'" value="'.$r->locked.'">';
             
             //add html for action
-
             $data[] = $row;
         }
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->shipment->countAll(),
-            "recordsFiltered" => $this->shipment->countFiltered(),
+            "recordsTotal" => $this->cost->countAllMain(),
+            "recordsFiltered" => $this->cost->countFilteredMain(),
             "data" => $data,
         );
         //output to json format

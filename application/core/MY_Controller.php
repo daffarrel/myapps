@@ -100,19 +100,7 @@ class MY_Controller extends CI_Controller
         if($this->session->has_userdata('status','email','password')){
             $uid    = $_SESSION['email'];
             $sesi   = $_SESSION['password'];
-            $role   = $_SESSION['role'];
-            $menu   = $this->uri->segment(2).'/'.$this->uri->segment(3);
-            $menuID = $this->menu->getMenuID($menu);
-            $access = $this->_cekUserAccess($role,$menuID);
             $result = $this->_cekUser($uid,$sesi);
-            
-            if($menu == '/'){
-                //do nothing
-            }else if($access['status'] == FALSE){
-                redirect('main/error');
-            }else{
-                //do nothing
-            }
             
             if ($result['status'] == FALSE) {
                 $data = array(
@@ -132,6 +120,21 @@ class MY_Controller extends CI_Controller
             $this->session->unset_userdata($data);
             //$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your Session Has Ended</div>');
             redirect('main/login');
+        }
+    }
+
+    public function cekAccess(){
+        $role   = $_SESSION['role'];
+        $menu   = $this->uri->segment(2).'/'.$this->uri->segment(3);
+        $menuID = $this->menu->getMenuID($menu);
+        $access = $this->_cekUserAccess($role,$menuID);
+
+        if($menu == '/'){
+            //do nothing
+        }else if($access['status'] == FALSE){
+            redirect('main/error');
+        }else{
+            //do nothing
         }
     }
 

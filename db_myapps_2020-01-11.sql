@@ -7,7 +7,7 @@
 #
 # Host: 47.74.234.241 (MySQL 5.5.64-MariaDB)
 # Database: db_myapps
-# Generation Time: 2019-11-16 12:54:51 +0000
+# Generation Time: 2020-01-11 07:22:51 +0000
 # ************************************************************
 
 
@@ -20,6 +20,22 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
+# Dump of table ci_sessions
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ci_sessions`;
+
+CREATE TABLE `ci_sessions` (
+  `id` varchar(40) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
+  `data` blob NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ci_sessions_timestamp` (`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
 # Dump of table demurage
 # ------------------------------------------------------------
 
@@ -27,7 +43,7 @@ DROP TABLE IF EXISTS `demurage`;
 
 CREATE TABLE `demurage` (
   `id_demurage` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `seal_number` varchar(45) NOT NULL,
+  `id_doc` int(11) NOT NULL,
   `date` date DEFAULT NULL,
   `period` varchar(45) DEFAULT NULL,
   `cost` int(11) DEFAULT NULL,
@@ -49,7 +65,7 @@ DROP TABLE IF EXISTS `detention`;
 
 CREATE TABLE `detention` (
   `id_detention` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `seal_number` varchar(45) NOT NULL,
+  `id_doc` int(11) NOT NULL,
   `date` date DEFAULT NULL,
   `period` varchar(45) DEFAULT NULL,
   `cost` int(11) DEFAULT NULL,
@@ -95,12 +111,15 @@ LOCK TABLES `doring` WRITE;
 
 INSERT INTO `doring` (`id_doring`, `id_doc`, `safeconduct_num`, `id_route`, `fare`, `dk_lk`, `on_chassis`, `unload_date`, `id_truck`, `id_driver`, `done`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
 VALUES
-	(1,1,'123',2,200000,'DK','2019-11-29','2019-11-25',2,4,1,0,'2019-11-11 12:38:10',NULL,NULL,NULL),
-	(2,1,'KOKOKO',3,120000,'DK','2019-09-30','2019-11-19',3,3,1,0,'2019-11-11 16:19:53',NULL,NULL,NULL),
-	(3,1,'KOKOKOKO',3,1100000,'DK','2019-11-28','2019-11-29',4,2,1,0,'2019-11-12 14:33:13',NULL,NULL,NULL),
-	(4,1,'KOKOKOKO12',3,1100000,'DK','2019-11-22','2019-11-29',4,2,1,0,'2019-11-12 14:33:13',NULL,NULL,NULL),
-	(5,5,'SJ123',1,208000,'DK','2019-11-20','2019-11-26',1,1,1,0,'2019-11-16 13:51:18',NULL,NULL,NULL),
-	(6,5,'SJ124',1,208000,'DK','2019-11-26','2019-10-31',2,1,0,0,'2019-11-16 14:01:29',NULL,NULL,NULL);
+	(1,1,'575',3,1100000,'LK','2019-11-02','2019-11-02',1,2,0,0,'2019-11-19 23:31:18',NULL,NULL,NULL),
+	(2,1,'123123',3,1100000,'DK','2019-11-21','2019-11-28',3,2,0,0,'2019-11-20 11:36:08',NULL,NULL,NULL),
+	(3,1,'1232',3,1100000,'DK','2019-10-16','2019-10-23',2,1,0,0,'2019-11-20 11:36:39',NULL,NULL,NULL),
+	(4,1,'33333',4,800000,'DK','2019-09-18','2019-11-20',3,2,0,0,'2019-11-20 11:46:22',NULL,NULL,NULL),
+	(5,1,'444',3,1100000,'LK','2019-12-02','2019-12-11',4,2,0,0,'2019-11-20 11:53:05',NULL,NULL,NULL),
+	(6,1,'12312323',2,275000,'LK','2019-08-07','2019-11-20',2,1,0,0,'2019-11-20 13:17:30',NULL,NULL,NULL),
+	(7,1,'ki909',3,1100000,'DK','2019-09-12','2019-11-14',5,1,0,0,'2019-11-20 15:40:09',NULL,NULL,NULL),
+	(8,1,'1111111',2,275000,'DK','2019-11-28','2019-11-20',4,1,0,0,'2019-11-23 16:23:42',NULL,NULL,NULL),
+	(10,1,'111111111',2,275000,'DK','2019-11-27','2019-11-19',3,3,0,0,'2019-11-23 16:24:26',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `doring` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -118,6 +137,7 @@ CREATE TABLE `doring_doc` (
   `jenis_dokumen` varchar(255) DEFAULT NULL,
   `no_dokumen` varchar(255) DEFAULT NULL,
   `checklist` enum('yes','no') DEFAULT 'no',
+  `file` varchar(255) DEFAULT NULL,
   `soft_delete` int(2) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user` varchar(225) DEFAULT NULL,
@@ -129,16 +149,44 @@ CREATE TABLE `doring_doc` (
 LOCK TABLES `doring_doc` WRITE;
 /*!40000 ALTER TABLE `doring_doc` DISABLE KEYS */;
 
-INSERT INTO `doring_doc` (`id_doring_doc`, `id_doring`, `date`, `jenis_dokumen`, `no_dokumen`, `checklist`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
+INSERT INTO `doring_doc` (`id_doring_doc`, `id_doring`, `date`, `jenis_dokumen`, `no_dokumen`, `checklist`, `file`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
 VALUES
-	(1,1,'2019-11-27','Bill of Loading','BASDASd','yes',0,'2019-11-11 12:38:10',NULL,NULL,NULL),
-	(2,1,'2019-09-11','DO','213123','yes',0,'2019-11-11 12:38:10',NULL,NULL,NULL),
-	(3,2,'2019-11-27','Bill of Loading','BASDASd','yes',0,'2019-11-11 16:19:53',NULL,NULL,NULL),
-	(4,2,'2019-09-11','DO','213123','yes',0,'2019-11-11 16:19:53',NULL,NULL,NULL),
-	(5,3,'2019-11-27','Bill of Loading','BASDASd','yes',0,'2019-11-12 14:33:13',NULL,NULL,NULL),
-	(6,3,'2019-09-11','DO','213123','yes',0,'2019-11-12 14:33:13',NULL,NULL,NULL),
-	(7,5,'2019-11-27','Berita Acara','123','yes',0,'2019-11-16 13:51:18',NULL,NULL,NULL),
-	(8,6,'2019-11-27','Berita Acara','123','no',0,'2019-11-16 14:01:29',NULL,NULL,NULL);
+	(1,1,'2019-11-18','Berita Acara','89','yes',NULL,0,'2019-11-19 23:31:18',NULL,NULL,NULL),
+	(2,1,'2019-11-18','Berita Acara','8998','yes','dokumen/doring/1/2/ACFrOgAoGuHcf4B2EfRr7zvyWs5SW6DvbUDo-zDuNNalVPld__hcMeSdgQTixUVG9f9gYZqVV-rqUVwjGCUNMBXZ5Ne2xg7SKf_3B6fLPNnREZw9WTuKqaBwgrm1F1I.pdf',0,'2019-11-19 23:31:18',NULL,NULL,NULL),
+	(3,1,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-19 23:31:18',NULL,NULL,NULL),
+	(4,1,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-19 23:31:18',NULL,NULL,NULL),
+	(5,2,'2019-11-18','Berita Acara','89','no',NULL,0,'2019-11-20 11:36:08',NULL,NULL,NULL),
+	(6,2,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:36:08',NULL,NULL,NULL),
+	(7,2,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:36:08',NULL,NULL,NULL),
+	(8,2,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:36:08',NULL,NULL,NULL),
+	(9,3,'2019-11-18','Berita Acara','89','no',NULL,0,'2019-11-20 11:36:39',NULL,NULL,NULL),
+	(10,3,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:36:39',NULL,NULL,NULL),
+	(11,3,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:36:39',NULL,NULL,NULL),
+	(12,3,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:36:39',NULL,NULL,NULL),
+	(13,4,'2019-11-18','Berita Acara','89','no',NULL,0,'2019-11-20 11:46:22',NULL,NULL,NULL),
+	(14,4,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:46:22',NULL,NULL,NULL),
+	(15,4,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:46:22',NULL,NULL,NULL),
+	(16,4,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:46:22',NULL,NULL,NULL),
+	(17,5,'2019-11-18','Berita Acara','89','no',NULL,0,'2019-11-20 11:53:06',NULL,NULL,NULL),
+	(18,5,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:53:06',NULL,NULL,NULL),
+	(19,5,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:53:06',NULL,NULL,NULL),
+	(20,5,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 11:53:06',NULL,NULL,NULL),
+	(21,6,'2019-11-18','Berita Acara','89','no',NULL,0,'2019-11-20 13:17:31',NULL,NULL,NULL),
+	(22,6,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 13:17:31',NULL,NULL,NULL),
+	(23,6,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 13:17:31',NULL,NULL,NULL),
+	(24,6,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 13:17:31',NULL,NULL,NULL),
+	(25,7,'2019-11-18','Berita Acara','89','no',NULL,0,'2019-11-20 15:40:09',NULL,NULL,NULL),
+	(26,7,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 15:40:09',NULL,NULL,NULL),
+	(27,7,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 15:40:09',NULL,NULL,NULL),
+	(28,7,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-20 15:40:09',NULL,NULL,NULL),
+	(29,8,'2019-11-18','Berita Acara','89','no',NULL,0,'2019-11-23 16:23:42',NULL,NULL,NULL),
+	(30,8,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-23 16:23:42',NULL,NULL,NULL),
+	(31,8,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-23 16:23:42',NULL,NULL,NULL),
+	(32,8,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-23 16:23:42',NULL,NULL,NULL),
+	(33,10,'2019-11-18','Berita Acara','89','no',NULL,0,'2019-11-23 16:24:26',NULL,NULL,NULL),
+	(34,10,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-23 16:24:26',NULL,NULL,NULL),
+	(35,10,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-23 16:24:26',NULL,NULL,NULL),
+	(36,10,'2019-11-18','Berita Acara','8998','no',NULL,0,'2019-11-23 16:24:26',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `doring_doc` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -151,7 +199,7 @@ DROP TABLE IF EXISTS `escort_cost`;
 
 CREATE TABLE `escort_cost` (
   `id_escort_cost` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `safeconduct_num` varchar(45) NOT NULL,
+  `id_doc` int(11) NOT NULL,
   `date` date DEFAULT NULL,
   `cost` int(11) DEFAULT NULL,
   `soft_delete` int(2) NOT NULL DEFAULT '0',
@@ -171,7 +219,7 @@ DROP TABLE IF EXISTS `etc_cost`;
 
 CREATE TABLE `etc_cost` (
   `id_etc_cost` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `safeconduct_num` varchar(45) NOT NULL,
+  `id_doc` int(11) NOT NULL,
   `cost` int(11) DEFAULT NULL,
   `note` varchar(45) DEFAULT NULL,
   `soft_delete` int(2) NOT NULL DEFAULT '0',
@@ -191,7 +239,7 @@ DROP TABLE IF EXISTS `freight_cost`;
 
 CREATE TABLE `freight_cost` (
   `id_freight_cost` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `safeconduct_num` varchar(45) NOT NULL,
+  `id_doc` int(11) NOT NULL,
   `date` date DEFAULT NULL,
   `cost` int(11) DEFAULT NULL,
   `invoice` varchar(45) DEFAULT NULL,
@@ -212,7 +260,7 @@ DROP TABLE IF EXISTS `fuel_cost`;
 
 CREATE TABLE `fuel_cost` (
   `id_fuel_cost` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `safeconduct_num` varchar(45) NOT NULL,
+  `id_doc` int(11) NOT NULL,
   `date` date DEFAULT NULL,
   `cost` int(11) DEFAULT NULL,
   `company` varchar(45) DEFAULT NULL,
@@ -255,7 +303,7 @@ DROP TABLE IF EXISTS `labor_cost`;
 
 CREATE TABLE `labor_cost` (
   `id_labor_cost` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `safeconduct_num` varchar(45) NOT NULL,
+  `id_doc` int(11) NOT NULL,
   `date` date DEFAULT NULL,
   `cost` int(11) unsigned DEFAULT NULL,
   `foreman` varchar(45) DEFAULT NULL,
@@ -1700,10 +1748,10 @@ DROP TABLE IF EXISTS `main_cost`;
 
 CREATE TABLE `main_cost` (
   `id_cost` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `safeconduct_num` varchar(45) NOT NULL,
+  `id_doc` int(11) NOT NULL,
   `date` date DEFAULT NULL,
-  `do_cost` int(11) DEFAULT NULL,
-  `clean_seal_cost` int(11) DEFAULT NULL,
+  `do_cost` varchar(100) NOT NULL DEFAULT '0',
+  `clean_seal_cost` varchar(100) NOT NULL DEFAULT '0',
   `soft_delete` int(2) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user` varchar(225) DEFAULT NULL,
@@ -1721,7 +1769,7 @@ DROP TABLE IF EXISTS `oth_vch_cost`;
 
 CREATE TABLE `oth_vch_cost` (
   `id_vch_cost` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `safeconduct_num` varchar(45) NOT NULL,
+  `id_doc` int(11) NOT NULL,
   `date` date DEFAULT NULL,
   `cost` varchar(45) DEFAULT NULL,
   `pic` varchar(45) DEFAULT NULL,
@@ -1743,7 +1791,7 @@ DROP TABLE IF EXISTS `other_cost`;
 
 CREATE TABLE `other_cost` (
   `id_other_cost` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `seal_number` varchar(45) NOT NULL,
+  `id_doc` int(11) NOT NULL,
   `type_cost` enum('THC','PORT_PASS','STRIPPING','STORAGE','OTHER') DEFAULT NULL,
   `date` date DEFAULT NULL,
   `cost` int(11) DEFAULT NULL,
@@ -1806,10 +1854,10 @@ LOCK TABLES `ship_doc` WRITE;
 
 INSERT INTO `ship_doc` (`id_ship_doc`, `id_doc`, `jenis_doc`, `no_doc`, `date_doc`, `file`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
 VALUES
-	(1,1,15,'BASDASd','2019-11-27','dokumen/1/1/Ticket-5370651.pdf',0,'2019-11-06 22:01:24',NULL,NULL,NULL),
-	(2,1,5,'213123','2019-09-11',NULL,0,'2019-11-11 12:26:40',NULL,NULL,NULL),
-	(3,5,2,'123','2019-11-27',NULL,0,'2019-11-16 13:50:36',NULL,NULL,NULL),
-	(4,6,2,'555','2019-11-20','dokumen/6/4/KIS_BPJS_Kesehatan_(2).pdf',0,'2019-11-16 19:16:54',NULL,NULL,NULL);
+	(1,1,2,'89','2019-11-18',NULL,0,'2019-11-19 19:16:17',NULL,NULL,NULL),
+	(2,1,2,'8998','2019-11-18',NULL,0,'2019-11-19 19:16:27',NULL,NULL,NULL),
+	(3,1,2,'8998','2019-11-18',NULL,0,'2019-11-19 19:16:43',NULL,NULL,NULL),
+	(4,1,2,'8998','2019-11-18',NULL,0,'2019-11-19 19:16:57',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `ship_doc` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1822,6 +1870,8 @@ DROP TABLE IF EXISTS `shipment_doc`;
 
 CREATE TABLE `shipment_doc` (
   `id_doc` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `bl_number` varchar(255) DEFAULT NULL,
+  `do_expire_date` date DEFAULT NULL,
   `seal_number` varchar(45) DEFAULT NULL,
   `size` enum('40','20','N') DEFAULT NULL,
   `process_date` date DEFAULT NULL,
@@ -1852,14 +1902,10 @@ CREATE TABLE `shipment_doc` (
 LOCK TABLES `shipment_doc` WRITE;
 /*!40000 ALTER TABLE `shipment_doc` DISABLE KEYS */;
 
-INSERT INTO `shipment_doc` (`id_doc`, `seal_number`, `size`, `process_date`, `company`, `id_agent`, `origin_city`, `id_shipper`, `id_receiver`, `ship_name`, `io`, `condition`, `product`, `stuffing`, `departure_date`, `arrival_date`, `unload_load_date`, `weight`, `locked`, `done`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
+INSERT INTO `shipment_doc` (`id_doc`, `bl_number`, `do_expire_date`, `seal_number`, `size`, `process_date`, `company`, `id_agent`, `origin_city`, `id_shipper`, `id_receiver`, `ship_name`, `io`, `condition`, `product`, `stuffing`, `departure_date`, `arrival_date`, `unload_load_date`, `weight`, `locked`, `done`, `soft_delete`, `timestamp`, `user`, `update_timestamp`, `update_user`)
 VALUES
-	(1,'TEST-0909090','20','2019-11-08','CMPY-1',2,4,3,3,'TANTO EMAS','I','CURAH','Makanan','yes','2019-11-30','2019-11-27','2019-11-29','123000',1,0,0,'2019-11-02 15:33:55',NULL,NULL,NULL),
-	(2,'Kontainer 2','40','2019-11-13','CMPY-2',1,3,2,3,'MIKIK','I','FULL','Gabah','yes','2019-11-21','2019-09-11','2019-11-22','12000',0,0,0,'2019-11-02 15:34:12',NULL,NULL,NULL),
-	(3,'KONTAINER-1','40','2019-11-07','CMPY-1',1,2,3,3,'','I','FULL','MINUMAN','yes','2019-11-28','2019-11-26','2019-11-28','12000',0,0,0,'2019-11-02 15:49:49',NULL,NULL,NULL),
-	(4,'SIKU123','20','2019-11-01','CMPY-1',1,4,25,2,'TANTO','I','FULL','CCDI','no','2019-11-26','2019-11-05','0000-00-00','20',0,0,0,'2019-11-04 14:57:56',NULL,NULL,NULL),
-	(5,'SIKU 221','20','2019-11-26','CMPY-2',1,1,1,2,'SPIL CAYA','I','FULL','COLA','no','2019-11-27','2019-11-26','2019-11-19','20',1,0,0,'2019-11-16 13:47:40',NULL,NULL,NULL),
-	(6,'TRLU 1234','20','2019-11-13','CMPY-1',1,1,1,1,'TEMAS','I','FULL','COLA','yes','2019-11-19','2019-11-13','2019-11-13','20',1,0,0,'2019-11-16 19:16:01',NULL,NULL,NULL);
+	(1,NULL,NULL,'TAKU 882/15','20','0000-00-00','',0,0,0,0,'','I','FULL','','yes','0000-00-00','0000-00-00','0000-00-00','',1,0,0,'2019-11-19 17:25:00',NULL,NULL,NULL),
+	(2,'032/MMU1/SBY/BPN/19/2019','2019-11-07','mrty213','20','2019-10-09','CMPY-1',3,1,2,1,'spil caya','I','FULL','COLA','yes','2019-11-26','2019-10-08','2019-10-14','20',0,0,0,'2019-11-30 15:30:31',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `shipment_doc` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1886,6 +1932,213 @@ CREATE TABLE `ss_labor_cost` (
 
 
 
+# Dump of table table_menu
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `table_menu`;
+
+CREATE TABLE `table_menu` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(128) DEFAULT NULL,
+  `icon` varchar(128) DEFAULT NULL,
+  `url` varchar(128) DEFAULT NULL,
+  `second_uri` varchar(128) DEFAULT NULL,
+  `is_active` int(1) NOT NULL DEFAULT '1',
+  `soft_delete` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `table_menu` WRITE;
+/*!40000 ALTER TABLE `table_menu` DISABLE KEYS */;
+
+INSERT INTO `table_menu` (`id`, `parent_id`, `title`, `icon`, `url`, `second_uri`, `is_active`, `soft_delete`)
+VALUES
+	(1,0,'Master Data',NULL,'master','master',1,0),
+	(2,0,'Dokumen Kapal',NULL,'document','document',1,0),
+	(3,0,'History Data',NULL,'history','history',1,0),
+	(4,0,'Biaya',NULL,'cost','cost',1,0),
+	(5,0,'Report',NULL,'report','report',1,0),
+	(6,0,'Administrasi',NULL,'manage','manage',1,0),
+	(7,1,'Data Agen',NULL,'master/agent','master',1,0),
+	(8,1,'Data Bank',NULL,'master/bank','master',1,0),
+	(9,1,'Data Kota',NULL,'master/city','master',1,0),
+	(10,1,'Data Supir',NULL,'master/driver','master',1,0),
+	(11,1,'Data Penerima',NULL,'master/receiver','master',1,0),
+	(12,1,'Data Daftar Gaji',NULL,'master/route','master',1,0),
+	(13,1,'Data Pengirim',NULL,'master/shipper','master',1,0),
+	(14,1,'Data Truk',NULL,'master/truck','master',1,0),
+	(15,1,'Data Jenis Dokumen',NULL,'master/document','master',1,0),
+	(16,2,'Dokumen Kapal',NULL,'document/shipment_doc','document',1,0),
+	(17,2,'Doring',NULL,'document/doring','document',1,0),
+	(18,3,'History Dokumen Kapal',NULL,'history/shipment_doc','history',1,0),
+	(19,3,'History Doring',NULL,'history/doring','history',1,0),
+	(20,4,'Biaya Dokumen',NULL,'cost/main','cost',1,0),
+	(21,5,'Laporan Gaji Driver',NULL,'report/gaji_driver','report',1,0),
+	(22,6,'Administrasi User',NULL,'manage/admin','manage',1,0),
+	(23,6,'Manajemen Menu',NULL,'manage/menu','manage',1,0),
+	(24,0,'Test',NULL,'cek','cek',1,1),
+	(25,6,'Manajemen Akses',NULL,'manage/role','manage',1,0);
+
+/*!40000 ALTER TABLE `table_menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table user
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(128) NOT NULL DEFAULT '',
+  `email` varchar(128) DEFAULT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `password` varchar(256) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `is_active` int(1) DEFAULT '1',
+  `date_created` int(11) DEFAULT NULL,
+  `created_by` varchar(128) DEFAULT NULL,
+  `date_updated` int(11) DEFAULT NULL,
+  `updated_by` varchar(128) DEFAULT NULL,
+  `soft_delete` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+
+INSERT INTO `user` (`id`, `user_id`, `email`, `name`, `image`, `password`, `role_id`, `is_active`, `date_created`, `created_by`, `date_updated`, `updated_by`, `soft_delete`)
+VALUES
+	(1,'admin','kwanterpepen@gmail.com','Administrator',NULL,'$2y$10$3hcC0CALooPfutAni0lzS.VDLHXb87Yk1tAlH/LN4YNwZABkSyue6',1,1,1575617499,NULL,NULL,NULL,0),
+	(2,'fendy','fendy24kwan@gmail.com','Fendy',NULL,'$2y$10$KCjAgcIc2/BSAMy3DXlAYOtEAKoTb2MEQZrKoAiSWlKLExvVTloca',2,1,1575617520,NULL,NULL,NULL,0),
+	(3,'keuangan','keuangan@gmail.com','Keuangan',NULL,'$2y$10$yB.fmCdIW8EVMpXK2B0/quV1UpFR7T5fYZbCLkkVrY.ZxCdZotC7m',3,1,1575617543,NULL,NULL,NULL,0),
+	(4,'kasir','kasir@gmail.com','Kasir',NULL,'$2y$10$RumywZUnwQr2sj6A9shX/uEW60JgGMltOoTlIBXq10ehKd/baeAJK',4,1,1575617569,NULL,NULL,NULL,0),
+	(5,'operasi','operasi@gmail.com','Operasi',NULL,'$2y$10$EVZBzQt3jt2YW4EXHaXcz.e872GlBD3K7SEA/Hzu79Ws6FVZMbjg.',5,1,1575617603,NULL,NULL,NULL,0);
+
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table user_access_menu
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user_access_menu`;
+
+CREATE TABLE `user_access_menu` (
+  `role_id` int(11) DEFAULT NULL,
+  `menu_id` int(11) DEFAULT NULL,
+  `soft_delete` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `user_access_menu` WRITE;
+/*!40000 ALTER TABLE `user_access_menu` DISABLE KEYS */;
+
+INSERT INTO `user_access_menu` (`role_id`, `menu_id`, `soft_delete`)
+VALUES
+	(5,5,0),
+	(5,3,0),
+	(5,2,0),
+	(5,16,0),
+	(5,17,0),
+	(5,19,0),
+	(5,18,0),
+	(5,21,0),
+	(4,5,0),
+	(4,4,0),
+	(4,20,0),
+	(4,21,0),
+	(1,1,0),
+	(1,6,0),
+	(1,5,0),
+	(1,4,0),
+	(1,3,0),
+	(1,2,0),
+	(1,15,0),
+	(1,14,0),
+	(1,13,0),
+	(1,12,0),
+	(1,11,0),
+	(1,10,0),
+	(1,9,0),
+	(1,8,0),
+	(1,7,0),
+	(1,16,0),
+	(1,17,0),
+	(1,19,0),
+	(1,18,0),
+	(1,20,0),
+	(1,21,0),
+	(1,22,0),
+	(1,23,0),
+	(1,25,0),
+	(3,5,0),
+	(3,4,0),
+	(3,20,0),
+	(3,21,0);
+
+/*!40000 ALTER TABLE `user_access_menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table user_login_log
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user_login_log`;
+
+CREATE TABLE `user_login_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(128) DEFAULT NULL,
+  `email` varchar(128) DEFAULT NULL,
+  `login_time` int(128) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `user_login_log` WRITE;
+/*!40000 ALTER TABLE `user_login_log` DISABLE KEYS */;
+
+INSERT INTO `user_login_log` (`id`, `username`, `email`, `login_time`)
+VALUES
+	(1,'kasir','kasir@gmail.com',1578626960),
+	(2,'keuangan','keuangan@gmail.com',1578628658),
+	(3,'admin','kwanterpepen@gmail.com',1578628695),
+	(4,'kasir','kasir@gmail.com',1578628986),
+	(5,'admin','kwanterpepen@gmail.com',1578727354);
+
+/*!40000 ALTER TABLE `user_login_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table user_role
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user_role`;
+
+CREATE TABLE `user_role` (
+  `id_role` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `role` varchar(128) DEFAULT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `soft_delete` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_role`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `user_role` WRITE;
+/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+
+INSERT INTO `user_role` (`id_role`, `role`, `name`, `soft_delete`)
+VALUES
+	(1,'administrator','Administrator',0),
+	(2,'poweruser','Power User',0),
+	(3,'keuangan','Keuangan',0),
+	(4,'kasir','Kasir',0),
+	(5,'operasi','Operasi',0),
+	(6,'test','Test',1);
+
+/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # Dump of table vw_doring
 # ------------------------------------------------------------
 
@@ -1908,6 +2161,37 @@ CREATE TABLE `vw_doring` (
    `id_driver` INT(11) UNSIGNED NULL DEFAULT '0',
    `driver_name` VARCHAR(45) NULL DEFAULT NULL,
    `done` INT(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM;
+
+
+
+# Dump of table vw_menu
+# ------------------------------------------------------------
+
+DROP VIEW IF EXISTS `vw_menu`;
+
+CREATE TABLE `vw_menu` (
+   `id` INT(11) UNSIGNED NOT NULL DEFAULT '0',
+   `parent_id` INT(11) NOT NULL DEFAULT '0',
+   `title` VARCHAR(128) NULL DEFAULT NULL,
+   `url` VARCHAR(128) NULL DEFAULT NULL,
+   `second_uri` VARCHAR(128) NULL DEFAULT NULL,
+   `parent_menu` VARCHAR(128) NULL DEFAULT NULL,
+   `is_active` INT(1) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM;
+
+
+
+# Dump of table vw_menu_access
+# ------------------------------------------------------------
+
+DROP VIEW IF EXISTS `vw_menu_access`;
+
+CREATE TABLE `vw_menu_access` (
+   `id_role` INT(11) UNSIGNED NOT NULL DEFAULT '0',
+   `name` VARCHAR(128) NULL DEFAULT NULL,
+   `menu_id` INT(11) UNSIGNED NULL DEFAULT '0',
+   `title` VARCHAR(128) NULL DEFAULT NULL
 ) ENGINE=MyISAM;
 
 
@@ -1972,6 +2256,8 @@ DROP VIEW IF EXISTS `vw_shipment_doc`;
 
 CREATE TABLE `vw_shipment_doc` (
    `id_doc` INT(11) UNSIGNED NOT NULL DEFAULT '0',
+   `bl_number` VARCHAR(255) NULL DEFAULT NULL,
+   `do_expire_date` DATE NULL DEFAULT NULL,
    `seal_number` VARCHAR(45) NULL DEFAULT NULL,
    `size` ENUM('40','20','N') NULL DEFAULT NULL,
    `process_date` DATE NULL DEFAULT NULL,
@@ -2022,6 +2308,158 @@ CREATE TABLE `vw_shipper` (
 
 
 
+# Dump of table vw_sub_menu
+# ------------------------------------------------------------
+
+DROP VIEW IF EXISTS `vw_sub_menu`;
+
+CREATE TABLE `vw_sub_menu` (
+   `id` INT(11) UNSIGNED NOT NULL DEFAULT '0',
+   `parent_id` INT(11) NOT NULL DEFAULT '0',
+   `title` VARCHAR(128) NULL DEFAULT NULL
+) ENGINE=MyISAM;
+
+
+
+# Dump of table vw_user
+# ------------------------------------------------------------
+
+DROP VIEW IF EXISTS `vw_user`;
+
+CREATE TABLE `vw_user` (
+   `id` INT(11) UNSIGNED NOT NULL DEFAULT '0',
+   `user_id` VARCHAR(128) NOT NULL DEFAULT '',
+   `name` VARCHAR(128) NULL DEFAULT NULL,
+   `email` VARCHAR(128) NULL DEFAULT NULL,
+   `image` VARCHAR(255) NULL DEFAULT NULL,
+   `password` VARCHAR(256) NULL DEFAULT NULL,
+   `role_id` INT(11) NULL DEFAULT NULL,
+   `role` VARCHAR(128) NULL DEFAULT NULL,
+   `role_name` VARCHAR(128) NULL DEFAULT NULL,
+   `date_created` INT(11) NULL DEFAULT NULL,
+   `created_by` VARCHAR(128) NULL DEFAULT NULL,
+   `date_updated` INT(11) NULL DEFAULT NULL,
+   `updated_by` VARCHAR(128) NULL DEFAULT NULL
+) ENGINE=MyISAM;
+
+
+
+# Dump of table vw_user_access_menu
+# ------------------------------------------------------------
+
+DROP VIEW IF EXISTS `vw_user_access_menu`;
+
+CREATE TABLE `vw_user_access_menu` (
+   `role_id` INT(11) UNSIGNED NULL DEFAULT '0',
+   `role` VARCHAR(128) NULL DEFAULT NULL,
+   `role_name` VARCHAR(128) NULL DEFAULT NULL,
+   `menu_id` INT(11) UNSIGNED NULL DEFAULT '0',
+   `parent_id` INT(11) NULL DEFAULT '0',
+   `title` VARCHAR(128) NULL DEFAULT NULL,
+   `icon` VARCHAR(128) NULL DEFAULT NULL,
+   `url` VARCHAR(128) NULL DEFAULT NULL,
+   `second_uri` VARCHAR(128) NULL DEFAULT NULL,
+   `is_active` INT(1) NULL DEFAULT '1'
+) ENGINE=MyISAM;
+
+
+
+
+
+# Replace placeholder table for vw_menu with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `vw_menu`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_menu`
+AS SELECT
+   `tm`.`id` AS `id`,
+   `tm`.`parent_id` AS `parent_id`,
+   `tm`.`title` AS `title`,
+   `tm`.`url` AS `url`,
+   `tm`.`second_uri` AS `second_uri`,
+   `tm2`.`title` AS `parent_menu`,
+   `tm`.`is_active` AS `is_active`
+FROM (`table_menu` `tm` left join `vw_sub_menu` `tm2` on((`tm2`.`id` = `tm`.`parent_id`))) where (`tm`.`soft_delete` = '0');
+
+
+# Replace placeholder table for vw_menu_access with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `vw_menu_access`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_menu_access`
+AS SELECT
+   `user_role`.`id_role` AS `id_role`,
+   `user_role`.`name` AS `name`,
+   `table_menu`.`id` AS `menu_id`,
+   `table_menu`.`title` AS `title`
+FROM ((`user_role` left join `user_access_menu` on((`user_role`.`id_role` = `user_access_menu`.`role_id`))) left join `table_menu` on((`user_access_menu`.`menu_id` = `table_menu`.`id`)));
+
+
+# Replace placeholder table for vw_shipper with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `vw_shipper`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_shipper`
+AS SELECT
+   `m_shipper`.`idm_shipper` AS `idm_shipper`,
+   `m_shipper`.`debitur_name` AS `debitur_name`,
+   `m_shipper`.`address` AS `address`,
+   `m_shipper`.`city` AS `city`,
+   `m_shipper`.`pic` AS `pic`,
+   `m_shipper`.`finance` AS `finance`,
+   `m_shipper`.`telp` AS `telp`,
+   `m_shipper`.`hp` AS `hp`,
+   `m_shipper`.`fax` AS `fax`,
+   `m_shipper`.`corporate_name` AS `corporate_name`,
+   `m_bank`.`bank_name` AS `bank_name`,
+   `m_shipper`.`account_number` AS `account_number`
+FROM (`m_shipper` left join `m_bank` on((`m_shipper`.`id_bank` = `m_bank`.`idm_bank`))) where (`m_shipper`.`soft_delete` = '0');
+
+
+# Replace placeholder table for vw_receiver with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `vw_receiver`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_receiver`
+AS SELECT
+   `m_receiver`.`idm_receiver` AS `idm_receiver`,
+   `m_receiver`.`receiver_name` AS `receiver_name`,
+   `m_receiver`.`address` AS `address`,
+   `m_receiver`.`city` AS `city`,
+   `m_receiver`.`telp` AS `telp`,
+   `m_receiver`.`hp` AS `hp`,
+   `m_receiver`.`fax` AS `fax`,
+   `m_receiver`.`corporate_name` AS `corporate_name`,
+   `m_bank`.`bank_name` AS `bank_name`,
+   `m_receiver`.`account_number` AS `account_number`
+FROM (`m_receiver` left join `m_bank` on((`m_receiver`.`id_bank` = `m_bank`.`idm_bank`))) where (`m_receiver`.`soft_delete` = '0');
+
+
+# Replace placeholder table for vw_user with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `vw_user`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_user`
+AS SELECT
+   `user`.`id` AS `id`,
+   `user`.`user_id` AS `user_id`,
+   `user`.`name` AS `name`,
+   `user`.`email` AS `email`,
+   `user`.`image` AS `image`,
+   `user`.`password` AS `password`,
+   `user`.`role_id` AS `role_id`,
+   `user_role`.`role` AS `role`,
+   `user_role`.`name` AS `role_name`,
+   `user`.`date_created` AS `date_created`,
+   `user`.`created_by` AS `created_by`,
+   `user`.`date_updated` AS `date_updated`,
+   `user`.`updated_by` AS `updated_by`
+FROM (`user` join `user_role` on((`user_role`.`id_role` = `user`.`role_id`))) where (`user`.`soft_delete` = 0);
 
 
 # Replace placeholder table for vw_shipment_doc with correct view syntax
@@ -2032,6 +2470,8 @@ DROP TABLE `vw_shipment_doc`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_shipment_doc`
 AS SELECT
    distinct `shipment_doc`.`id_doc` AS `id_doc`,
+   `shipment_doc`.`bl_number` AS `bl_number`,
+   `shipment_doc`.`do_expire_date` AS `do_expire_date`,
    `shipment_doc`.`seal_number` AS `seal_number`,
    `shipment_doc`.`size` AS `size`,
    `shipment_doc`.`process_date` AS `process_date`,
@@ -2057,6 +2497,39 @@ AS SELECT
    `shipment_doc`.`done` AS `done`,
    `shipment_doc`.`locked` AS `locked`
 FROM (((((`shipment_doc` left join `m_option` on((`m_option`.`subID` = `shipment_doc`.`company`))) left join `m_agent` on((`m_agent`.`idm_agent` = `shipment_doc`.`id_agent`))) left join `m_city` on((`m_city`.`idm_city` = `shipment_doc`.`origin_city`))) left join `m_shipper` on((`m_shipper`.`idm_shipper` = `shipment_doc`.`id_shipper`))) left join `m_receiver` on((`m_receiver`.`idm_receiver` = `shipment_doc`.`id_receiver`))) where (`shipment_doc`.`soft_delete` = '0');
+
+
+# Replace placeholder table for vw_route with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `vw_route`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_route`
+AS SELECT
+   `m_route`.`idm_route` AS `idm_route`,
+   `m_route`.`route_name` AS `route_name`,
+   `m_route`.`origin` AS `origin`,
+   `m_route`.`destination` AS `destination`,
+   `m_route`.`type` AS `type`,
+   `m_route`.`size` AS `size`,
+   `m_route`.`fare` AS `fare`
+FROM `m_route` where (`m_route`.`soft_delete` = 0);
+
+
+# Replace placeholder table for vw_ship_doc with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `vw_ship_doc`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_ship_doc`
+AS SELECT
+   `ship_doc`.`id_ship_doc` AS `id_ship_doc`,
+   `shipment_doc`.`id_doc` AS `id_doc`,
+   `m_document`.`jenis_doc` AS `jenis_doc`,
+   `ship_doc`.`no_doc` AS `no_doc`,
+   `ship_doc`.`date_doc` AS `date_doc`,
+   `ship_doc`.`file` AS `file`
+FROM ((`ship_doc` left join `shipment_doc` on((`shipment_doc`.`id_doc` = `ship_doc`.`id_doc`))) left join `m_document` on((`m_document`.`idm_document` = `ship_doc`.`jenis_doc`))) where (`ship_doc`.`soft_delete` = 0);
 
 
 # Replace placeholder table for vw_doring with correct view syntax
@@ -2085,79 +2558,37 @@ AS SELECT
 FROM ((((`doring` left join `shipment_doc` on((`shipment_doc`.`id_doc` = `doring`.`id_doc`))) left join `m_route` on((`m_route`.`idm_route` = `doring`.`id_route`))) left join `m_truck` on((`m_truck`.`idm_truck` = `doring`.`id_truck`))) left join `m_driver` on((`m_driver`.`idm_driver` = `doring`.`id_driver`))) where (`doring`.`soft_delete` = '0');
 
 
-# Replace placeholder table for vw_receiver with correct view syntax
+# Replace placeholder table for vw_sub_menu with correct view syntax
 # ------------------------------------------------------------
 
-DROP TABLE `vw_receiver`;
+DROP TABLE `vw_sub_menu`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_receiver`
+CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_sub_menu`
 AS SELECT
-   `m_receiver`.`idm_receiver` AS `idm_receiver`,
-   `m_receiver`.`receiver_name` AS `receiver_name`,
-   `m_receiver`.`address` AS `address`,
-   `m_receiver`.`city` AS `city`,
-   `m_receiver`.`telp` AS `telp`,
-   `m_receiver`.`hp` AS `hp`,
-   `m_receiver`.`fax` AS `fax`,
-   `m_receiver`.`corporate_name` AS `corporate_name`,
-   `m_bank`.`bank_name` AS `bank_name`,
-   `m_receiver`.`account_number` AS `account_number`
-FROM (`m_receiver` left join `m_bank` on((`m_receiver`.`id_bank` = `m_bank`.`idm_bank`))) where (`m_receiver`.`soft_delete` = '0');
+   `table_menu`.`id` AS `id`,
+   `table_menu`.`parent_id` AS `parent_id`,
+   `table_menu`.`title` AS `title`
+FROM `table_menu`;
 
 
-# Replace placeholder table for vw_ship_doc with correct view syntax
+# Replace placeholder table for vw_user_access_menu with correct view syntax
 # ------------------------------------------------------------
 
-DROP TABLE `vw_ship_doc`;
+DROP TABLE `vw_user_access_menu`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_ship_doc`
+CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_user_access_menu`
 AS SELECT
-   `ship_doc`.`id_ship_doc` AS `id_ship_doc`,
-   `shipment_doc`.`id_doc` AS `id_doc`,
-   `m_document`.`jenis_doc` AS `jenis_doc`,
-   `ship_doc`.`no_doc` AS `no_doc`,
-   `ship_doc`.`date_doc` AS `date_doc`,
-   `ship_doc`.`file` AS `file`
-FROM ((`ship_doc` left join `shipment_doc` on((`shipment_doc`.`id_doc` = `ship_doc`.`id_doc`))) left join `m_document` on((`m_document`.`idm_document` = `ship_doc`.`jenis_doc`))) where (`ship_doc`.`soft_delete` = 0);
-
-
-# Replace placeholder table for vw_shipper with correct view syntax
-# ------------------------------------------------------------
-
-DROP TABLE `vw_shipper`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_shipper`
-AS SELECT
-   `m_shipper`.`idm_shipper` AS `idm_shipper`,
-   `m_shipper`.`debitur_name` AS `debitur_name`,
-   `m_shipper`.`address` AS `address`,
-   `m_shipper`.`city` AS `city`,
-   `m_shipper`.`pic` AS `pic`,
-   `m_shipper`.`finance` AS `finance`,
-   `m_shipper`.`telp` AS `telp`,
-   `m_shipper`.`hp` AS `hp`,
-   `m_shipper`.`fax` AS `fax`,
-   `m_shipper`.`corporate_name` AS `corporate_name`,
-   `m_bank`.`bank_name` AS `bank_name`,
-   `m_shipper`.`account_number` AS `account_number`
-FROM (`m_shipper` left join `m_bank` on((`m_shipper`.`id_bank` = `m_bank`.`idm_bank`))) where (`m_shipper`.`soft_delete` = '0');
-
-
-# Replace placeholder table for vw_route with correct view syntax
-# ------------------------------------------------------------
-
-DROP TABLE `vw_route`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`fendy`@`%` SQL SECURITY DEFINER VIEW `vw_route`
-AS SELECT
-   `m_route`.`idm_route` AS `idm_route`,
-   `m_route`.`route_name` AS `route_name`,
-   `m_route`.`origin` AS `origin`,
-   `m_route`.`destination` AS `destination`,
-   `m_route`.`type` AS `type`,
-   `m_route`.`size` AS `size`,
-   `m_route`.`fare` AS `fare`
-FROM `m_route` where (`m_route`.`soft_delete` = 0);
+   `user_role`.`id_role` AS `role_id`,
+   `user_role`.`role` AS `role`,
+   `user_role`.`name` AS `role_name`,
+   `table_menu`.`id` AS `menu_id`,
+   `table_menu`.`parent_id` AS `parent_id`,
+   `table_menu`.`title` AS `title`,
+   `table_menu`.`icon` AS `icon`,
+   `table_menu`.`url` AS `url`,
+   `table_menu`.`second_uri` AS `second_uri`,
+   `table_menu`.`is_active` AS `is_active`
+FROM ((`user_access_menu` left join `table_menu` on((`table_menu`.`id` = `user_access_menu`.`menu_id`))) left join `user_role` on((`user_role`.`id_role` = `user_access_menu`.`role_id`))) where (`table_menu`.`soft_delete` = '0') order by `user_role`.`name`,`table_menu`.`parent_id`;
 
 --
 -- Dumping routines (PROCEDURE) for database 'db_myapps'
@@ -2195,6 +2626,25 @@ SET @sql = CONCAT('SELECT `m_driver`.`driver_name` AS driver_name, ', @sql, ' FR
 PREPARE stmt FROM @sql;
 EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE table_menu
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `table_menu` */;;
+/*!50003 SET SESSION SQL_MODE=""*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`fendy`@`%`*/ /*!50003 PROCEDURE `table_menu`()
+BEGIN
+SELECT
+tm.title AS title,
+tm.url AS url,
+tm.second_uri AS second_uri,
+tm2.title AS parent_menu,
+tm.is_active AS is_active
+FROM table_menu AS tm
+LEFT JOIN (SELECT id, parent_id, title FROM table_menu) AS tm2 ON tm2.id = tm.parent_id
+WHERE tm.soft_delete = '0';
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;

@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_admin extends MY_Model {
     var $table             = 'user';
     var $view              = 'vw_user';
+    var $primary_key       = 'id';
 
     var $column_order      = array('id','user_id','name','email'); //set column field database for datatable orderable
     var $column_search     = array('id','user_id','name','email'); //set column field database for datatable searchable
@@ -67,7 +68,7 @@ class M_admin extends MY_Model {
         $this->db->from($this->table);
 
         if($id != '')
-            $this->db->where('id',$id);
+            $this->db->where($this->primary_key,$id);
         
         $query = $this->db->get();
 
@@ -81,7 +82,7 @@ class M_admin extends MY_Model {
 
     public function deleteData($id){
         $this->db->set('soft_delete','1');
-        $this->db->where('id', $id);
+        $this->db->where($this->primary_key, $id);
         $this->db->update($this->table);
         return $this->db->affected_rows();
     }
@@ -165,6 +166,22 @@ class M_admin extends MY_Model {
         }
 
         return $data;
+    }
+
+    public function updateUserLog($data){
+        $username = $data['user'];
+        $email    = $data['email'];
+        $time     = time();
+
+        $data = array(
+            'username'   => $username,
+            'email'      => $email,
+            'login_time' => $time,
+        );
+
+        $this->db->insert('user_login_log', $data);
+        return $this->db->insert_id();
+
     }
 
 }
