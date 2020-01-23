@@ -861,10 +861,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             table.ajax.reload();  //just reload table
         });
     });
-
-    $(document).ready(function() {
-
-    })
     
     function del(id) {
         swal.fire({
