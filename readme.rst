@@ -2,7 +2,7 @@
 MYAPPS
 ###################
 
-Aplikasi Pembantu Untuk Perusahaan Logistik
+Aplikasi Billing Untuk Perusahaan Logistik
 
 *******************
 FRAMEWORK
