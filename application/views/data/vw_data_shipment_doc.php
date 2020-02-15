@@ -701,7 +701,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('#btnSaveDoc').attr('disabled',false); //set button enable 
             },
             error: function (jqXHR, textStatus, errorThrown){
-                alert('Error adding data');
+                alert(errorThrown);
                 $('#btnSaveDoc').text('Save'); //change button text
                 $('#btnSaveDoc').attr('disabled',false); //set button enable 
             }

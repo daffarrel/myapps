@@ -178,19 +178,18 @@ class Document extends MY_Controller{
 		);
 
 		if (($id = $this->document->save_where($table,$data)) > 0){
-            $id_doc = $this->input->post('id_doc');
-            $url = 'ship_doc/'.$id_doc.'/'.$id;
-            $name = explode('/',$this->document->getFileName($id));
-            $filename = str_replace('dokumen'.$id_doc.$id,"",$name);
+            $url = 'ship_doc/'.$id_doc.'/'.$id['insert_id'];
+            $name = explode('/',$this->document->getFileName($id['insert_id']));
+            $filename = str_replace('dokumen'.$id_doc.$id['insert_id'],"",$name);
 
             if($filename != $_FILES['doc_file']['name']){
                 $fileData = $this->singleUpload('doc_file',$url,$_FILES['doc_file']['name']);
                 if($fileData['upload']=='True') {
                     $name      = $fileData['data']['file_name'];
-                    $file_path = 'dokumen/ship_doc/'.$url.'/'.$name;
+                    $file_path = 'dokumen/'.$url.'/'.$name;
                 }
     
-                $where = array('id_ship_doc' => $id);
+                $where = array('id_ship_doc' => $id['insert_id']);
                 $data  = array('file' => $file_path);
                 $this->document->update_where($table,$where,$data);
             }else{

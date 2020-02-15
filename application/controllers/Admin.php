@@ -23,7 +23,10 @@ class Admin extends MY_Controller{
             $row[] = '<center style="font-size: small">'.$r->user_id;
             $row[] = '<center style="font-size: small">'.$r->name;
             $row[] = '<center style="font-size: small">'.$r->email;
-            $row[] = '<center style="font-size: small">'.$r->image;
+            if($r->image != NULL || $r->image != '')
+                $row[] = '<center style="font-size: small">'.'<a class="btn btn-info" href="javascript:void(0)" title="View" onclick="view_image('."'".$r->image."'".')">View</a>';
+            else
+                $row[] ='';
             $row[] = '<center style="font-size: small">'.$r->role_name;
             $row[] = '<center style="font-size: small">'.date('d F Y H:i:s',$r->date_created);
 
@@ -58,11 +61,11 @@ class Admin extends MY_Controller{
         $user   = $this->db->escape_str($post['username']);
         $email  = $this->db->escape_str($post['email']);
         $name   = $this->db->escape_str($post['name']);
-        $pass   = $this->db->escape_str($post['pass']);
         //$image  = $this->db->escape_str($post['image']);
         $role   = $this->db->escape_str($post['role']);
 
         if($save == 'add'){
+            $pass   = $this->db->escape_str($post['pass']);
             $data = array(
                 'user_id'       => $user,
                 'email'         => $email,
@@ -100,13 +103,15 @@ class Admin extends MY_Controller{
             $id = $this->input->post('idm');
             if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != ''){
                 $url = 'profile_pic/'.$id;
-                $fileData = $this->singleUpload('doc_file',$url,$_FILES['image']['name']);
+                $fileData = $this->singleUpload('image',$url,$_FILES['image']['name']);
                 
                 if($fileData['upload']=='True') {
                     $name      = $fileData['data']['file_name'];
-                    $file_path = 'dokumen/profile_pic/'.$url.'/'.$name;
+                    $file_path = 'dokumen/'.$url.'/'.$name;
+                }else{
+                    $this->debug_to_console($fileData['error']);
                 }
-
+                
                 $where = array('id' => $id);
                 $data  = array('image' => $file_path);
                 $this->document->update_where($this->table,$where,$data);
@@ -180,31 +185,6 @@ class Admin extends MY_Controller{
             $data['status'] = FALSE;
         }else{
             $data['inputerror'][] = 'email';
-            $data['error_string'][] = '';
-        }
-
-        if($this->input->post('pass') == NULL)
-        {
-            $data['inputerror'][] = 'pass';
-            $data['error_string'][] = 'password tidak boleh kosong';
-            $data['status'] = FALSE;
-        }else{
-            $data['inputerror'][] = 'pass';
-            $data['error_string'][] = '';
-        }
-
-        if($this->input->post('confirm_pass') == NULL)
-        {
-            $data['inputerror'][] = 'confirm_pass';
-            $data['error_string'][] = 'konfirmasi password tidak boleh kosong';
-            $data['status'] = FALSE;
-        }else if($this->input->post('pass') != $this->input->post('confirm_pass')){
-            $data['inputerror'][] = 'confirm_pass';
-            $data['error_string'][] = 'konfirmasi password harus sama dengan password';
-            $data['status'] = FALSE;
-        }
-        else{
-            $data['inputerror'][] = 'confirm_pass';
             $data['error_string'][] = '';
         }
 

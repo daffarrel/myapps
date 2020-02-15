@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Email</label>
-                                    <input id="email" name="email" class="form-control" type="email">
+                                    <input id="email" name="email" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -85,20 +85,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="form-group">
                                     <label for="agent_name" class="form-label">Nama</label>
                                     <input id="name" name="name" class="form-control" type="text">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">Password</label>
-                                    <input id="pass" name="pass" class="form-control" type="password">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="agent_name" class="form-label">Confirm Password</label>
-                                    <input id="confirm_pass" name="confirm_pass" class="form-control" type="password">
                                     <span class="help-block"></span>
                                 </div>
                             </div>
@@ -131,6 +117,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
 			</div>				
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<!-- End Bootstrap modal -->
+
+<!-- Bootstrap modal For Datatable-->
+<div class="modal fade" id="md-pic" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Profile Pic</h3>
+            </div>
+            <div class="modal-body form">
+                <div class="form-group">
+                    <form id="frm-modal" action="#" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <img src="" width="445" height="445" id="profile_picture">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>			
         </div>
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
@@ -215,8 +228,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('#username').val(data.user_id);
                 $('#name').val(data.name);
                 $('#image').val(data.image);
-                $('#role').val(data.role_id).change();
                 $('#email').val(data.email);
+                $('#role').val(data.role_id).change();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -268,7 +281,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown){
-                alert('Error adding data');
+                //alert('Error adding data');
+                alert(errorThrown);
                 $('#btnSave').text('Save'); //change button text
                 $('#btnSave').attr('disabled',false); //set button enable 
             }
@@ -303,6 +317,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         //table.columns.adjust().draw();
         init_select();
     });
+
+    function view_image(url){
+        pic_url = '<?php echo site_url()?>' + url;
+        $('#profile_picture').attr("src",pic_url);
+        $('#md-pic').modal('show'); // show bootstrap modal when complete loaded
+    }
 
     function del(id) {
         swal.fire({
