@@ -89,6 +89,7 @@ class M_admin extends MY_Model {
 
     public function getRole(){
         $this->db->from('user_role');
+        $this->db->where('soft_delete','0');
         $query = $this->db->get();
 
         if($query->num_rows() > 0){
