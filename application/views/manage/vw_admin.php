@@ -90,6 +90,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label for="agent_name" class="form-label">Password</label>
+                                    <input id="pass" name="pass" class="form-control" type="password">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="agent_name" class="form-label">Confirm Password</label>
+                                    <input id="confirm_pass" name="confirm_pass" class="form-control" type="password">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label for="agent_name" class="form-label">Role</label>
                                     <select id="role" name="role" class="form-control">
                                         <option value="">----</option>

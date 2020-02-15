@@ -188,6 +188,15 @@ class Admin extends MY_Controller{
             $data['error_string'][] = '';
         }
 
+        if($this->input->post('pass') != $this->input->post('confirm_pass')){
+            $data['inputerror'][] = 'pass';
+            $data['error_string'][] = 'pass tidak sama dengan confirm pass';
+            $data['status'] = FALSE;
+        }else{
+            $data['inputerror'][] = 'pass';
+            $data['error_string'][] = '';
+        }
+
         if($this->input->post('role') == NULL)
         {
             $data['inputerror'][] = 'role';
@@ -224,6 +233,7 @@ class Admin extends MY_Controller{
             'password',
             'name',
             'role',
+            'role_name',
             'image',
             'created_date',
         );

@@ -375,23 +375,46 @@ class Doring extends MY_Controller{
         $data = array();
         $no = $_POST['start'];
 
-        foreach ($list as $r) {
-            $no++;
-            $row = array();
-            $row[] = '<center style="font-size: small">'.$no;
-            $row[] = '<center style="font-size: small">'.$r->seal_number;
-            $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
-            $row[] = '<center style="font-size: small">'.$r->route_name;
-            $row[] = '<center style="font-size: small">'.$r->on_chassis;
-            $row[] = '<center style="font-size: small">'.$r->unload_date;
-            $row[] = '<center style="font-size: small">'.$r->plate_number;
-            $row[] = '<center style="font-size: small">'.$r->driver_name;
-            $row[] = '<center style="font-size: small"> Rp. '.$this->rupiah($r->fare);
-            $row[] = '<center><a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doring."'".')">D</a>';
-            
-            //add html for action
-            $data[] = $row;
+        if($this->session->userdata('role_name') == 'driver'){
+            foreach ($list as $r) {
+                if($this->session->userdata('name') == $r->driver_name){
+                    $no++;
+                    $row = array();
+                    $row[] = '<center style="font-size: small">'.$no;
+                    $row[] = '<center style="font-size: small">'.$r->seal_number;
+                    $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
+                    $row[] = '<center style="font-size: small">'.$r->route_name;
+                    $row[] = '<center style="font-size: small">'.$r->on_chassis;
+                    $row[] = '<center style="font-size: small">'.$r->unload_date;
+                    $row[] = '<center style="font-size: small">'.$r->plate_number;
+                    $row[] = '<center style="font-size: small">'.$r->driver_name;
+                    $row[] = '<center style="font-size: small"> Rp. '.$this->rupiah($r->fare);
+                    $row[] = '<center><a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doring."'".')">D</a>';
+                    
+                    //add html for action
+                    $data[] = $row;
+                }
+            }
+        }else{
+            foreach ($list as $r) {
+                $no++;
+                $row = array();
+                $row[] = '<center style="font-size: small">'.$no;
+                $row[] = '<center style="font-size: small">'.$r->seal_number;
+                $row[] = '<center style="font-size: small">'.$r->safeconduct_num;
+                $row[] = '<center style="font-size: small">'.$r->route_name;
+                $row[] = '<center style="font-size: small">'.$r->on_chassis;
+                $row[] = '<center style="font-size: small">'.$r->unload_date;
+                $row[] = '<center style="font-size: small">'.$r->plate_number;
+                $row[] = '<center style="font-size: small">'.$r->driver_name;
+                $row[] = '<center style="font-size: small"> Rp. '.$this->rupiah($r->fare);
+                $row[] = '<center><a class="btn btn-info" href="javascript:void(0)" title="Doc" onclick="doc('."'".$r->id_doring."'".')">D</a>';
+                
+                //add html for action
+                $data[] = $row;
+            }
         }
+        
 
         $output = array(
             "draw" => $_POST['draw'],

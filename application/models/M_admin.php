@@ -112,6 +112,7 @@ class M_admin extends MY_Model {
                     'user'         => $result->user_id,
                     'password'     => $result->password,
                     'role'         => $result->role_id,
+                    'role_name'    => $result->role,
                     'image'        => $result->image,
                     'created_date' => $result->date_created,
                 );
