@@ -97,21 +97,22 @@ class MY_Controller extends CI_Controller
     }
 
     public function ceksesi(){
+        $data = array(
+            'status',
+            'email',
+            'password',
+            'name',
+            'role',
+            'image',
+            'created_date',
+        );
+
         if($this->session->has_userdata('status','email','password')){
             $uid    = $_SESSION['email'];
             $sesi   = $_SESSION['password'];
             $result = $this->_cekUser($uid,$sesi);
             
             if ($result['status'] == FALSE) {
-                $data = array(
-                    'status',
-                    'email',
-                    'password',
-                    'name',
-                    'role',
-                    'image',
-                    'created_date',
-                );
                 $this->session->unset_userdata($data);
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your Session Has Ended</div>');
                 redirect('main/login');
