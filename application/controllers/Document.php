@@ -178,24 +178,25 @@ class Document extends MY_Controller{
 		);
 
 		if (($id = $this->document->save_where($table,$data)) > 0){
-            $url = 'ship_doc/'.$id_doc.'/'.$id['insert_id'];
-            $name = explode('/',$this->document->getFileName($id['insert_id']));
-            $filename = str_replace('dokumen'.$id_doc.$id['insert_id'],"",$name);
+            if(isset($_FILES['doc_file']['name']) && $_FILES['doc_file']['name'] != ''){
+                $url = 'ship_doc/'.$id_doc.'/'.$id['insert_id'];
+                $name = explode('/',$this->document->getFileName($id['insert_id']));
+                $filename = str_replace('dokumen'.$id_doc.$id['insert_id'],"",$name);
 
-            if($filename != $_FILES['doc_file']['name']){
-                $fileData = $this->singleUpload('doc_file',$url,$_FILES['doc_file']['name']);
-                if($fileData['upload']=='True') {
-                    $name      = $fileData['data']['file_name'];
-                    $file_path = 'dokumen/'.$url.'/'.$name;
+                if($filename != $_FILES['doc_file']['name']){
+                    $fileData = $this->singleUpload('doc_file',$url,$_FILES['doc_file']['name']);
+                    if($fileData['upload']=='True') {
+                        $name      = $fileData['data']['file_name'];
+                        $file_path = 'dokumen/'.$url.'/'.$name;
+                    }
+        
+                    $where = array('id_ship_doc' => $id['insert_id']);
+                    $data  = array('file' => $file_path);
+                    $this->document->update_where($table,$where,$data);
+                }else{
+                    $data['doc_file'] = $this->input->post('doc_file');
                 }
-    
-                $where = array('id_ship_doc' => $id['insert_id']);
-                $data  = array('file' => $file_path);
-                $this->document->update_where($table,$where,$data);
-            }else{
-                $data['doc_file'] = $this->input->post('doc_file');
             }
-            
 			echo json_encode(array("status" => TRUE,"info" => "Simpan data sukses"));
 		}else{
 			echo json_encode(array("status" => FALSE,"info" => "Simpan data gagal"));
@@ -223,7 +224,7 @@ class Document extends MY_Controller{
                 $fileData = $this->singleUpload('doc_file',$url,$_FILES['doc_file']['name']);
                 if($fileData['upload']=='True') {
                     $name      = $fileData['data']['file_name'];
-                    $file_path = 'dokumen/ship_doc/'.$url.'/'.$name;
+                    $file_path = 'dokumen/'.$url.'/'.$name;
                 }
     
                 $where = array('id_ship_doc' => $id);

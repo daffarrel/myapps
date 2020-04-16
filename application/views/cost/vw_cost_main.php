@@ -740,21 +740,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     data.product            = $('#product').val();
                     data.agent              = $('#agent').val();
                     data.nama_kapal         = $('#nama_kapal').val();
-                    
-                    if($('#tgl_kapal').val() != ''){
-                        data.tgl_kapal_awal     = $('#tgl_kapal').data('daterangepicker').startDate.format('YYYY-MM-DD');
-                        data.tgl_kapal_akhir    = $('#tgl_kapal').data('daterangepicker').endDate.format('YYYY-MM-DD');
-                    }
-
-                    if($('#tgl_bm').val() != ''){
-                        data.tgl_bm_awal        = $('#tgl_bm').data('daterangepicker').startDate.format('YYYY-MM-DD');
-                        data.tgl_bm_akhir       = $('#tgl_bm').data('daterangepicker').endDate.format('YYYY-MM-DD');
-                    }
-
-                    if($('#tgl_tiba').val() != ''){
-                        data.tgl_tiba_awal      = $('#tgl_tiba').data('daterangepicker').startDate.format('YYYY-MM-DD');
-                        data.tgl_tiba_akhir     = $('#tgl_tiba').data('daterangepicker').endDate.format('YYYY-MM-DD');
-                    }
                 }
             },
         });
