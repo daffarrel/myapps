@@ -31,6 +31,7 @@ class MY_Controller extends CI_Controller
 
     public function __construct() {
         parent::__construct();
+        $this->load->library('CSVReader');
         $this->load->model('M_bank', 'bank');
         $this->load->model('M_city', 'city');
         $this->load->model('M_agent', 'agent');
