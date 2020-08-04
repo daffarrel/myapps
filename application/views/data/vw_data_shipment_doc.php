@@ -800,6 +800,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 leftColumns: 2,
                 heightMatch: 'auto'
             },
+            "initComplete": function (oSettings) {
+                var oTable = this;
+                oTable.fnPageChange("last");
+            },
 
             // Load data for the table's content from an Ajax source
             ajax: {
